@@ -28,10 +28,10 @@ class UsersController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+* Display a listing of the resource.
+*
+* @return \Illuminate\Http\JsonResponse
+*/
     public function index()
     {
         return Response::json([

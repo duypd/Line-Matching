@@ -24,5 +24,9 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      * Route Users
      */
     get('users', ['as' => 'api.users.get.index', 'uses' => 'UsersController@index']);
+    /*
+     * Route Events
+     */
+    get('events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
 
 });

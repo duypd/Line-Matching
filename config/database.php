@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
+            'host'      => env('DB_HOST', '192.168.0.254'),
             'database'  => env('DB_DATABASE', 'line_matching'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', ''),
+            'username'  => env('DB_USERNAME', 'line_matching'),
+            'password'  => env('DB_PASSWORD', 'line_matching'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => 'line_',
@@ -69,7 +69,7 @@ return [
             'host'      => env('DB_HOST', '192.168.0.254'),
             'database'  => env('DB_DATABASE', 'line_matching'),
             'username'  => env('DB_USERNAME', 'line_matching'),
-            'password'  => env('DB_PASSWORD', 'danangtokyo01'),
+            'password'  => env('DB_PASSWORD', 'line_matching'),
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
