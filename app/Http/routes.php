@@ -28,5 +28,10 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      * Route Events
      */
     get('events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
+    /*
+    * Route Groups
+    */
+    post('/groups', ['as' => 'api.group.post.create', 'uses' => 'GroupsController@postCreate']);
+    post('/groups/{id}/upload', ['as' => 'api.group.upload.image', 'uses' => 'GroupsController@postUploadImage']);
 
 });

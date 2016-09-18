@@ -18,9 +18,22 @@ class Group  extends Model
      * @var array
    /*  */
     protected $fillable = [
-        'name','leader_max','user_max','description','status','lag','long'
+        'name','leader_max','user_max','description','status','lag','long','image'
     ];
+    /**
+     * @var string
+     */
+    public $path = 'uploads/images/groups/';
 
+    /**
+     * @var int
+     */
+    public $width = 400;
+
+    /**
+     * @var int
+     */
+    public $height = 600;
     /**
      * The attributes that should be casted to native types.
      *
@@ -29,7 +42,16 @@ class Group  extends Model
     protected $casts = [
         'id'    => 'integer',
         'user_id'    => 'integer',
+        'image'     => 'json',
     ];
+
+    /**
+     * Get all of the post's likes.
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 
 
 }
