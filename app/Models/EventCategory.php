@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventCategories extends Model
+class EventCategory extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'event_categories';
+    protected $table = 'events_categories';
        /**
      * The attributes that are mass assignable.
      *
