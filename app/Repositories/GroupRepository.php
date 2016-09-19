@@ -38,11 +38,11 @@ class GroupRepository extends AbstractRepository
             $group->lag = !empty($param['lag']) ? $param['lag']: null;
             $group->long = !empty($param['long']) ? $param['long']: null;
             $group->updated_at = date('Y-m-d H:i:s');
-             $group->save();
-
+            $group->save();
         });
         if(!empty($group)){
-            $result = $this->upload($group->original['id'], $param->file('image'));
+            $result = $this->upload($group['original']['id'], $param['image']);
+            return $result;
         }
 
         return $group;
@@ -70,7 +70,6 @@ class GroupRepository extends AbstractRepository
         if (! empty($image)) {
             event(new DeleteImageEvent($image));
         }
-        dump($group); die;
         return $group;
     }
 
