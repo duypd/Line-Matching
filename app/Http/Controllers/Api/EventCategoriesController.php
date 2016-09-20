@@ -11,7 +11,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\EventCategoryRepository;
 use Illuminate\Http\Request;
-
 use App\Http\Requests\CreateEventCategoriesRequest;
 use App\Http\Requests\UpdateEventCategoriesRequest;
 use App\Http\Controllers\Controller;
@@ -48,6 +47,7 @@ class EventCategoriesController extends Controller
 
         return $this->buildResponseCreated($eCategories);
     }
+
     /**
      * Update a EventCategories.
      *
@@ -55,14 +55,56 @@ class EventCategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function putUpdate($id,UpdateEventCategoriesRequest $request)
+    {
+        $user   = array(); // get_current_user_by_token();
+        $user['user']['id'] = 1;
+        $user['user'] = (object) $user['user'];
+
+        $UCategories  = $this->eventCategoryRepository->update($id,array_merge($request->all(), ['user' => $user] ));
+
+        return $this->buildResponseCreated($UCategories);
+    }
+
+     /**
+     * Delete a eventCategory.
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function delete($id)
+    {
+        $Id = $this->eventCategoryRepository->delete($id);
+        if(!empty($Id))
         {
-            $user   = array(); // get_current_user_by_token();
-            $user['user']['id'] = 1;
-            $user['user'] = (object) $user['user'];
-
-            $UCategories  = $this->eventCategoryRepository->update($id,array_merge($request->all(), ['user' => $user] ));
-
-            return $this->buildResponseCreated($UCategories);
-
+            return $this->buildResponseSuccess($Id);
+        }else{
+            return $this->buildResponseError();
         }
+
+        return $this->buildResponseSuccess($eventId);
+    }
+
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function getIndex()
+    {
+        $ecategories = $this->eventCategoryRepository->index(0,['*']);
+        return $this->buildResponseSuccess($ecategories);
+       
+    }
+    public function getShow($id){
+        $eCategory = $this->eventCategoryRepository->show($id);
+        if(!empty($eCategory)){
+         return $this->buildResponseSuccess($eCategory);   
+        }
+        else{
+            return $this->buildResponseError();
+        }
+        
+    }
+
 }

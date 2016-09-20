@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Models\EventCategory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EventCategoryRepository extends AbstractRepository
@@ -23,10 +24,9 @@ class EventCategoryRepository extends AbstractRepository
      *
      * @return array
      */
-    public function getcategories(){
-       
-       $result =  $this->getAll();
-       return  $result;
+    public function index($page = 0, $attributes = ['*']){
+       $result = $this->paginate($attributes); 
+       return  $result->toArray();
     }
 
     /**
@@ -59,18 +59,30 @@ class EventCategoryRepository extends AbstractRepository
         $UCategory->save();
         return $UCategory;
     }
-    /**
-     *  event categories.
+        /**
+     * Delete a record event Categories.
      *
-     *
-     * @return array
+     * @param int $id
+     * @param $eventId
+     * @return mixed
      */
-     public function destroy($id, $Id)
-    {
-        $eCategory = $this->where('EventId', $Id)
-            ->getBy('id', $id);
+    public function destroy($id, $eventId)
+        {
+            $DEcategories = $this->where('event_id', $eventId)
+                ->getBy('id', $id);
 
-        return $eCategory->delete();
+            return $DEcategories->delete();
+        }
+    /**
+     * show Category.
+     *
+     * @param $id
+     * @return object $catagoty
+     */
+    public function show($id)
+    {
+        $catagoty = $this->where('status',1)
+                    ->getBy('id', $id);
+        return $catagoty;
     }
-    
 }
