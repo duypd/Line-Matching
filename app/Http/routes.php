@@ -29,6 +29,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      * Route Events
      */
     get('events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
+    post('events-curl', ['as' => 'api.events.get.curl', 'uses' => 'GroupsController@setCURL']);
 
     /*
      * Route Ecategories
