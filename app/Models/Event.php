@@ -22,6 +22,20 @@ class Event  extends Model
     ];
 
     /**
+     * @var string
+     */
+    public $path = 'uploads/images/event/';
+    /**
+     * @var int
+     */
+    public $width = 400;
+
+    /**
+     * @var int
+     */
+    public $height = 400;
+
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array
@@ -29,6 +43,7 @@ class Event  extends Model
     protected $casts = [
         'id'    => 'integer',
         'user_id'    => 'integer',
+        'images'     => 'json',
     ];
 
 
