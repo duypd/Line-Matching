@@ -11,7 +11,7 @@ namespace App\Http\Requests;
 
 
 
-class CreateGroupRequest extends Request
+class CreateEventRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,7 +35,7 @@ class CreateGroupRequest extends Request
             'description'       => 'required',
             'lag'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/',
-            'images'            => 'required'
+            'images'             => 'required'
         ];
     }
 }

@@ -28,8 +28,11 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
      * Route Events
      */
-    get('events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
-
+    get('/events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
+    get('/events/{id}', ['as' => 'api.events.get.show', 'uses' => 'EventsController@getShow']);
+    post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);
+    put('/events/{id}', ['as' => 'api.events.put.create', 'uses' => 'EventsController@putUpdate']);
+    delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);
     /*
      * Route Ecategories
      */
@@ -44,7 +47,11 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
     * Route Groups
     */
+    get('/groups', ['as' => 'api.group.get.index', 'uses' => 'GroupsController@index']);
     post('/groups', ['as' => 'api.group.post.create', 'uses' => 'GroupsController@postCreate']);
+    put('/groups/{id}', ['as' => 'api.group.put.create', 'uses' => 'GroupsController@putUpdate']);
+    get('/groups/{id}', ['as' => 'api.group.get.show', 'uses' => 'GroupsController@getShow']);
+    delete('/groups/{id}', ['as' => 'api.group.get.delete', 'uses' => 'GroupsController@delete']);
     post('/groups/{id}/upload', ['as' => 'api.group.upload.image', 'uses' => 'GroupsController@postUploadImage']);
 
 });

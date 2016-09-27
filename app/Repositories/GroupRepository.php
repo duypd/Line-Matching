@@ -19,6 +19,10 @@ class GroupRepository extends AbstractRepository
     {
         $this->model = $group;
     }
+    function eventsList($userId){
+
+        return $this->prepareQuery()->get();
+    }
     /**
      * Create a group
      *
@@ -29,48 +33,91 @@ class GroupRepository extends AbstractRepository
     {
         \DB::transaction(function($q) use(&$group, $param) {
             $group = new Group();
-            $group->user_id = $param['user']['user']->id;
-            $group->leader_max = 50;
-            $group->user_max = 50;
-            $group->name = $param['name'];
-            $group->description = !empty($param['description']) ? $param['description']: '';
-            $group->status = 1;
-            $group->lag = !empty($param['lag']) ? $param['lag']: null;
-            $group->long = !empty($param['long']) ? $param['long']: null;
-            $group->updated_at = date('Y-m-d H:i:s');
-            $group->save();
+            $group->user_id     = $param['user']['user']->id;
+            $group->leader_max  = $param['leader_max'];
+            $group->user_max    = $param['user_max'];
+            $group->name        = $param['name'];
+            $group->description = $param['description'];
+            $group->status      = $param['status'];
+            $group->lag         = $param['lag'];
+            $group->long        = $param['long'];
+            $group->updated_at  = date('Y-m-d H:i:s');
+            // $group->save();
         });
-        if(!empty($group)){
-            $result = $this->upload($group['original']['id'], $param['image']);
-            return $result;
-        }
-
+         if (!empty($param['images'])) {
+             $upload = $this->__postImageGroup($group,$param['images']);
+             $image = $group->images;
+             $group->images =$upload;
+             // $event->images =  transfer_url_images_lists($event->images);
+             $group->save();
+              if (! empty($image)) {
+                event(new DeleteImageEvent($image));
+            }
+         }         
         return $group;
     }
-    /**
+     /**
+     * update Group.
+     *
+     *
+     * @return array
+     */
+    public function update($id, array $params)
+    {
+        $UGroup = $this->getBy('id', $id);
+        $UGroup->name = !empty($params['name']) ? $params['name'] : $UGroup->name;
+        $UGroup->description = !empty($params['description']) ? $params['description'] : $UGroup->description;
+        $UGroup->user_id = !empty($params['user_id']) ? $params['user_id'] : $UGroup->user_id;
+        $UGroup->user_max = !empty($params['user_max']) ? $params['user_max'] : $UGroup->user_max;
+        $UGroup->status = !empty($params['status']) ? $params['status']: $UGroup->status;
+        $UGroup->status = !empty($params['long']) ? $params['long']: $UGroup->status;
+        $UGroup->status = !empty($params['lag']) ? $params['lag']: $UGroup->status;
+        $UGroup->status = !empty($params['leader_max']) ? $params['leader_max']: $UGroup->status;
+        $UGroup->save();
+        return $UGroup;
+    }
+        /**
+     * Delete a record Group.
+     *
+     * @param int $id
+     * @param $eventId
+     * @return mixed
+     */
+    public function destroy($id, $groupId)
+        {
+            $DGroup = $this->where('event_id', $groupId)
+                ->getBy('id', $id);
+
+            return $DGroup->delete();
+        }
+      /**
+     * show Group.
+     *
+     * @param $id
+     * @return object $group
+     */
+
+    public function show($id)
+    {
+
+        $group = $this->where('status',1)->getBy('id', $id);
+        return $group;
+    }
+     /**
      * Upload image
      *
      * @param $id
      * @param $file
      * @return mixed
      */
-    public function upload($id, $file)
-    {
-        $group = $this->getBy('id', $id);
 
-        $upload = new Upload($group->path, $group->width, $group->height, $file);
-
-        $image = $group->image;
-        $group->image = $upload->handle($group);
-
-        $group->save();
-
-        $group->image = transfer_url_images([$group->image]);
-
-        if (! empty($image)) {
-            event(new DeleteImageEvent($image));
-        }
-        return $group;
+    public function __postImageGroup($group,$files){
+        $data =array();
+        foreach ($files as $file) {
+            $upload = new Upload($group->path, $group->width, $group->height, $file);
+            $data[] = $upload->handle($group);
+        }      
+         return $data;
     }
 
 

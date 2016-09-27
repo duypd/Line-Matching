@@ -16,9 +16,9 @@ class Group  extends Model
      * The attributes that are mass assignable.
      *
      * @var array
-   /*  */
+   */
     protected $fillable = [
-        'name','leader_max','user_max','description','status','lag','long','image'
+        'name','leader_max','user_max','description','status','lag','long','images'
     ];
     /**
      * @var string
@@ -42,16 +42,16 @@ class Group  extends Model
     protected $casts = [
         'id'    => 'integer',
         'user_id'    => 'integer',
-        'image'     => 'json',
+        'images'     => 'json',
     ];
 
     /**
      * Get all of the post's likes.
      */
-    public function images()
+   /* public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
-    }
+    }*/
 
 
 }
