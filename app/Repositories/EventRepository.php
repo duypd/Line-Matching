@@ -12,14 +12,20 @@ class EventRepository extends AbstractRepository
      */
     protected $model;
 
+    /**
+     * @var CURL
+     */
+    protected $curl;
+
     public function __construct(Event $event)
     {
         $this->model = $event;
+        $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
     function eventsList($userId){
-
         return $this->prepareQuery()->get();
     }
+
      /**
      * create event.
      *
@@ -27,6 +33,7 @@ class EventRepository extends AbstractRepository
      * @return array
      */
     public function create(array $param){
+
        \DB::transaction(function($q) use(&$cevent, $param) {
             $cevent = new Event();   
             $cevent->name = $param['name'];
@@ -53,11 +60,11 @@ class EventRepository extends AbstractRepository
        return $cevent;
     }
      /**
-     * update event.
      *
      *
      * @return array
      */
+
     public function update($id, array $params)
     {
         $UEvent = $this->getBy('id', $id);

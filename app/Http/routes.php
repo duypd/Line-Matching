@@ -28,6 +28,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
      * Route Events
      */
+
     get('/events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@index']);
     get('/events/{id}', ['as' => 'api.events.get.show', 'uses' => 'EventsController@getShow']);
     post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);

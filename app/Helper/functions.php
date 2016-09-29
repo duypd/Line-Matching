@@ -33,12 +33,32 @@ if (! function_exists('transfer_url_images')) {
      */
     function transfer_url_images(array $images) {
         if (! empty($images)) {
+
             foreach ($images as $i => &$image) {
                 $image['origin'] = asset($image['origin']);
                 $image['thumb'] = asset($image['thumb']);
             }
         }
 
+        return $images;
+    }
+}
+
+if (! function_exists('transfer_url_images_lists')) {
+    /**
+     * Transfer url image for client.
+     *
+     * @param array $images
+     * @return mixed
+     */
+    function transfer_url_images_lists(array $images) {
+
+        if (! empty($images)) {
+            foreach ($images as $i => &$image) {
+                $image['origin'] = asset($image['origin']);
+                $image['thumb'] = asset($image['thumb']);
+            }
+        }
         return $images;
     }
 }
@@ -50,6 +70,7 @@ if (!function_exists('delete_file_of_model')) {
      */
     function delete_file_of_model($images) {
         if (! empty($images)) {
+
             foreach ($images as $image) {
                 if(! empty($image['origin']) && \File::exists($image['origin'])) {
                     \File::delete($image['origin']);

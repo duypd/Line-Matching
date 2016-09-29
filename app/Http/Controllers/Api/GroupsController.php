@@ -116,6 +116,27 @@ class GroupsController extends Controller
      * @param CreateGroupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
+    /**
+     * @param array $beforeFilters
+     */
+    public function setCURL(Request $request)
+    {
+        $url = "http://maps.google.com/maps/api/geocode/json?address=UK+Hull&sensor=false&region=England";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $response = (object) curl_exec($ch);
+        curl_close($ch);
+    }
+    /**
+     * Create a group Upload
+     *
+     * @param CreateGroupRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public  function postUploadImage($id, UploadAlbumRequest $request){
         $result = $this->groupRepository->upload($id, $request->file('image'));
 
