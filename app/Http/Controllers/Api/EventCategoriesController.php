@@ -33,6 +33,71 @@ class EventCategoriesController extends Controller
     }
 
     /**
+     *
+     * @api {post} api/v1/create Create EventCategory
+     * @apiName Create EventCategory
+     * @apiGroup EventCategory
+     * @apiParam {Integer} user_id ID USer
+     * @apiParam {String} name Name eventCategory
+     * @apiSuccess {Number} status Status Response
+     * @apiSuccess {Object} data Data Response
+     * @apiSuccessExample Response:
+     *  {
+     *  "status": 200,
+     *  "data": {
+     *   "id": 34,
+     *   "id": 34,
+     *   "cat_id": "1",
+     *   "name": "Thi chim",
+     *   "address": "",
+     *   "description": "Xem những con chim chơi hay nhất",
+     *   "images": null,
+     *   "user_id": 0,
+     *   "long": "0.00000000",
+     *   "lag": "0.00000000",
+     *   "group_id": "0",
+     *   "status": "1",
+     *   "date_start": "0000-00-00 00:00:00",
+     *   "date_end": "0000-00-00 00:00:00",
+     *   "user_max": "50",
+     *   "created_at": "2016-09-22 11:34:48",
+     *   "updated_at": "2016-09-24 06:59:43"
+    },
+    "message": "Succesfully.",
+    "error": null
+}
+     * @apiError BadRequest User ID not Found 
+     * @apiErrorExample:
+     * {
+    "status": 200,
+    "data": {
+     *   "id": 34,
+     *  "cat_id": "1",
+     *   "name": "Thi chim",
+     *   "address": "",
+     *   "description": "Xem những con chim chơi hay nhất",
+     *   "images": null,
+     *   "user_id": 0,
+     *   "long": "0.00000000",
+     *   "lag": "0.00000000",
+     *   "group_id": "0",
+     *   "status": "1",
+     *   "date_start": "0000-00-00 00:00:00",
+     *   "date_end": "0000-00-00 00:00:00",
+     *   "user_max": "50",
+     *  "created_at": "2016-09-22 11:34:48",
+     *   "updated_at": "2016-09-24 06:59:43"
+     
+
+
+    },
+    "message": "Succesfully.",
+    "error": null
+}
+     */
+    
+
+    /**
      * Create a EventCategories.
      *
      * @param CreateEventCategoriesRequest $request
@@ -47,7 +112,30 @@ class EventCategoriesController extends Controller
 
         return $this->buildResponseCreated($eCategories);
     }
-
+    /**
+    * @api {put} api.ecategories.put.create Update EventCategory
+    * @apiName Update EventCategory
+    * @apiGroup EventCategory
+    * @apiParam {integer} user_id ID User
+    * @apiParam {tinyint} status Status
+    * $apiParam {string}  name Name EventCategory
+    * @apiSuccess {Number} status Status Reponse
+    * @apiSuccess {Object}  data Data Reponse
+    * @apiExample Response:
+    * {
+    *    "status": 201,
+    * "data": {
+    *    "id": 22,
+    *    "name": "check_event",
+    *    "status": "1",
+    *    "created_at": "2016-09-20 07:00:09",
+    *    "updated_at": "2016-09-28 03:04:19"
+    *    },
+    *    "message": "Succesfully.",
+    *    "error": 0
+    *  }
+     */
+    
     /**
      * Update a EventCategories.
      *
@@ -71,7 +159,22 @@ class EventCategoriesController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-
+     /**
+      *@api {delete} api.ecategories.get.delete Delete EventCategory
+      *@apiName Delete EventCategory
+      *@apiGroup EventCategory
+      *@apiParam {integer} EventCategiry_id ID EventCategory        
+      *@apiSuccess {Number} status Status Response
+      *@apiSuccess {Object} date   Date Response
+      *@apiExample Response:
+      *{
+      *  "status": 200,
+      * "data": true,
+      *  "message": "Succesfully.",
+      *  "error": null
+      * }
+      */
+     
     public function delete($id)
     {
         $Id = $this->eventCategoryRepository->delete($id);
@@ -90,12 +193,82 @@ class EventCategoriesController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
+    /**
+     *@api {get} api.ecategories.get.index List
+     *@apiName getList
+     *@apiGroup EventCategory
+    * @apiParam {integer} eventCategory ID-EventCategory
+    * @apiSuccess {integer} Total Record
+    *@apiSuccess {integer} per_page  Some items on 1 page
+    *@apiSuccess {integer} current_page Current Page
+    *@apiSuccess {integer} last_page    Last Page
+    *@apiSuccess {integer} next_page_url  Next Page
+    *@apiSuccess {integer} prev_page_url Prevew Page
+    * @apiSuccess {Number} status Status Response
+    * @apiSuccess {Oject}  data   Data Response
+    * @apiExample Response:
+    * {
+    * "status": 200,
+    * "data": {
+    *    "total": 22,
+    *    "per_page": 10,
+    *    "current_page": 1,
+    *    "last_page": 3,
+    *    "next_page_url": "http://line-matching.dev.bap.jp/api/v1/ecategories?page=2",
+    *    "prev_page_url": null,
+    *    "from": 1,
+    *    "to": 10,
+    *    "data": [
+    *        {
+    *            "id": 8,
+    *           "name": "die",
+    *            "status": "1",
+    *            "created_at": "2016-09-19 09:10:37",
+    *            "updated_at": "2016-09-19 09:10:37"
+    *        },
+    *       
+    *        {
+    *            "id": 19,
+    *            "name": "bycial",
+    *            "status": "1",
+    *            "created_at": "2016-09-20 06:53:21",
+    *            "updated_at": "2016-09-20 06:53:21"
+    *        }
+    *    ]
+    *    },
+    * "message": "Succesfully.",
+    * "error": null
+    *}
+     */
+    
     public function getIndex()
     {
         $ecategories = $this->eventCategoryRepository->index(0,['*']);
         return $this->buildResponseSuccess($ecategories);
        
     }
+    /**
+    *@api {get} api.ecategories.get.show View
+    *@apiName getShow
+    *@apiGroup EventCategory
+    * @apiParam {integer} id_eventcategory ID_EventCategoy
+    * @apiSuccess {Number} status Status Response
+    * @apiSuccess {Oject}  data Data Response
+    * @apiExample Response:
+    * {
+    *    "status": 200,
+    *    "data": {
+    *    "id": 22,
+    *    "name": "check_event",
+    *    "status": "1",
+    *    "created_at": "2016-09-20 07:00:09",
+    *    "updated_at": "2016-09-28 03:04:19"
+    *    },
+    *    "message": "Succesfully.",
+    *    "error": null
+    *    }
+     */
+    
     public function getShow($id){
         $eCategory = $this->eventCategoryRepository->show($id);
         if(!empty($eCategory)){

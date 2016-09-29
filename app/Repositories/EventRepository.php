@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Event;
+use App\Models\EventsUsersMaps;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
 

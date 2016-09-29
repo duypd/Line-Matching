@@ -11,7 +11,7 @@ namespace App\Http\Requests;
 
 
 
-class CreateEventRequest extends Request
+class CreateJoinEventRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,12 +31,11 @@ class CreateEventRequest extends Request
     public function rules()
     {
         return [
-            'name'              => 'required|max:200',
-            'description'       => 'required',
-            'lag'               => 'required|between:0,99.99/',
-            'long'              => 'required|between:0,99.99/',
-            'images'            => 'required',
-            'address'           => 'required'
+        /*'id'       =>'required',
+        'event_id' =>'required',
+        'user_id'  => 'required',
+        'status'   =>'required',
+        'is_join'  => 'required',*/
         ];
     }
 }

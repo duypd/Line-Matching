@@ -42,7 +42,7 @@ class GroupRepository extends AbstractRepository
             $group->lag         = $param['lag'];
             $group->long        = $param['long'];
             $group->updated_at  = date('Y-m-d H:i:s');
-            // $group->save();
+            $group->save();
         });
          if (!empty($param['images'])) {
              $upload = $this->__postImageGroup($group,$param['images']);

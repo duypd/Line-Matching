@@ -33,13 +33,13 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);
     put('/events/{id}', ['as' => 'api.events.put.create', 'uses' => 'EventsController@putUpdate']);
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);
+    post('/events/{id}/join', ['as' => 'api.events.join.post.create', 'uses' => 'EventsController@postCreateJoinEvent']);
+
     /*
      * Route Ecategories
      */
     post('/ecategories', ['as' => 'api.ecategories.post.create', 'uses' => 'EventCategoriesController@postCreate']);
-   
-    put('/ecategories/{id}', ['as' => 'api.ecategories.put.create', 'uses' => 'EventCategoriesController@putUpdate']);
-    
+    put('/ecategories/{id}', ['as' => 'api.ecategories.put.create', 'uses' => 'EventCategoriesController@putUpdate']); 
     get('/ecategories', ['as' => 'api.ecategories.get.index', 'uses' => 'EventCategoriesController@getIndex']);
     get('/ecategories/{id}', ['as' => 'api.ecategories.get.show', 'uses' => 'EventCategoriesController@getShow']);
     delete('/ecategories/{id}', ['as' => 'api.ecategories.get.delete', 'uses' => 'EventCategoriesController@delete']);
