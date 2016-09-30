@@ -35,6 +35,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     put('/events/{id}', ['as' => 'api.events.put.create', 'uses' => 'EventsController@putUpdate']);
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);
     post('/events/{id}/join', ['as' => 'api.events.join.post.create', 'uses' => 'EventsController@postCreateJoinEvent']);
+    delete('/events/join/{id}', ['as' => 'api.events.get.leave', 'uses' => 'EventsController@LeaveEvent']);
 
     /*
      * Route Ecategories
@@ -54,5 +55,6 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     get('/groups/{id}', ['as' => 'api.group.get.show', 'uses' => 'GroupsController@getShow']);
     delete('/groups/{id}', ['as' => 'api.group.get.delete', 'uses' => 'GroupsController@delete']);
     post('/groups/{id}/upload', ['as' => 'api.group.upload.image', 'uses' => 'GroupsController@postUploadImage']);
-
+    post('/groups/{id}/join', ['as' => 'api.group.join.post.create', 'uses' => 'GroupsController@postCreateJoinGroup']);
+    delete('/groups/join/{id}', ['as' => 'api.events.get.leave', 'uses' => 'GroupsController@LeaveGroup']);
 });

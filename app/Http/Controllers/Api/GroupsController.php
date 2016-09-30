@@ -10,10 +10,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\GroupRepository;
+use App\Repositories\GroupsUserMapsRepository;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use App\Http\Requests\CreateJoinEventRequest;
 use App\Http\Requests\UploadAlbumRequest;
 use App\Http\Controllers\Controller;
 use Response;
@@ -25,12 +27,18 @@ class GroupsController extends Controller
     private $groupRepository;
 
     /**
+     * @var $groupUserMapsRepository
+     */
+    private $groupUserMapsRepository;
+
+    /**
      * UsersController constructor.
      * @param GroupRepository $groupRepository
      */
-    public function __construct(GroupRepository $groupRepository)
+    public function __construct(GroupRepository $groupRepository, GroupsUserMapsRepository $groupUserMapsRepository)
     {
         $this->groupRepository = $groupRepository;
+        $this->groupUserMapsRepository =$groupUserMapsRepository;
     }
       /**
      * Display a listing of the resource.
@@ -345,6 +353,38 @@ class GroupsController extends Controller
         $result = $this->groupRepository->upload($id, $request->file('image'));
 
         return $this->buildResponseSuccess($result);
+    }
+    /**
+     * Join a Group.
+     *
+     * @param CreateJoinGroupRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postCreateJoinGroup($id, CreateJoinEventRequest $request){
+        $user = array();
+        $group =$this->groupRepository->getBy('id',$id,['id','user_max']);
+        $user['user']['id'] =1;
+        $user['user'] =(object)$user['user'];
+        $JoinGroup = $this->groupUserMapsRepository->createJoinGroup($group, array_merge($request->all(),['user'=>$user]));
+        return $this->buildResponseCreated($JoinGroup);
+    }
+    /**
+     * Leave Group.
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+      public function LeaveGroup($id)
+    {
+        $Id = $this->groupUserMapsRepository->delete($id);
+        if(!empty($Id))
+        {
+            return $this->buildResponseSuccess($Id);
+        }else{
+            return $this->buildResponseError();
+        }
+
+        return $this->buildResponseSuccess($JoinId);
     }
 
 }

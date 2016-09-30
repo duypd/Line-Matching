@@ -308,5 +308,24 @@ class EventsController extends Controller
         $JoinEvent  = $this->eventUserMapsRepository->createJoinEvent($event,array_merge($request->all(), ['user' => $user]));
         return $this->buildResponseCreated($JoinEvent); 
     }
+
+     /**
+     * Leave Events.
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+      public function LeaveEvent($id)
+    {
+        $Id = $this->eventUserMapsRepository->delete($id);
+        if(!empty($Id))
+        {
+            return $this->buildResponseSuccess($Id);
+        }else{
+            return $this->buildResponseError();
+        }
+
+        return $this->buildResponseSuccess($JoinId);
+    }
 }
 
