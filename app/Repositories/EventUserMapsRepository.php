@@ -22,17 +22,28 @@ class EventUserMapsRepository extends AbstractRepository
      */
     public function createJoinEvent($event,array $param){
     	$emap = $this->where('event_id','=',$event->id,'and')->getAll()->count();
-	    if((int)$event->user_max < $emap){
+	    if($emap<(int)$event->user_max){
 	    	\DB::transaction(function($q) use(&$joinEvent, $param){
 	            $joinEvent = new EventsUsersMaps();
 	            $joinEvent->user_id   	= $param['user']['user']->id;
-	            $joinEvent->event_id  	= $param['event_id'];
+	            $joinEvent->event_id    = $param['event_id'];
 	            $joinEvent->is_join     = $param['is_join'];
 	            $joinEvent->updated_at  = date('Y-m-d H:i:s');
 	            $joinEvent->save();	      
 	         });
-	    } 
-		
+	    } 	
    }
-
+   /**
+    *Leave Events
+    * @param int $id
+    * @param $JoinId
+    * @return mixed
+    *
+    */
+   public function destroy($id, $Id)
+        {
+            $LEvent = $this->where('JoinId', $Id)
+                ->getBy('id', $id);
+            return $LEvent->delete();
+        }
 }
