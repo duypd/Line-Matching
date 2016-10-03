@@ -33,8 +33,8 @@ if (! function_exists('transfer_url_images')) {
      */
     function transfer_url_images(array $images) {
         if (! empty($images)) {
-
             foreach ($images as $i => &$image) {
+
                 $image['origin'] = asset($image['origin']);
                 $image['thumb'] = asset($image['thumb']);
             }

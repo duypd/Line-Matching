@@ -44,14 +44,4 @@ class Group  extends Model
         'user_id'    => 'integer',
         'images'     => 'json',
     ];
-
-    /**
-     * Get all of the post's likes.
-     */
-   /* public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
-    }*/
-
-
 }

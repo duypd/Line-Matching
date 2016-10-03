@@ -36,7 +36,10 @@ class CreateEventRequest extends Request
             'lag'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/',
             'images'            => 'required',
-            'address'           => 'required'
+            'address'           => 'required',
+            'user_id'           => 'required',
+            'group_id'          => 'required'
+
         ];
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
-use App\Http\Requests\CreateJoinEventRequest;
+use App\Http\Requests\CreateJoinGroupRequest;
 use App\Http\Requests\UploadAlbumRequest;
 use App\Http\Controllers\Controller;
 use Response;
@@ -360,7 +360,24 @@ class GroupsController extends Controller
      * @param CreateJoinGroupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function postCreateJoinGroup($id, CreateJoinEventRequest $request){
+      /**
+      @api {post} api.group.join.post.create CreateJoinGroup
+      @apiName CreatJoinGroup
+      @apiGroup Group
+      @apiParam {integer} is_join  Status 1:join | 0:leave | -2:block
+      @apiSuccess {Number} status Status Response
+      @apiSuccess {Object} data   Date Response
+      @apiSuccess {string} message status Response
+      @apiSuccessExample Response:
+      {
+        "status": 201,
+        "data": null,
+        "message": "Succesfully.",
+        "error": 0
+        }
+     
+     */
+    public function postCreateJoinGroup($id, CreateJoinGroupRequest $request){
         $user = array();
         $group =$this->groupRepository->getBy('id',$id,['id','user_max']);
         $user['user']['id'] =1;
@@ -374,7 +391,23 @@ class GroupsController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-      public function LeaveGroup($id)
+    /**
+      @api {delete} api.group.get.leave LeaveGroup
+      @apiName LeaveGroup
+      @apiGroup Group
+      @apiParam {integer} groups_users_maps ID-groups_users_maps
+      @apiSuccess {Number} status Status Response
+      @apiSuccess {Object} data   Date Response
+      @apiSuccess {string} message status Response
+      @apiSuccessExample Response:
+      {
+        "status": 201,
+        "data": true,
+        "message": "Succesfully.",
+        "error": 0
+        }  
+      */
+      public function deleteLeaveGroup($id)
     {
         $Id = $this->groupUserMapsRepository->delete($id);
         if(!empty($Id))

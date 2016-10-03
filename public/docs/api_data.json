@@ -326,7 +326,64 @@
   },
   {
     "type": "post",
-    "url": "api.events.post.create",
+    "url": "api.events.join.post.create",
+    "title": "CreateJoinEvent",
+    "name": "CreatJoinEvent",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "is_join",
+            "description": "<p>Status 1:join | 0:leave | -2:block</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>status Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n  \"status\": 201,\n  \"data\": null,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "post",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events",
     "title": "Creat Event",
     "name": "Creat_Event",
     "group": "Event",
@@ -427,6 +484,63 @@
         "type": "json"
       }
     ],
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "delete",
+    "url": "api.events.get.leave",
+    "title": "LeaveEvent",
+    "name": "LeaveEvent",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_events_users_maps",
+            "description": "<p>ID-events_users_maps</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>status Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n  \"status\": 201,\n  \"data\": true,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/Http/Controllers/Api/EventsController.php",
     "groupTitle": "Event"
@@ -560,7 +674,7 @@
   },
   {
     "type": "put",
-    "url": "api.events.put.create",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}",
     "title": "Update Event",
     "name": "Upadate_Event",
     "group": "Event",
@@ -733,7 +847,7 @@
       "examples": [
         {
           "title": "Response:",
-          "content": "     {\n    \"status\": 200,\n    \"data\": {\n        \"id\": 125,\n        \"cat_id\": \"1\",\n        \"name\": \"Thi chim canh\",\n        \"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n        \"description\": \"Xem những con chim chơi hay nhất\",\n        \"images\": [\n            {\n                \"origin\": \"uploads/images/event/origin/125-1474960304qb6Hb87UaEieHbrr.jpg\",\n                \"thumb\": \"uploads/images/event/thumb/125-1474960304qb6Hb87UaEieHbrr.jpg\"\n            }\n        ],\n        \"user_id\": 0,\n        \"long\": \"12.25365000\",\n        \"lag\": \"25.12145810\",\n        \"group_id\": \"0\",\n        \"status\": \"1\",\n        \"date_start\": \"0000-00-00 00:00:00\",\n        \"date_end\": \"0000-00-00 00:00:00\",\n        \"user_max\": \"50\",\n        \"created_at\": \"2016-09-27 07:11:44\",\n        \"updated_at\": \"2016-09-27 07:11:44\"\n    },\n    \"message\": \"Succesfully.\",\n    \"error\": null\n}",
+          "content": " {\n\"status\": 200,\n\"data\": {\n    \"id\": 125,\n    \"cat_id\": \"1\",\n    \"name\": \"Thi chim canh\",\n    \"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n    \"description\": \"Xem những con chim chơi hay nhất\",\n    \"images\": [\n        {\n            \"origin\": \"uploads/images/event/origin/125-1474960304qb6Hb87UaEieHbrr.jpg\",\n            \"thumb\": \"uploads/images/event/thumb/125-1474960304qb6Hb87UaEieHbrr.jpg\"\n        }\n    ],\n    \"user_id\": 0,\n    \"long\": \"12.25365000\",\n    \"lag\": \"25.12145810\",\n    \"group_id\": \"0\",\n    \"status\": \"1\",\n    \"date_start\": \"0000-00-00 00:00:00\",\n    \"date_end\": \"0000-00-00 00:00:00\",\n    \"user_max\": \"50\",\n    \"created_at\": \"2016-09-27 07:11:44\",\n    \"updated_at\": \"2016-09-27 07:11:44\"\n},\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
           "type": "json"
         }
       ]
@@ -868,6 +982,63 @@
         {
           "title": "Response:",
           "content": " {\n\"status\": 201,\n\"data\": {\n\"id\": 68,\n\"name\": \"Group 2\",\n\"images\": null,\n\"leader_max\": \"50\",\n\"user_max\": \"100\",\n\"user_id\": 1,\n\"description\": \"Big Group\",\n\"status\": \"30\",\n\"lag\": \"0.00000000\",\n\"long\": \"0.00000000\",\n\"created_at\": \"2016-09-23 08:22:38\",\n\"updated_at\": \"2016-09-28 08:11:04\"\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/GroupsController.php",
+    "groupTitle": "Group"
+  },
+  {
+    "type": "post",
+    "url": "api.group.join.post.create",
+    "title": "CreateJoinGroup",
+    "name": "CreatJoinGroup",
+    "group": "Group",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "is_join",
+            "description": "<p>Status 1:join | 0:leave | -2:block</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>status Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n  \"status\": 201,\n  \"data\": null,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
           "type": "json"
         }
       ]
@@ -1070,6 +1241,63 @@
         "type": "json"
       }
     ],
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/GroupsController.php",
+    "groupTitle": "Group"
+  },
+  {
+    "type": "delete",
+    "url": "api.group.get.leave",
+    "title": "LeaveGroup",
+    "name": "LeaveGroup",
+    "group": "Group",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "groups_users_maps",
+            "description": "<p>ID-groups_users_maps</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>status Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n  \"status\": 201,\n  \"data\": true,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/Http/Controllers/Api/GroupsController.php",
     "groupTitle": "Group"

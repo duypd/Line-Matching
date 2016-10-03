@@ -39,15 +39,16 @@ class EventRepository extends AbstractRepository
             $cevent = new Event();   
             $cevent->name = $param['name'];
             $cevent->description = $param['description'];
+            $cevent->address = $param['address'];
+            $cevent->user_max = $param['user_max'];
+            $cevent->cat_id = $param['cat_id'];
             $cevent->long = $param['long'];
             $cevent->lag = $param['lag'];
-            $cevent->address = $param['address'];
-            $cevent->cat_id = $param['cat_id'];
-            $cevent->user_max = $param['user_max'];
             $cevent->status = 1;
+            $cevent->user_id = $param['user_id'];
+            $cevent->group_id = $param['group_id'];
             $cevent->updated_at = date('Y-m-d H:i:s');
             $cevent->save();
-
         }); 
          if (!empty($param['images'])) {
              $upload = $this->__postImageEvent($cevent,$param['images']);
@@ -57,11 +58,12 @@ class EventRepository extends AbstractRepository
               if (! empty($image)) {
                 event(new DeleteImageEvent($image));
             }
-         }         
+         } 
+
        return $cevent;
     }
      /**
-     *
+     *Update Event
      *
      * @return array
      */
@@ -72,11 +74,17 @@ class EventRepository extends AbstractRepository
         $UEvent->name = !empty($params['name']) ? $params['name'] : $UEvent->name;
         $UEvent->address = !empty($params['address']) ? $params['address'] : $UEvent->address;
         $UEvent->description = !empty($params['description']) ? $params['description'] : $UEvent->description;
-        $UEvent->user_id = !empty($params['user_id']) ? $params['user_id'] : $UEvent->user_id;
-        $UEvent->user_max = !empty($params['user_max']) ? $params['user_max'] : $UEvent->user_max;
-        $UEvent->status = !empty($params['status']) ? $params['status']: $UEvent->status;
+        $UEvent->description = !empty($params['long']) ? $params['long'] : $UEvent->long;
+        $UEvent->description = !empty($params['lag']) ? $params['lag'] : $UEvent->lag;
         $UEvent->save();
         return $UEvent;
+        $upload = $this->__postImageEvent($UEvent,$params['images']);
+
+        if (!empty($params['images'])) {
+            $image = $UEvent->Images;
+            $UEvent->images = $upload;
+            $UEvent->save();
+        }
     }
     /**
      * show Event.
@@ -102,7 +110,8 @@ class EventRepository extends AbstractRepository
         foreach ($files as $file) {
             $upload = new Upload($cevent->path, $cevent->width, $cevent->height, $file);
             $data[] = $upload->handle($cevent);
-        }      
+        }  
          return $data;
     }
+    
 }

@@ -31,10 +31,11 @@ class UpdateEventRequest extends Request
     public function rules()
     {
        return [
-            /*'name'              => 'required|max:200',
+            'name'              => 'required|max:200',
             'address'			=> 'required',
-            'user_max'			=>	'required',
-            'user_id'			=>	'required'*/
+            'images'            =>  'required',
+            'lag'               => 'required|between:0,99.99/',
+            'long'              => 'required|between:0,99.99/'
         ];
     }
 }

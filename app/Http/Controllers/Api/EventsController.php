@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers\Api;
-use App\Http\Requests\CreateEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Http\Requests\CreateJoinEventRequest;
+use App\Http\Requests\CreatEventsPrPointsRequest;
 use App\Repositories\Upload;
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserMapsRepository;
@@ -21,17 +21,19 @@ class EventsController extends Controller
      * @var eventUserMapsRepository
      */
     private $eventUserMapsRepository;
-
+    /**
+     * @var eventUserMapsRepository
+     */
+    private $eventPrPointRepository;
     /**
      * UsersController constructor.
      * @param EventRepository $userRepository
      */
     public function __construct(EventRepository $eventRepository, EventUserMapsRepository $eventUserMapsRepository)
     {
-        $this->eventRepository = $eventRepository;
+        $this->eventRepository         = $eventRepository;
         $this->eventUserMapsRepository = $eventUserMapsRepository;
     }
-
     /**
      * Create a Event.
      *
@@ -39,7 +41,7 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-     *  @api {post} api.events.post.create Creat Event
+     *  @api {post} http://line-matching.dev.bap.jp/api/v1/events Creat Events
      *  @apiName Creat Event
      *  @apiGroup Event
      *  @apiParam {integer} user_id ID-User
@@ -74,7 +76,7 @@ class EventsController extends Controller
      */
     
     public function postCreate(CreateEventRequest $request)
-    {
+    {   
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
@@ -88,7 +90,7 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-     *@api {put} api.events.put.create Update Event
+     *@api {put} http://line-matching.dev.bap.jp/api/v1/events/{id} Update Event
      *@apiName Upadate Event
      *@apiGroup Event
      *@apiParam {integer} user_id ID-User
@@ -126,14 +128,12 @@ class EventsController extends Controller
         }  
      */
     
-    public function putUpdate($id,UpdateEventRequest $request)
+    public function postUpdate($id, UpdateEventRequest $request)
     {   
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
-
         $UEvent  = $this->eventRepository->update($id,array_merge($request->all(), ['user' => $user] ));
-
         return $this->buildResponseCreated($UEvent);
     }
      /**
@@ -299,7 +299,24 @@ class EventsController extends Controller
         }
         
     }
-
+    /**
+      @api {post} api.events.join.post.create CreateJoinEvent
+      @apiName CreatJoinEvent
+      @apiGroup Event
+      @apiParam {integer} is_join  Status 1:join | 0:leave | -2:block
+      @apiSuccess {Number} status Status Response
+      @apiSuccess {Object} data   Date Response
+      @apiSuccess {string} message status Response
+      @apiSuccessExample Response:
+      {
+        "status": 201,
+        "data": null,
+        "message": "Succesfully.",
+        "error": 0
+        }
+     
+     */
+    
     public function postCreateJoinEvent($id,CreateJoinEventRequest $request){  
         $user   = array(); // get_current_user_by_token();
         $event = $this->eventRepository->getBy('id',$id,['id','user_max']); 
@@ -308,14 +325,30 @@ class EventsController extends Controller
         $JoinEvent  = $this->eventUserMapsRepository->createJoinEvent($event,array_merge($request->all(), ['user' => $user]));
         return $this->buildResponseCreated($JoinEvent); 
     }
-
      /**
      * Leave Events.
      * @param int $id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-      public function LeaveEvent($id)
+     /**
+      @api {delete} api.events.get.leave LeaveEvent
+      @apiName LeaveEvent
+      @apiGroup Event
+      @apiParam {integer} id_events_users_maps ID-events_users_maps
+      @apiSuccess {Number} status Status Response
+      @apiSuccess {Object} data   Date Response
+      @apiSuccess {string} message status Response
+      @apiSuccessExample Response:
+      {
+        "status": 201,
+        "data": true,
+        "message": "Succesfully.",
+        "error": 0
+        }  
+      */
+     
+      public function deleteleaveEvent($id)
     {
         $Id = $this->eventUserMapsRepository->delete($id);
         if(!empty($Id))
@@ -327,5 +360,20 @@ class EventsController extends Controller
 
         return $this->buildResponseSuccess($JoinId);
     }
+     /**
+     * Delete PrPoint.
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+     /*public function deletePrPoint($id){
+        $Id = $this->eventPrPointRepository->delete($id);
+        if (!empty($Id)) {
+            return $this->buildResponseSuccess($Id);
+        } else {
+            return $this->buildResponseError()
+        }
+        return $this->buildResponseSuccess($PrPoint);
+     }*/
 }
 

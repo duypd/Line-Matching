@@ -30,9 +30,8 @@ class CreateJoinGroupRequest extends Request
      */
     public function rules()
     {
-        [
-          'is_join' =>'required',
-        
+        return [
+        'is_join'  => 'required',
         ];
     }
 }
