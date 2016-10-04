@@ -63,4 +63,13 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     post('/groups/{id}/upload', ['as' => 'api.group.upload.image', 'uses' => 'GroupsController@postUploadImage']);
     post('/groups/{id}/join', ['as' => 'api.group.join.post.create', 'uses' => 'GroupsController@postCreateJoinGroup']);
     delete('/groups/join/{id}', ['as' => 'api.group.get.leave', 'uses' => 'GroupsController@deleteLeaveGroup']);
+    /*
+    * Search Event
+    */
+    get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
+    get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
+
+
+
+
 });

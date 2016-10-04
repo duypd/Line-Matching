@@ -2,15 +2,18 @@
 
 namespace App\Repositories;
 use App\Models\Event;
+use App\Models\EventGroup;
 use Illuminate\Database\Eloquent\Model;
 
 
 class SearchEventsRepository extends AbstractRepository {
 
     protected $models;
+    protected $groups;
 
-    public function __construct(Event $events) {
+    public function __construct(Event $events, EventGroup $event_groups) {
         $this->models = $events;
+        $this->groups = $event_groups;
     }
 
     public function searchEvents($params) {
@@ -42,9 +45,25 @@ class SearchEventsRepository extends AbstractRepository {
         ];
     }
 
-    //User::where('name', 'LIKE', '%'.$search.'%')->get();
-    
 
-   
+     public function searchEventGroups($params) {
+        $event_groups = $this->groups;
+        if (isset($params['name'])) {
+            $event_groups = $event_groups->where('name',$params['name'])->with('event');
+        }
+        $count = $event_groups->count();
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
+        $event_groups_f = $event_groups->forPage($page, $perPage)->get();
+        $meta = [
+            'page' => $page,
+            'perPage' => $perPage,
+            'total' => ceil($count / $perPage)
+        ];
+        return $result = [
+            'meta' => $meta,
+            'event_groups_f' => $event_groups_f
+        ];
+    }
 
 }
