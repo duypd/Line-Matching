@@ -52,5 +52,9 @@ class Event  extends Model
         return $this->belongsTo(EventGroup::class, 'group_id', 'id');
     }
 
+
+    public function event_category(){
+        return $this->belongsTo(EventCategory::class, 'cat_id', 'id');
+    }
 }
     

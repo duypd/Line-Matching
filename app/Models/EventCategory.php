@@ -18,6 +18,7 @@ class EventCategory extends Model
      * @var array
      */
     protected $fillable = [
+        'id', 'name', 'status'
     ];
 
     /**

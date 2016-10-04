@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\Event;
 use App\Models\EventGroup;
+use App\Models\EventCategory;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -64,6 +65,13 @@ class SearchEventsRepository extends AbstractRepository {
             'meta' => $meta,
             'event_groups_f' => $event_groups_f
         ];
+    }
+
+
+    public function getEvent($id)
+    {
+        $event = $this->models->Where('id',$id)->with(['event_group', 'event_category'])->get();
+        return $event;
     }
 
 }

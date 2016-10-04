@@ -82,5 +82,10 @@ class SearchController extends Controller {
         return $this->buildResponseCreated($event_groups, trans('messages.success'));
     }
 
+
+     public function getEvent($id) {
+        $event = $this->repo->getEvent($id);
+        return $this->buildResponseCreated($event, trans('messages.success'));
+    }
    
 }

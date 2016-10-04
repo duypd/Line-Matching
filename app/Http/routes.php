@@ -68,6 +68,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     */
     get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
     get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
+    get('event-detail/{id}', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
 
 
 
