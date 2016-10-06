@@ -126,7 +126,7 @@ class EventRepository extends AbstractRepository
     }
 
     /**
-     * Get list event.
+     * Get list event.a
      * @return array
      */
      function getindexall($page = 0, $attributes = ['*']){
@@ -135,5 +135,6 @@ class EventRepository extends AbstractRepository
                                                             'category' => function($c) {$c->select('id','name');}])->get();
         return $result;
 
-        }   
+        }  
+
 }
