@@ -5,6 +5,7 @@ use App\Models\Event;
 use App\Models\EventGroup;
 use App\Models\EventCategory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 
 class SearchEventsRepository extends AbstractRepository {
@@ -16,6 +17,12 @@ class SearchEventsRepository extends AbstractRepository {
         $this->models = $events;
         $this->groups = $event_groups;
     }
+       
+    // public function ScopeDistance($query,$lat,$long,$distance)
+    //     {
+    //      $raw = \DB::raw('ROUND ( ( 6371 * acos( cos( radians('.$lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$long.') ) + sin( radians('.$lat.') ) * sin( radians( latitude ) ) ) ) ) AS distance');
+    //      return $query->select('*')->addSelect($raw)->orderBy( 'distance', 'ASC' )->groupBy('distance')->where('distance', '<=', $distance);
+    //     }
 
     public function searchEvents($params) {
         $builder = $this->models;
@@ -28,9 +35,18 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['user_max'])) {
             $builder = $builder->where('user_max', $params['user_max']);
         }
+        
         if (isset($params['address'])) {
             $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
         }
+        
+        // if (isset($params['lat']) && ($params['long']) && ($params['distance'])) {
+
+        //             $query = $this->models;
+        //             $builder = $this->ScopeDistance($query,$params['lat'],$params['long'],$params['distance']);
+                                   
+        //         }
+
         $count = $builder->count();
         $page = isset($params['page']) ? $params['page'] : 1;
         $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
@@ -68,9 +84,9 @@ class SearchEventsRepository extends AbstractRepository {
     }
 
 
-    public function getEvent($id)
+    public function getEvent($params)
     {
-        $event = $this->models->Where('id',$id)->with(['event_group', 'event_category'])->get();
+        $event = $this->models->Where('name',$params['name'])->with(['event_group', 'event_category'])->get();
         return $event;
     }
 
