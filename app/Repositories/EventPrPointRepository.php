@@ -15,6 +15,20 @@ class EventPrPointRepository extends AbstractRepository
     {
         $this->model = $eventPrPoints;
     }
+     function eventsList($eventPrPointId){
+        return $this->prepareQuery()->get();
+    }
+     /**
+     * get DetailEventPrPoint.
+     * @param $id
+     * @return object EventPrPoint
+     */
+
+    public function show($id)
+    {
+        $EventPrPoint = $this->getBy('id', $id);
+        return $EventPrPoint;
+    }
      /**
      * create eventPrPoint.
      *
@@ -87,8 +101,7 @@ class EventPrPointRepository extends AbstractRepository
     */
    public function destroy($id, $Id)
         {
-            $DEPrPoint = $this->where('DEPrPoint', $Id)
-                ->getBy('id', $id);
+            $DEPrPoint = $this->where('DEPrPoint', $Id)->getBy('id', $id);
             return $DEPrPoint->delete();
         }
 }

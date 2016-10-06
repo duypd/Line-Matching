@@ -46,42 +46,67 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
       /**
-       @api {get} api.group.get.show View
-       @apiName View
+       @api {get} http://line-matching.dev.bap.jp/api/v1/groups ListGroup
+       @apiName ListGroup
        @apiGroup Group
-       @apiParam {integer} group_id ID-Group
        @apiSuccess {Number} status Status Response
        @apiSuccess {Object} data Data Response
-       @apiSuccess {string} name Name of Group
-       @apiSuccess {string} images  Image of Group
-       @apiSuccess {integer} leader_max The maximum number people of Group
-       @apiSuccess {integer} user_id ID-User
-       @apiSuccess {string} description Description of Group
-       @apiSuccess {Number} long  Latitude
-       @apiSuccess {Number}  lag  Longitude
+       @apiSuccess {string} message Message Response
+       @apiSuccess {Number} error Error of request
        @apiSuccessExample Response:
        {
-        "status": 200,
-        "data": {
-        "id": 62,
-        "name": "Group great",
-        "images": null,
-        "leader_max": "50",
-        "user_max": "50",
-        "user_id": 1,
-        "description": "descripton of the group",
-        "status": "1",
-        "lag": "0.00000000",
-        "long": "0.00000000",
-        "created_at": "2016-09-23 04:42:14",
-        "updated_at": "2016-09-23 04:42:14"
+     "status": 200,
+     "data": [
+        {
+            "id": 1,
+            "name": "Group great",
+            "images": [
+                {
+                    "origin": "uploads/images/groups/origin/1-1475464381NlUlKOiBRkLjqwra.jpg",
+                    "thumb": "uploads/images/groups/thumb/1-1475464381NlUlKOiBRkLjqwra.jpg"
+                }
+            ],
+            "leader_max": "50",
+            "user_max": "50",
+            "user_id": 1,
+            "description": "descripton of the group",
+            "status": "0",
+            "lag": "15.24554100",
+            "long": "21.25400000",
+            "created_at": "2016-10-03 10:12:49",
+            "updated_at": "2016-10-03 03:13:01"
         },
-        "message": "Succesfully.",
-        "error": null
-        }     
+        {
+            "id": 2,
+            "name": "Group great",
+            "images": [
+                {
+                    "origin": "uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg",
+                    "thumb": "uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg"
+                }
+            ],
+            "leader_max": "50",
+            "user_max": "50",
+            "user_id": 1,
+            "description": "descripton of the group",
+            "status": "1",
+            "lag": "15.24554100",
+            "long": "21.25400000",
+            "created_at": "2016-10-03 10:15:29",
+            "updated_at": "2016-10-03 03:15:41"
+        }
+      ],
+      "message": "Succesfully."
+      } 
        */
       
-    public function index()
+       public function getIndex()
+    {
+        $group = $this->groupRepository->index(0,['*']);
+        return $this->buildResponseSuccess($group);
+       
+    }
+    /*public function index()
     {
 
         return Response::json([
@@ -89,7 +114,7 @@ class GroupsController extends Controller
             'data'      => $this->groupRepository->eventsList(1),
             'message'   => trans('messages.success')
         ]);
-    }
+    }*/
     /**
      * Create a group.
      *
@@ -97,27 +122,22 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
      /**
-     *  @api {post} api.group.post.create Creat Group
+     *  @api {post} http://line-matching.dev.bap.jp/api/v1/groups CreatGroup
      *  @apiName Creat Group
      *  @apiGroup Group
         @apiParam {string} name Name Group
         @apiParam {integer} leader_max The maximum number people of Group
         @apiParam {Number}  status Status of Group
         @apiParam {integer} user_id ID of User
+        @apiParam {integer} user_max The maximum number people of Group
         @apiParam {string} Description of Group
         @apiParam {string} Image of Group
         @apiParam {Number} long  Latitude
         @apiParam {Number} lag   Longitude
         @apiSuccess {Number}  status Status Response
         @apiSuccess {Object} data Data Response
-        @apiSuccess {string} name Name Group
-        @apiSuccess {integer} leader_max The maximum number people of Group
-        @apiSuccess {Number}  status Status of Group
-        @apiSuccess {integer} user_id ID of User
-        @apiSuccess {string} Description of Group
-        @apiSuccess {string} Image of Group
-        @apiSuccess {Number} long  Latitude
-        @apiSuccess {Number} lag   Longitude
+        @apiSuccess {string} message Message Response
+        @apiSuccess {Number} error Error of request
         @apiSuccessExample Response:
        {
         "status": 201,
@@ -218,12 +238,14 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
       /**
-      *@api {delete} api.group.get.delete Delete Group
-      *@apiName Delete Group
+      *@api {delete} http://line-matching.dev.bap.jp/api/v1/groups/{id} DeleteGroup
+      *@apiName DeleteGroup
       *@apiGroup Group
       *@apiParam {integer} group_id ID Group       
       *@apiSuccess {Number} status Status Response
       *@apiSuccess {Object} date   Date Response
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} error Error of request
       *@apiExample Response:
       *{
       *  "status": 200,
@@ -255,61 +277,39 @@ class GroupsController extends Controller
     @return \Illuminate\Http\JsonResponse
     */
     /**
-     *@api {get} api.group.get.show List Group
-     *@apiName List Group
+     *@api {get} http://line-matching.dev.bap.jp/api/v1/groups/{id} getDetailGroup
+     *@apiName getDetailGroup
      *@apiGroup Group
-     @apiParam {integer} user_id ID-User
-     @apiParam {integer} group_id ID-Group
+     @apiParam {integer} id_group ID-Group
      @apiSuccess {Number} status Status Response
      @apiSuccess {Object} data Date Response
-     @apiSuccess {string} name Name of Group
-     @apiSuccess {string} description Description of Group
-     @apiSuccess {string} images Images of Group
-     @apiSuccess {Number} long  Latitude
-     @apiSuccess {Number}  lag  Longitude
-     @apiSuccess {integer} group_id ID of Group
-     @apiSuccess {integer}  leader_max Date start of Event
-     @apiSuccess {integer} user_max The maximum number people of events
+     @apiSuccess {string} message Message Response
+     @apiSuccess {Number} error Error of request
      @apiSuccessExample Response:
      {
-    "status": 200,
-    "data": [
-        {
-            "id": 1,
-            "name": "My Group",
-            "images": null,
-            "leader_max": "4",
-            "user_max": "50",
-            "user_id": 1,
-            "description": "My Group ",
-            "status": "1",
-            "lag": "41.00000000",
-            "long": "-74.00000000",
-            "created_at": "2016-09-15 15:34:52",
-            "updated_at": "-0001-11-30 00:00:00"
-        },
-         {
-            "id": 83,
-            "name": "Group great",
-            "images": [
-                {
-                    "origin": "uploads/images/groups/origin/-1475049970VCstKCBvpA0qynZu.jpg",
-                    "thumb": "uploads/images/groups/thumb/-1475049970VCstKCBvpA0qynZu.jpg"
-                }
-            ],
-            "leader_max": "50",
-            "user_max": "50",
-            "user_id": 1,
-            "description": "descripton of the group",
-            "status": "0",
-            "lag": "15.24554100",
-            "long": "21.25400000",
-            "created_at": "2016-09-28 08:06:10",
-            "updated_at": "2016-09-28 08:06:10"
-        }
-    ],
-    "message": "Succesfully."
-    } 
+     "status": 200,
+     "data": {
+        "id": 2,
+        "name": "Group great",
+        "images": [
+            {
+                "origin": "uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg",
+                "thumb": "uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg"
+            }
+        ],
+        "leader_max": "50",
+        "user_max": "50",
+        "user_id": 1,
+        "description": "descripton of the group",
+        "status": "1",
+        "lag": "15.24554100",
+        "long": "21.25400000",
+        "created_at": "2016-10-03 10:15:29",
+        "updated_at": "2016-10-03 03:15:41"
+     },
+     "message": "Succesfully.",
+     "error": null
+     }
      */
     
     public function getShow($id){
@@ -361,13 +361,15 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
       /**
-      @api {post} api.group.join.post.create CreateJoinGroup
+      @api {post} http://line-matching.dev.bap.jp/api/v1/groups/{id}/join CreateJoinGroup
       @apiName CreatJoinGroup
       @apiGroup Group
+      @apiParam {integer} id_group ID_Group
       @apiParam {integer} is_join  Status 1:join | 0:leave | -2:block
       @apiSuccess {Number} status Status Response
       @apiSuccess {Object} data   Date Response
       @apiSuccess {string} message status Response
+      @apiSuccess {Number} error Error of request
       @apiSuccessExample Response:
       {
         "status": 201,
@@ -392,13 +394,14 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-      @api {delete} api.group.get.leave LeaveGroup
+      @api {delete} http://line-matching.dev.bap.jp/api/v1/groups/join/{id} LeaveGroup
       @apiName LeaveGroup
       @apiGroup Group
       @apiParam {integer} groups_users_maps ID-groups_users_maps
       @apiSuccess {Number} status Status Response
       @apiSuccess {Object} data   Date Response
       @apiSuccess {string} message status Response
+      @apiSuccess {Number} error Error of request
       @apiSuccessExample Response:
       {
         "status": 201,

@@ -20,8 +20,7 @@ class Event  extends Model
      * @var array 
    **/
     protected $fillable = [
-        'cat_id','name','description','user_id','address','images'
-    ];
+        'name','description','user_id','address','images','group_id','cat_id'];
 
     /**
      * @var string
@@ -48,6 +47,13 @@ class Event  extends Model
         'images'     => 'json',
     ];
 
+    public function groups(){
+       return $this->belongsTo('\App\Models\Group','id');
+    }
+
+    public function category(){
+       return $this->belongsTo('\App\Models\EventCategory','id');
+    }
 
 }
    

@@ -1,20 +1,13 @@
 define({ "api": [
   {
     "type": "post",
-    "url": "api/v1/create",
-    "title": "Create EventCategory",
-    "name": "Create_EventCategory",
+    "url": "http://line-matching.dev.bap.jp/api/v1/ecategories",
+    "title": "CreatEventCategory",
+    "name": "CreateEventCategory",
     "group": "EventCategory",
     "parameter": {
       "fields": {
         "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID USer</p>"
-          },
           {
             "group": "Parameter",
             "type": "String",
@@ -41,32 +34,27 @@ define({ "api": [
             "optional": false,
             "field": "data",
             "description": "<p>Data Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Response:",
-          "content": " {\n \"status\": 200,\n \"data\": {\n  \"id\": 34,\n  \"id\": 34,\n  \"cat_id\": \"1\",\n  \"name\": \"Thi chim\",\n  \"address\": \"\",\n  \"description\": \"Xem những con chim chơi hay nhất\",\n  \"images\": null,\n  \"user_id\": 0,\n  \"long\": \"0.00000000\",\n  \"lag\": \"0.00000000\",\n  \"group_id\": \"0\",\n  \"status\": \"1\",\n  \"date_start\": \"0000-00-00 00:00:00\",\n  \"date_end\": \"0000-00-00 00:00:00\",\n  \"user_max\": \"50\",\n  \"created_at\": \"2016-09-22 11:34:48\",\n  \"updated_at\": \"2016-09-24 06:59:43\"\n    },\n    \"message\": \"Succesfully.\",\n    \"error\": null\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BadRequest",
-            "description": "<p>User ID not Found</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": ":",
-          "content": "{\n    \"status\": 200,\n    \"data\": {\n  \"id\": 34,\n \"cat_id\": \"1\",\n  \"name\": \"Thi chim\",\n  \"address\": \"\",\n  \"description\": \"Xem những con chim chơi hay nhất\",\n  \"images\": null,\n  \"user_id\": 0,\n  \"long\": \"0.00000000\",\n  \"lag\": \"0.00000000\",\n  \"group_id\": \"0\",\n  \"status\": \"1\",\n  \"date_start\": \"0000-00-00 00:00:00\",\n  \"date_end\": \"0000-00-00 00:00:00\",\n  \"user_max\": \"50\",\n \"created_at\": \"2016-09-22 11:34:48\",\n  \"updated_at\": \"2016-09-24 06:59:43\"\n     \n\n\n    },\n    \"message\": \"Succesfully.\",\n    \"error\": null\n}",
+          "content": "     {\n     \"status\": 201,\n        \"data\": {\n        \"name\": \"Hayppy News Years\",\n        \"status\": 1,\n        \"updated_at\": \"2016-10-03 02:54:59\",\n        \"created_at\": \"2016-10-03 02:54:59\",\n        \"id\": 1\n     },\n    \"message\": \"Succesfully.\",\n    \"error\": 0\n    }\n}",
           "type": "json"
         }
       ]
@@ -77,7 +65,7 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "api.ecategories.get.delete",
+    "url": "http://line-matching.dev.bap.jp/api/v1/ecategories/{id}",
     "title": "Delete EventCategory",
     "name": "Delete_EventCategory",
     "group": "EventCategory",
@@ -110,6 +98,20 @@ define({ "api": [
             "optional": false,
             "field": "date",
             "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       }
@@ -127,7 +129,7 @@ define({ "api": [
   },
   {
     "type": "put",
-    "url": "api.ecategories.put.create",
+    "url": "http://line-matching.dev.bap.jp/api/v1/ecategories/{id}",
     "title": "Update EventCategory",
     "name": "Update_EventCategory",
     "group": "EventCategory",
@@ -136,17 +138,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "integer",
+            "type": "string",
             "optional": false,
-            "field": "user_id",
-            "description": "<p>ID User</p>"
+            "field": "status",
+            "description": "<p>Status</p>"
           },
           {
             "group": "Parameter",
-            "type": "tinyint",
+            "type": "string",
             "optional": false,
-            "field": "status",
-            "description": "<p>Status $apiParam {string}  name Name EventCategory</p>"
+            "field": "name",
+            "description": "<p>Name EventCategory</p>"
           }
         ]
       }
@@ -167,98 +169,20 @@ define({ "api": [
             "optional": false,
             "field": "data",
             "description": "<p>Data Reponse</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Response:",
-        "content": "{\n   \"status\": 201,\n\"data\": {\n   \"id\": 22,\n   \"name\": \"check_event\",\n   \"status\": \"1\",\n   \"created_at\": \"2016-09-20 07:00:09\",\n   \"updated_at\": \"2016-09-28 03:04:19\"\n   },\n   \"message\": \"Succesfully.\",\n   \"error\": 0\n }",
-        "type": "json"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventCategoriesController.php",
-    "groupTitle": "EventCategory"
-  },
-  {
-    "type": "get",
-    "url": "api.ecategories.get.index",
-    "title": "List",
-    "name": "getList",
-    "group": "EventCategory",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "eventCategory",
-            "description": "<p>ID-EventCategory</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "Total",
-            "description": "<p>Record</p>"
           },
           {
             "group": "Success 200",
-            "type": "integer",
+            "type": "string",
             "optional": false,
-            "field": "per_page",
-            "description": "<p>Some items on 1 page</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "current_page",
-            "description": "<p>Current Page</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "last_page",
-            "description": "<p>Last Page</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "next_page_url",
-            "description": "<p>Next Page</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "prev_page_url",
-            "description": "<p>Prevew Page</p>"
+            "field": "message",
+            "description": "<p>Message Response</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "status",
-            "description": "<p>Status Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Oject",
-            "optional": false,
-            "field": "data",
-            "description": "<p>Data Response</p>"
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       }
@@ -266,7 +190,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Response:",
-        "content": "{\n\"status\": 200,\n\"data\": {\n   \"total\": 22,\n   \"per_page\": 10,\n   \"current_page\": 1,\n   \"last_page\": 3,\n   \"next_page_url\": \"http://line-matching.dev.bap.jp/api/v1/ecategories?page=2\",\n   \"prev_page_url\": null,\n   \"from\": 1,\n   \"to\": 10,\n   \"data\": [\n       {\n           \"id\": 8,\n          \"name\": \"die\",\n           \"status\": \"1\",\n           \"created_at\": \"2016-09-19 09:10:37\",\n           \"updated_at\": \"2016-09-19 09:10:37\"\n       },\n      \n       {\n           \"id\": 19,\n           \"name\": \"bycial\",\n           \"status\": \"1\",\n           \"created_at\": \"2016-09-20 06:53:21\",\n           \"updated_at\": \"2016-09-20 06:53:21\"\n       }\n   ]\n   },\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
+        "content": "{\n\"status\": 201,\n\"data\": {\n    \"id\": 1,\n    \"name\": \"check_event\",\n    \"status\": \"1\",\n    \"created_at\": \"2016-10-03 02:54:59\",\n    \"updated_at\": \"2016-10-03 03:02:23\"\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n}",
         "type": "json"
       }
     ],
@@ -276,9 +200,9 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api.ecategories.get.show",
-    "title": "View",
-    "name": "getShow",
+    "url": "http://line-matching.dev.bap.jp/api/v1/ecategories/{id}",
+    "title": "GetDetailEventCategory",
+    "name": "getDetailCategory",
     "group": "EventCategory",
     "parameter": {
       "fields": {
@@ -309,6 +233,20 @@ define({ "api": [
             "optional": false,
             "field": "data",
             "description": "<p>Data Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       }
@@ -325,24 +263,11 @@ define({ "api": [
     "groupTitle": "EventCategory"
   },
   {
-    "type": "post",
-    "url": "api.events.join.post.create",
-    "title": "CreateJoinEvent",
-    "name": "CreatJoinEvent",
-    "group": "Event",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "is_join",
-            "description": "<p>Status 1:join | 0:leave | -2:block</p>"
-          }
-        ]
-      }
-    },
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/ecategories",
+    "title": "ListEventCategory",
+    "name": "getList",
+    "group": "EventCategory",
     "success": {
       "fields": {
         "Success 200": [
@@ -357,7 +282,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "Object",
             "optional": false,
-            "field": "data",
+            "field": "date",
             "description": "<p>Date Response</p>"
           },
           {
@@ -365,27 +290,34 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "message",
-            "description": "<p>status Response</p>"
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n  \"status\": 201,\n  \"data\": null,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
-          "type": "json"
-        }
-      ]
+      }
     },
+    "examples": [
+      {
+        "title": "Response:",
+        "content": "{\n\"status\": 200,\n\"data\": {\n   \"total\": 22,\n   \"per_page\": 10,\n   \"current_page\": 1,\n   \"last_page\": 3,\n   \"next_page_url\": \"http://line-matching.dev.bap.jp/api/v1/ecategories?page=2\",\n   \"prev_page_url\": null,\n   \"from\": 1,\n   \"to\": 10,\n   \"data\": [\n       {\n           \"id\": 8,\n          \"name\": \"die\",\n           \"status\": \"1\",\n           \"created_at\": \"2016-09-19 09:10:37\",\n           \"updated_at\": \"2016-09-19 09:10:37\"\n       },\n      \n       {\n           \"id\": 19,\n           \"name\": \"bycial\",\n           \"status\": \"1\",\n           \"created_at\": \"2016-09-20 06:53:21\",\n           \"updated_at\": \"2016-09-20 06:53:21\"\n       }\n   ]\n   },\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
+        "type": "json"
+      }
+    ],
     "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventsController.php",
-    "groupTitle": "Event"
+    "filename": "app/Http/Controllers/Api/EventCategoriesController.php",
+    "groupTitle": "EventCategory"
   },
   {
     "type": "post",
     "url": "http://line-matching.dev.bap.jp/api/v1/events",
-    "title": "Creat Event",
-    "name": "Creat_Event",
+    "title": "CreatEvent",
+    "name": "CreatEvent",
     "group": "Event",
     "parameter": {
       "fields": {
@@ -399,10 +331,66 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "integer",
+            "type": "string",
             "optional": false,
-            "field": "event_id",
-            "description": "<p>ID- Event</p>"
+            "field": "name",
+            "description": "<p>Name Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Description_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "address",
+            "description": "<p>Address_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "user_max",
+            "description": "<p>User_max_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cat_id",
+            "description": "<p>ID_category</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "images",
+            "description": "<p>Images_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "long",
+            "description": "<p>Latitude</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "lag",
+            "description": "<p>Longitude</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status_Event</p>"
           }
         ]
       }
@@ -412,7 +400,7 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "string",
             "optional": false,
             "field": "status",
             "description": "<p>Status Response</p>"
@@ -422,14 +410,28 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "data",
-            "description": "<p>Data Response</p>"
+            "description": "<p>Event_Data</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response:",
-          "content": "{\n\"status\": 201,\n\"data\": {\n   \"name\": \"Thi chim canh\",\n   \"description\": \"Xem những con chim chơi hay nhất\",\n   \"long\": \"12.25365\",\n   \"lag\": \"25.1214581\",\n   \"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n   \"cat_id\": \"1\",\n   \"user_max\": \"50\",\n   \"status\": 1,\n   \"updated_at\": \"2016-09-28 06:42:01\",\n   \"created_at\": \"2016-09-28 06:42:01\",\n   \"id\": 126,\n   \"images\": [\n       {\n           \"origin\": \"uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg\",\n           \"thumb\": \"uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg\"\n       }\n   ]\n   },\n\"message\": \"Succesfully.\",\n \"error\": 0\n  }",
+          "title": "Response",
+          "content": "{\n   \"status\": 201,\n   \"data\": {\n   \"name\": \"SeaGame\",\n   \"description\": \"Soccer, tennis\",\n   \"address\": \"105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n   \"user_max\": \"50\",\n   \"cat_id\": \"1\",\n   \"long\": \"108.220808\",\n   \"lag\": \"16.049223\",\n   \"status\": 1,\n   \"user_id\": 1,\n   \"group_id\": \"1\",\n   \"updated_at\": \"2016-10-03 02:07:45\",\n   \"created_at\": \"2016-10-03 02:07:45\",\n   \"id\": 5,\n   \"images\": [\n       {\n           \"origin\": \"uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg\",\n           \"thumb\": \"uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg\"\n       }\n       ]\n    },\n   \"message\": \"Succesfully.\",\n   \"error\": 0\n   }",
           "type": "json"
         }
       ]
@@ -439,20 +441,34 @@ define({ "api": [
     "groupTitle": "Event"
   },
   {
-    "type": "delete",
-    "url": "api.events.get.delete",
-    "title": "Delete Event",
-    "name": "Delete_Event",
+    "type": "post",
+    "url": "http://line-matching.dev.bap.jp/api/v1/prevents",
+    "title": "CreatEventPrPoint",
+    "name": "CreatEventPrPoint",
     "group": "Event",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "images",
+            "description": "<p>Images of EventPrPoint</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Content of EventPrPoint</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "integer",
             "optional": false,
-            "field": "Event_id",
-            "description": "<p>ID Event</p>"
+            "field": "event_id",
+            "description": "<p>ID_Event</p>"
           }
         ]
       }
@@ -473,24 +489,339 @@ define({ "api": [
             "optional": false,
             "field": "date",
             "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n\"status\": 201,\n\"data\": {\n   \"event_id\": 1,\n   \"content\": \"Quảng cáo Nhà Hàng\",\n   \"updated_at\": \"2016-10-03 04:02:52\",\n   \"created_at\": \"2016-10-03 04:02:52\",\n   \"id\": 4,\n   \"images\": [\n       {\n           \"origin\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/4-14754673726UJOqRPC0ErVRMJK.jpg\",\n           \"thumb\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/4-14754673726UJOqRPC0ErVRMJK.jpg\"\n       }\n   ]\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/PrPointController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "post",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}/join",
+    "title": "CreatJoinEvent",
+    "name": "CreatJoinEvent",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_event",
+            "description": "<p>ID-Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "is_join",
+            "description": "<p>Stustus|1:join|0:leave|-2:block</p>"
           }
         ]
       }
     },
-    "examples": [
-      {
-        "title": "Response:",
-        "content": "{\n \"status\": 200,\n\"data\": true,\n \"message\": \"Succesfully.\",\n \"error\": null\n}",
-        "type": "json"
-      }
-    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "Message",
+            "description": "<p>Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of Request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response ",
+          "content": "{\n\"status\": 201,\n\"data\": null,\n\"message\": \"Succesfully.\",\n\"error\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/Http/Controllers/Api/EventsController.php",
     "groupTitle": "Event"
   },
   {
     "type": "delete",
-    "url": "api.events.get.leave",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}",
+    "title": "DeleteEvent",
+    "name": "DeleteEvent",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_event",
+            "description": "<p>ID_Event</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>EventData</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of Request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": " {\n   \"status\": 200,\n\"data\": true,\n\"message\": \"Succesfully.\",\n\"error\": null\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "delete",
+    "url": "http://line-matching.dev.bap.jp/api/v1/prevents/{id}",
+    "title": "DeleteEventPrPoint",
+    "name": "DeleteEventPrPoint",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_events_pr_points",
+            "description": "<p>ID-events_pr_points</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>EventData</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of Request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": " {\n   \"status\": 200,\n\"data\": true,\n\"message\": \"Succesfully.\",\n\"error\": null\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/PrPointController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}",
+    "title": "GetDetailEvent",
+    "name": "GetDetailEvent",
+    "group": "Event",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data_Event</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "Message",
+            "description": "<p>Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n\"status\": 200,\n\"data\": {\n\"id\": 1,\n\"cat_id\": \"1\",\n\"name\": \"Happy New Year\",\n\"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n\"description\": \"25.1214581\",\n\"images\": [\n    {\n        \"origin\": \"uploads/images/event/origin/1-1475312974iupLRHMHScNP8I86.jpg\",\n        \"thumb\": \"uploads/images/event/thumb/1-1475312974iupLRHMHScNP8I86.jpg\"\n    }\n],\n\"user_id\": 0,\n\"long\": \"12.25365000\",\n\"lag\": \"25.12145810\",\n\"group_id\": \"0\",\n\"status\": \"1\",\n\"date_start\": \"0000-00-00 00:00:00\",\n\"date_end\": \"0000-00-00 00:00:00\",\n\"user_max\": \"50\",\n\"created_at\": \"2016-10-01 09:09:33\",\n\"updated_at\": \"2016-10-01 09:38:16\"\n},\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/prevents/{id}",
+    "title": "GetDetailEventPrPoint",
+    "name": "GetDetailEventPrPoint",
+    "group": "Event",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data_Event</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "Message",
+            "description": "<p>Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "  {\n \"status\": 200,\n \"data\": {\n     \"id\": 2,\n     \"event_id\": 2,\n     \"content\": \"Store Telephone\",\n     \"images\": [\n         {\n             \"origin\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/2-1475317232ymZDa1oT5epxaeqk.jpg\",\n             \"thumb\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/2-1475317232ymZDa1oT5epxaeqk.jpg\"\n         }\n     ],\n     \"created_at\": \"2016-10-01 10:20:32\",\n     \"updated_at\": \"2016-10-01 10:20:32\"\n },\n \"message\": \"Succesfully.\",\n \"error\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/PrPointController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "delete",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/join/{id}",
     "title": "LeaveEvent",
     "name": "LeaveEvent",
     "group": "Event",
@@ -502,7 +833,258 @@ define({ "api": [
             "type": "integer",
             "optional": false,
             "field": "id_events_users_maps",
-            "description": "<p>ID-events_users_maps</p>"
+            "description": "<p>ID_events_users_maps</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>EventData</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>of Request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n  \"status\": 200,\n  \"data\": true,\n  \"message\": \"Succesfully.\",\n \"error\": null\n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events",
+    "title": "ListEvent",
+    "name": "ListEvent",
+    "group": "Event",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Event_Data</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n   \"status\": 200,\n   \"data\": [\n   {\n       \"id\": 2,\n       \"cat_id\": \"1\",\n       \"name\": \"Happy Birthday\",\n       \"address\": \"105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n       \"description\": \"Birth good\",\n       \"images\": [\n           {\n               \"origin\": \"uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg\",\n               \"thumb\": \"uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg\"\n           }\n       ],\n       \"user_id\": 0,\n       \"long\": \"99.99999999\",\n       \"lag\": \"16.04922300\",\n       \"group_id\": \"0\",\n       \"status\": \"1\",\n       \"date_start\": \"0000-00-00 00:00:00\",\n       \"date_end\": \"0000-00-00 00:00:00\",\n       \"user_max\": \"50\",\n       \"created_at\": \"2016-10-01 09:15:59\",\n       \"updated_at\": \"2016-10-01 09:16:00\"\n   },\n   {\n       \"id\": 5,\n       \"cat_id\": \"1\",\n       \"name\": \"SeaGame\",\n       \"address\": \"105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n       \"description\": \"Soccer, tennis\",\n       \"images\": [\n           {\n               \"origin\": \"uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg\",\n               \"thumb\": \"uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg\"\n           }\n       ],\n       \"user_id\": 1,\n       \"long\": \"99.99999999\",\n       \"lag\": \"16.04922300\",\n       \"group_id\": \"1\",\n       \"status\": \"1\",\n       \"date_start\": \"0000-00-00 00:00:00\",\n       \"date_end\": \"0000-00-00 00:00:00\",\n       \"user_max\": \"50\",\n       \"created_at\": \"2016-10-03 02:07:45\",\n       \"updated_at\": \"2016-10-03 02:07:45\"\n   }\n   ],\n   \"message\": \"Succesfully.\"\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/prevents",
+    "title": "ListEventPrPoint",
+    "name": "ListEventPrPoint",
+    "group": "Event",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>EventPrPoiny_Data</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "  {\n\"status\": 200,\n\"data\": [\n    {\n        \"id\": 2,\n        \"event_id\": 2,\n        \"content\": \"Store Telephone\",\n        \"images\": [\n            {\n                \"origin\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/2-1475317232ymZDa1oT5epxaeqk.jpg\",\n                \"thumb\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/2-1475317232ymZDa1oT5epxaeqk.jpg\"\n            }\n        ],\n        \"created_at\": \"2016-10-01 10:20:32\",\n        \"updated_at\": \"2016-10-01 10:20:32\"\n    },\n    {\n        \"id\": 4,\n        \"event_id\": 1,\n        \"content\": \"Quảng cáo Nhà Hàng\",\n        \"images\": [\n            {\n                \"origin\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/4-14754673726UJOqRPC0ErVRMJK.jpg\",\n                \"thumb\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/4-14754673726UJOqRPC0ErVRMJK.jpg\"\n            }\n        ],\n        \"created_at\": \"2016-10-03 04:02:52\",\n        \"updated_at\": \"2016-10-03 04:02:52\"\n    }\n ],\n\"message\": \"Succesfully.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/PrPointController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "post",
+    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}",
+    "title": "UpdateEvent",
+    "name": "UpdateEvent",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Description_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "address",
+            "description": "<p>Address_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "images",
+            "description": "<p>Images_Event</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "long",
+            "description": "<p>Latitude</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "lag",
+            "description": "<p>Longitude</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Event_Data</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n\"status\": 201,\n\"data\": {\n\"id\": 1,\n\"cat_id\": \"1\",\n\"name\": \"Happy New Year\",\n\"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n\"description\": \"25.1214581\",\n\"images\": [\n    {\n        \"origin\": \"uploads/images/event/origin/1-1475312974iupLRHMHScNP8I86.jpg\",\n        \"thumb\": \"uploads/images/event/thumb/1-1475312974iupLRHMHScNP8I86.jpg\"\n    }\n],\n\"user_id\": 0,\n\"long\": \"12.25365000\",\n\"lag\": \"25.12145810\",\n\"group_id\": \"0\",\n\"status\": \"1\",\n\"date_start\": \"0000-00-00 00:00:00\",\n\"date_end\": \"0000-00-00 00:00:00\",\n\"user_max\": \"50\",\n\"created_at\": \"2016-10-01 09:09:33\",\n\"updated_at\": \"2016-10-01 09:38:16\"\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Event"
+  },
+  {
+    "type": "post",
+    "url": "http://line-matching.dev.bap.jp/api/v1/prevents/{id}",
+    "title": "UpdateEventPrPoint",
+    "name": "UpdateEventPrPoint",
+    "group": "Event",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_events_pr_points",
+            "description": "<p>ID-events_pr_points</p>"
           }
         ]
       }
@@ -521,7 +1103,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "Object",
             "optional": false,
-            "field": "data",
+            "field": "date",
             "description": "<p>Date Response</p>"
           },
           {
@@ -529,331 +1111,27 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "message",
-            "description": "<p>status Response</p>"
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Response:",
-          "content": "{\n  \"status\": 201,\n  \"data\": true,\n  \"message\": \"Succesfully.\",\n  \"error\": 0\n  }",
+          "title": "Response",
+          "content": "   {\n\"status\": 201,\n   \"data\": {\n   \"id\": 1,\n   \"event_id\": 1,\n   \"content\": \"Quảng cáo Nhà Hàng\",\n   \"images\": [\n       {\n           \"origin\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/1-1475317169BOYNeuo5NYWGVKHx.jpg\",\n           \"thumb\": \"http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/1-1475317169BOYNeuo5NYWGVKHx.jpg\"\n       }\n   ],\n   \"created_at\": \"2016-10-01 10:19:29\",\n   \"updated_at\": \"2016-10-01 10:19:29\"\n   },\n   \"message\": \"Succesfully.\",\n   \"error\": 0\n   }",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventsController.php",
-    "groupTitle": "Event"
-  },
-  {
-    "type": "get",
-    "url": "api.events.get.index",
-    "title": "List Event",
-    "name": "ListEvent",
-    "group": "Event",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID-User</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "event_id",
-            "description": "<p>ID-Event</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "status",
-            "description": "<p>Status Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>Date Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "address",
-            "description": "<p>Address of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Description of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "images",
-            "description": "<p>Images of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "long",
-            "description": "<p>Latitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "lag",
-            "description": "<p>Longitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "group_id",
-            "description": "<p>Event of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "date_start",
-            "description": "<p>Date start of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "date_end",
-            "description": "<p>Date finish of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "user_max",
-            "description": "<p>The maximum number people of events</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "    {\n    \"status\": 200,\n     \"data\": [\n      {\n        \"id\": 126,\n        \"cat_id\": \"1\",\n        \"name\": \"chan ga\",\n        \"address\": \"123 BC\",\n        \"description\": \"adfgfghsdf\",\n        \"images\": [\n            {\n                \"origin\": \"uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg\",\n                \"thumb\": \"uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg\"\n            }\n        ],\n        \"user_id\": 0,\n        \"long\": \"12.25365000\",\n        \"lag\": \"25.12145810\",\n        \"group_id\": \"0\",\n        \"status\": \"1\",\n        \"date_start\": \"0000-00-00 00:00:00\",\n        \"date_end\": \"0000-00-00 00:00:00\",\n        \"user_max\": \"40\",\n        \"created_at\": \"2016-09-28 06:42:01\",\n        \"updated_at\": \"2016-09-28 07:02:15\"\n    }\n],\n\"message\": \"Succesfully.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventsController.php",
-    "groupTitle": "Event"
-  },
-  {
-    "type": "put",
-    "url": "http://line-matching.dev.bap.jp/api/v1/events/{id}",
-    "title": "Update Event",
-    "name": "Upadate_Event",
-    "group": "Event",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID-User</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "event_id",
-            "description": "<p>ID- Event</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "status",
-            "description": "<p>status Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>Data Response</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n        \"status\": 201,\n        \"data\": {\n            \"id\": 126,\n            \"cat_id\": \"1\",\n            \"name\": \"chan ga\",\n            \"address\": \"123 BC\",\n            \"description\": \"adfgfghsdf\",\n            \"images\": [\n                {\n                    \"origin\": \"uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg\",\n                    \"thumb\": \"uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg\"\n                }\n            ],\n            \"user_id\": 0,\n            \"long\": \"12.25365000\",\n            \"lag\": \"25.12145810\",\n            \"group_id\": \"0\",\n            \"status\": \"1\",\n            \"date_start\": \"0000-00-00 00:00:00\",\n            \"date_end\": \"0000-00-00 00:00:00\",\n            \"user_max\": \"40\",\n            \"created_at\": \"2016-09-28 06:42:01\",\n            \"updated_at\": \"2016-09-28 07:02:15\"\n        },\n        \"message\": \"Succesfully.\",\n        \"error\": 0\n        }",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventsController.php",
-    "groupTitle": "Event"
-  },
-  {
-    "type": "get",
-    "url": "api.events.get.show",
-    "title": "View",
-    "name": "View",
-    "group": "Event",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID-User</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "event_id",
-            "description": "<p>ID-Event</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "status",
-            "description": "<p>Status Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>Date Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "address",
-            "description": "<p>Address of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Description of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "images",
-            "description": "<p>Images of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "long",
-            "description": "<p>Latitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "lag",
-            "description": "<p>Longitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "group_id",
-            "description": "<p>Event of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "date_start",
-            "description": "<p>Date start of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "date_end",
-            "description": "<p>Date finish of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "user_max",
-            "description": "<p>The maximum number people of events</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": " {\n\"status\": 200,\n\"data\": {\n    \"id\": 125,\n    \"cat_id\": \"1\",\n    \"name\": \"Thi chim canh\",\n    \"address\": \"109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam\",\n    \"description\": \"Xem những con chim chơi hay nhất\",\n    \"images\": [\n        {\n            \"origin\": \"uploads/images/event/origin/125-1474960304qb6Hb87UaEieHbrr.jpg\",\n            \"thumb\": \"uploads/images/event/thumb/125-1474960304qb6Hb87UaEieHbrr.jpg\"\n        }\n    ],\n    \"user_id\": 0,\n    \"long\": \"12.25365000\",\n    \"lag\": \"25.12145810\",\n    \"group_id\": \"0\",\n    \"status\": \"1\",\n    \"date_start\": \"0000-00-00 00:00:00\",\n    \"date_end\": \"0000-00-00 00:00:00\",\n    \"user_max\": \"50\",\n    \"created_at\": \"2016-09-27 07:11:44\",\n    \"updated_at\": \"2016-09-27 07:11:44\"\n},\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "filename": "app/Http/Controllers/Api/PrPointController.php",
     "groupTitle": "Event"
   },
   {
@@ -992,13 +1270,20 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "api.group.join.post.create",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups/{id}/join",
     "title": "CreateJoinGroup",
     "name": "CreatJoinGroup",
     "group": "Group",
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "id_group",
+            "description": "<p>ID_Group</p>"
+          },
           {
             "group": "Parameter",
             "type": "integer",
@@ -1032,6 +1317,13 @@ define({ "api": [
             "optional": false,
             "field": "message",
             "description": "<p>status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
@@ -1049,8 +1341,8 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "api.group.post.create",
-    "title": "Creat Group",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups",
+    "title": "CreatGroup",
     "name": "Creat_Group",
     "group": "Group",
     "parameter": {
@@ -1083,6 +1375,13 @@ define({ "api": [
             "optional": false,
             "field": "user_id",
             "description": "<p>ID of User</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "integer",
+            "optional": false,
+            "field": "user_max",
+            "description": "<p>The maximum number people of Group</p>"
           },
           {
             "group": "Parameter",
@@ -1136,50 +1435,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "string",
             "optional": false,
-            "field": "name",
-            "description": "<p>Name Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "leader_max",
-            "description": "<p>The maximum number people of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID of User</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "Description",
-            "description": "<p>of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "Image",
-            "description": "<p>of Group</p>"
+            "field": "message",
+            "description": "<p>Message Response</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "long",
-            "description": "<p>Latitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "lag",
-            "description": "<p>Longitude</p>"
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
@@ -1197,9 +1461,9 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "api.group.get.delete",
-    "title": "Delete Group",
-    "name": "Delete_Group",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups/{id}",
+    "title": "DeleteGroup",
+    "name": "DeleteGroup",
     "group": "Group",
     "parameter": {
       "fields": {
@@ -1230,6 +1494,20 @@ define({ "api": [
             "optional": false,
             "field": "date",
             "description": "<p>Date Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       }
@@ -1247,7 +1525,7 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "api.group.get.leave",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups/join/{id}",
     "title": "LeaveGroup",
     "name": "LeaveGroup",
     "group": "Group",
@@ -1287,6 +1565,13 @@ define({ "api": [
             "optional": false,
             "field": "message",
             "description": "<p>status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
@@ -1304,9 +1589,60 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api.group.get.show",
-    "title": "List Group",
-    "name": "List_Group",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups",
+    "title": "ListGroup",
+    "name": "ListGroup",
+    "group": "Group",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message Response</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error of request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "  {\n\"status\": 200,\n\"data\": [\n   {\n       \"id\": 1,\n       \"name\": \"Group great\",\n       \"images\": [\n           {\n               \"origin\": \"uploads/images/groups/origin/1-1475464381NlUlKOiBRkLjqwra.jpg\",\n               \"thumb\": \"uploads/images/groups/thumb/1-1475464381NlUlKOiBRkLjqwra.jpg\"\n           }\n       ],\n       \"leader_max\": \"50\",\n       \"user_max\": \"50\",\n       \"user_id\": 1,\n       \"description\": \"descripton of the group\",\n       \"status\": \"0\",\n       \"lag\": \"15.24554100\",\n       \"long\": \"21.25400000\",\n       \"created_at\": \"2016-10-03 10:12:49\",\n       \"updated_at\": \"2016-10-03 03:13:01\"\n   },\n   {\n       \"id\": 2,\n       \"name\": \"Group great\",\n       \"images\": [\n           {\n               \"origin\": \"uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg\",\n               \"thumb\": \"uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg\"\n           }\n       ],\n       \"leader_max\": \"50\",\n       \"user_max\": \"50\",\n       \"user_id\": 1,\n       \"description\": \"descripton of the group\",\n       \"status\": \"1\",\n       \"lag\": \"15.24554100\",\n       \"long\": \"21.25400000\",\n       \"created_at\": \"2016-10-03 10:15:29\",\n       \"updated_at\": \"2016-10-03 03:15:41\"\n   }\n ],\n \"message\": \"Succesfully.\"\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/Api/GroupsController.php",
+    "groupTitle": "Group"
+  },
+  {
+    "type": "get",
+    "url": "http://line-matching.dev.bap.jp/api/v1/groups/{id}",
+    "title": "getDetailGroup",
+    "name": "getDetailGroup",
     "group": "Group",
     "parameter": {
       "fields": {
@@ -1315,14 +1651,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "integer",
             "optional": false,
-            "field": "user_id",
-            "description": "<p>ID-User</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "group_id",
+            "field": "id_group",
             "description": "<p>ID-Group</p>"
           }
         ]
@@ -1349,163 +1678,22 @@ define({ "api": [
             "group": "Success 200",
             "type": "string",
             "optional": false,
-            "field": "name",
-            "description": "<p>Name of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Description of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "images",
-            "description": "<p>Images of Group</p>"
+            "field": "message",
+            "description": "<p>Message Response</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
-            "field": "long",
-            "description": "<p>Latitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "lag",
-            "description": "<p>Longitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "group_id",
-            "description": "<p>ID of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "leader_max",
-            "description": "<p>Date start of Event</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "user_max",
-            "description": "<p>The maximum number people of events</p>"
+            "field": "error",
+            "description": "<p>Error of request</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Response:",
-          "content": " {\n\"status\": 200,\n\"data\": [\n    {\n        \"id\": 1,\n        \"name\": \"My Group\",\n        \"images\": null,\n        \"leader_max\": \"4\",\n        \"user_max\": \"50\",\n        \"user_id\": 1,\n        \"description\": \"My Group \",\n        \"status\": \"1\",\n        \"lag\": \"41.00000000\",\n        \"long\": \"-74.00000000\",\n        \"created_at\": \"2016-09-15 15:34:52\",\n        \"updated_at\": \"-0001-11-30 00:00:00\"\n    },\n     {\n        \"id\": 83,\n        \"name\": \"Group great\",\n        \"images\": [\n            {\n                \"origin\": \"uploads/images/groups/origin/-1475049970VCstKCBvpA0qynZu.jpg\",\n                \"thumb\": \"uploads/images/groups/thumb/-1475049970VCstKCBvpA0qynZu.jpg\"\n            }\n        ],\n        \"leader_max\": \"50\",\n        \"user_max\": \"50\",\n        \"user_id\": 1,\n        \"description\": \"descripton of the group\",\n        \"status\": \"0\",\n        \"lag\": \"15.24554100\",\n        \"long\": \"21.25400000\",\n        \"created_at\": \"2016-09-28 08:06:10\",\n        \"updated_at\": \"2016-09-28 08:06:10\"\n    }\n],\n\"message\": \"Succesfully.\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "app/Http/Controllers/Api/GroupsController.php",
-    "groupTitle": "Group"
-  },
-  {
-    "type": "get",
-    "url": "api.group.get.show",
-    "title": "View",
-    "name": "View",
-    "group": "Group",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "integer",
-            "optional": false,
-            "field": "group_id",
-            "description": "<p>ID-Group</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "status",
-            "description": "<p>Status Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>Data Response</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "images",
-            "description": "<p>Image of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "leader_max",
-            "description": "<p>The maximum number people of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "integer",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>ID-User</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "string",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Description of Group</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "long",
-            "description": "<p>Latitude</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "lag",
-            "description": "<p>Longitude</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response:",
-          "content": "{\n \"status\": 200,\n \"data\": {\n \"id\": 62,\n \"name\": \"Group great\",\n \"images\": null,\n \"leader_max\": \"50\",\n \"user_max\": \"50\",\n \"user_id\": 1,\n \"description\": \"descripton of the group\",\n \"status\": \"1\",\n \"lag\": \"0.00000000\",\n \"long\": \"0.00000000\",\n \"created_at\": \"2016-09-23 04:42:14\",\n \"updated_at\": \"2016-09-23 04:42:14\"\n },\n \"message\": \"Succesfully.\",\n \"error\": null\n }",
+          "content": "{\n\"status\": 200,\n\"data\": {\n   \"id\": 2,\n   \"name\": \"Group great\",\n   \"images\": [\n       {\n           \"origin\": \"uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg\",\n           \"thumb\": \"uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg\"\n       }\n   ],\n   \"leader_max\": \"50\",\n   \"user_max\": \"50\",\n   \"user_id\": 1,\n   \"description\": \"descripton of the group\",\n   \"status\": \"1\",\n   \"lag\": \"15.24554100\",\n   \"long\": \"21.25400000\",\n   \"created_at\": \"2016-10-03 10:15:29\",\n   \"updated_at\": \"2016-10-03 03:15:41\"\n},\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
           "type": "json"
         }
       ]

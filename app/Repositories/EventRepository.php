@@ -1,7 +1,8 @@
 <?php
 namespace App\Repositories;
-
 use App\Models\Event;
+use App\Models\Group;
+use App\Models\EventCategory;
 use App\Models\EventsUsersMaps;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
@@ -23,10 +24,19 @@ class EventRepository extends AbstractRepository
         $this->model = $event;
         $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
-    function eventsList($userId){
+   /* function eventsList($userId){
         return $this->prepareQuery()->get();
+    } */  
+         /**
+     * Get list event categories.
+     *
+     *
+     * @return array
+     */
+    public function index($page = 0, $attributes = ['*']){
+       $result = $this->paginate($attributes); 
+       return  $result->toArray();
     }
-
      /**
      * create event.
      *
@@ -54,6 +64,7 @@ class EventRepository extends AbstractRepository
              $upload = $this->__postImageEvent($cevent,$param['images']);
              $image = $cevent->images;
              $cevent->images =$upload;
+             $cevent->images =  transfer_url_images($cevent->images); 
              $cevent->save();
               if (! empty($image)) {
                 event(new DeleteImageEvent($image));
@@ -113,5 +124,16 @@ class EventRepository extends AbstractRepository
         }  
          return $data;
     }
-    
+
+    /**
+     * Get list event.
+     * @return array
+     */
+     function getindexall($page = 0, $attributes = ['*']){
+        $filterevent = ['group_id','images','date_start','name','user_max','id','cat_id'];
+        $result = $this->model->select($filterevent)->with(['groups' => function($q){$q->select('id','name');},
+                                                            'category' => function($c) {$c->select('id','name');}])->get();
+        return $result;
+
+        }   
 }

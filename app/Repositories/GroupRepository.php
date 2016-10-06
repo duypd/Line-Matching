@@ -19,9 +19,19 @@ class GroupRepository extends AbstractRepository
     {
         $this->model = $group;
     }
-    function eventsList($userId){
+   /* function eventsList($userId){
 
         return $this->prepareQuery()->get();
+    }*/
+        /**
+     * Get list event categories.
+     *
+     *
+     * @return array
+     */
+    public function index($page = 0, $attributes = ['*']){
+       $result = $this->paginate($attributes); 
+       return  $result->toArray();
     }
     /**
      * Create a group
@@ -47,8 +57,8 @@ class GroupRepository extends AbstractRepository
          if (!empty($param['images'])) {
              $upload = $this->__postImageGroup($group,$param['images']);
              $image = $group->images;
-             $group->images =$upload;
-             // $event->images =  transfer_url_images_lists($event->images);
+             $group->images =$upload;  
+             $group->images =  transfer_url_images($group->images); 
              $group->save();
               if (! empty($image)) {
                 event(new DeleteImageEvent($image));
@@ -75,6 +85,12 @@ class GroupRepository extends AbstractRepository
         $UGroup->status = !empty($params['leader_max']) ? $params['leader_max']: $UGroup->status;
         $UGroup->save();
         return $UGroup;
+        $upload = $this->__postImageGroup($UGroup,$params['images']);
+        if(!empty($params['images'])){
+            $image = $UGroup->images;
+            $UGroup->images =$upload;
+            $UGroup->save();
+        }
     }
         /**
      * Delete a record Group.
@@ -119,6 +135,12 @@ class GroupRepository extends AbstractRepository
         }      
          return $data;
     }
-
-
+    /**
+     * Get list group.
+     * @return array
+     */
+     function getindex($page = 0, $attributes = ['*']){
+        $result = $this->with('event')->paginate($attributes);
+        return $result->toArray();
+    }
 }

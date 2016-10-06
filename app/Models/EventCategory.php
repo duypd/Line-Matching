@@ -17,8 +17,7 @@ class EventCategory extends Model
      *
      * @var array
      */
-    protected $fillable = [
-    ];
+    protected $fillable = ['id','name'];
 
     /**
      * The attributes that should be casted to native types.
@@ -33,6 +32,6 @@ class EventCategory extends Model
      */
     public function Events()
     {
-        return $this->hasMany(Events::class);
+        return $this->hasMany(Event::class,'cat_id');
     }
 }

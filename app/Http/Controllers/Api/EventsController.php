@@ -41,40 +41,51 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-     *  @api {post} http://line-matching.dev.bap.jp/api/v1/events Creat Events
-     *  @apiName Creat Event
-     *  @apiGroup Event
-     *  @apiParam {integer} user_id ID-User
-     *  @apiParam {integer} event_id ID- Event
-     *  @apiSuccess {Number}  status Status Response
-     *  @apiSuccess {Object} data Data Response
-     *  @apiSuccessExample Response:
-     *  {
-     *  "status": 201,
-     *  "data": {
-     *     "name": "Thi chim canh",
-     *     "description": "Xem những con chim chơi hay nhất",
-     *     "long": "12.25365",
-     *     "lag": "25.1214581",
-     *     "address": "109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
-     *     "cat_id": "1",
-     *     "user_max": "50",
-     *     "status": 1,
-     *     "updated_at": "2016-09-28 06:42:01",
-     *     "created_at": "2016-09-28 06:42:01",
-     *     "id": 126,
-     *     "images": [
-     *         {
-     *             "origin": "uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg",
-     *             "thumb": "uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg"
-     *         }
-     *     ]
-     *     },
-     *  "message": "Succesfully.",
-     *   "error": 0
-     *    }   
+     @api {post} http://line-matching.dev.bap.jp/api/v1/events CreatEvent
+     @apiName CreatEvent
+     @apiGroup Event
+     @apiParam {integer} user_id ID-User
+     @apiParam {string} name Name Event
+     @apiParam {string} description Description_Event
+     @apiParam {string} address Address_Event
+     @apiParam {Number} user_max User_max_Event
+     @apiParam {Number} cat_id ID_category
+     @apiParam {string} images Images_Event
+     @apiParam {Number} long  Latitude
+     @apiParam {Number} lag  Longitude
+     @apiParam {string} status Status_Event
+     @apiSuccess {string} status Status Response
+     @apiSuccess {Object} data Event_Data
+     @apiSuccess {string} message Message Response
+     @apiSuccess {Number} error Error of request
+     @apiSuccessExample Response
+     {
+        "status": 201,
+        "data": {
+        "name": "SeaGame",
+        "description": "Soccer, tennis",
+        "address": "105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
+        "user_max": "50",
+        "cat_id": "1",
+        "long": "108.220808",
+        "lag": "16.049223",
+        "status": 1,
+        "user_id": 1,
+        "group_id": "1",
+        "updated_at": "2016-10-03 02:07:45",
+        "created_at": "2016-10-03 02:07:45",
+        "id": 5,
+        "images": [
+            {
+                "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
+                "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
+            }
+            ]
+         },
+        "message": "Succesfully.",
+        "error": 0
+        } 
      */
-    
     public function postCreate(CreateEventRequest $request)
     {   
         $user   = array(); // get_current_user_by_token();
@@ -90,46 +101,52 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-     *@api {put} http://line-matching.dev.bap.jp/api/v1/events/{id} Update Event
-     *@apiName Upadate Event
-     *@apiGroup Event
-     *@apiParam {integer} user_id ID-User
-     *@apiParam {integer} event_id ID- Event
-     *@apiSuccess {Number} status  status Response
-     *@apiSuccess {Object} data    Data Response
-     *@apiSuccessExample  Response:
-     *{
+     @api {post} http://line-matching.dev.bap.jp/api/v1/events/{id} UpdateEvent
+     @apiName UpdateEvent
+     @apiGroup Event
+     @apiParam {string} name Name Event
+     @apiParam {string} description Description_Event
+     @apiParam {string} address Address_Event
+     @apiParam {string} images Images_Event
+     @apiParam {Number} long  Latitude
+     @apiParam {Number} lag  Longitude
+     @apiSuccess {string} status Status Response
+     @apiSuccess {Object} data Event_Data
+     @apiSuccess {string} message Message Response
+     @apiSuccess {Number} error Error of request
+     @apiSuccessExample Response
+        {
         "status": 201,
         "data": {
-            "id": 126,
-            "cat_id": "1",
-            "name": "chan ga",
-            "address": "123 BC",
-            "description": "adfgfghsdf",
-            "images": [
-                {
-                    "origin": "uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg",
-                    "thumb": "uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg"
-                }
-            ],
-            "user_id": 0,
-            "long": "12.25365000",
-            "lag": "25.12145810",
-            "group_id": "0",
-            "status": "1",
-            "date_start": "0000-00-00 00:00:00",
-            "date_end": "0000-00-00 00:00:00",
-            "user_max": "40",
-            "created_at": "2016-09-28 06:42:01",
-            "updated_at": "2016-09-28 07:02:15"
+        "id": 1,
+        "cat_id": "1",
+        "name": "Happy New Year",
+        "address": "109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
+        "description": "25.1214581",
+        "images": [
+            {
+                "origin": "uploads/images/event/origin/1-1475312974iupLRHMHScNP8I86.jpg",
+                "thumb": "uploads/images/event/thumb/1-1475312974iupLRHMHScNP8I86.jpg"
+            }
+        ],
+        "user_id": 0,
+        "long": "12.25365000",
+        "lag": "25.12145810",
+        "group_id": "0",
+        "status": "1",
+        "date_start": "0000-00-00 00:00:00",
+        "date_end": "0000-00-00 00:00:00",
+        "user_max": "50",
+        "created_at": "2016-10-01 09:09:33",
+        "updated_at": "2016-10-01 09:38:16"
         },
         "message": "Succesfully.",
         "error": 0
-        }  
+        }
      */
     
     public function postUpdate($id, UpdateEventRequest $request)
-    {   
+    {  
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
@@ -143,20 +160,23 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
      /**
-      *@api {delete} api.events.get.delete Delete Event
-      *@apiName Delete Event
-      *@apiGroup Event
-      *@apiParam {integer} Event_id ID Event       
-      *@apiSuccess {Number} status Status Response
-      *@apiSuccess {Object} date   Date Response
-      *@apiExample Response:
-      *{
-      *  "status": 200,
-      * "data": true,
-      *  "message": "Succesfully.",
-      *  "error": null
-      * }
+      @api {delete} http://line-matching.dev.bap.jp/api/v1/events/{id} DeleteEvent
+      @apiName DeleteEvent
+      @apiGroup Event
+      @apiParam {integer} id_event ID_Event
+      @apiSuccess {string} status Status Response
+      @apiSuccess {Object} data EventData
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} Error of Request
+      @apiSuccessExample Response
+      {
+        "status": 200,
+     "data": true,
+     "message": "Succesfully.",
+     "error": null
+        }
       */
+     
     public function delete($id)
     {
         $Id = $this->eventRepository->delete($id);
@@ -174,58 +194,70 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    
     /**
-     *@api {get} api.events.get.index List Event
-     *@apiName ListEvent
-     *@apiGroup Event
-        @apiParam {integer} user_id ID-User
-        @apiParam {integer} event_id ID-Event
-        @apiSuccess {Number} status Status Response
-        @apiSuccess {Object} data Date Response
-        @apiSuccess {string} name Name of Event
-        @apiSuccess {string} address Address of Event
-        @apiSuccess {string} description Description of Event
-        @apiSuccess {string} images Images of Event
-        @apiSuccess {Number} long  Latitude
-        @apiSuccess {Number}  lag  Longitude
-        @apiSuccess {integer} group_id Event of Group
-        @apiSuccess {Number}  date_start Date start of Event
-        @apiSuccess {Number}  date_end Date finish of Event
-        @apiSuccess {integer} user_max The maximum number people of events
-
-        @apiSuccessExample Response:
-        {
+     @api {get} http://line-matching.dev.bap.jp/api/v1/events ListEvent
+     @apiName ListEvent
+     @apiGroup Event
+     @apiSuccess {string} status Status Response
+     @apiSuccess {Object} data Event_Data
+     @apiSuccess {string} message Message Response
+     @apiSuccessExample Response
+     {
         "status": 200,
-         "data": [
-          {
-            "id": 126,
+        "data": [
+        {
+            "id": 2,
             "cat_id": "1",
-            "name": "chan ga",
-            "address": "123 BC",
-            "description": "adfgfghsdf",
+            "name": "Happy Birthday",
+            "address": "105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
+            "description": "Birth good",
             "images": [
                 {
-                    "origin": "uploads/images/event/origin/126-1475044921rTpHaqbGFKqvRsqz.jpg",
-                    "thumb": "uploads/images/event/thumb/126-1475044921rTpHaqbGFKqvRsqz.jpg"
+                    "origin": "uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg",
+                    "thumb": "uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg"
                 }
             ],
             "user_id": 0,
-            "long": "12.25365000",
-            "lag": "25.12145810",
+            "long": "99.99999999",
+            "lag": "16.04922300",
             "group_id": "0",
             "status": "1",
             "date_start": "0000-00-00 00:00:00",
             "date_end": "0000-00-00 00:00:00",
-            "user_max": "40",
-            "created_at": "2016-09-28 06:42:01",
-            "updated_at": "2016-09-28 07:02:15"
+            "user_max": "50",
+            "created_at": "2016-10-01 09:15:59",
+            "updated_at": "2016-10-01 09:16:00"
+        },
+        {
+            "id": 5,
+            "cat_id": "1",
+            "name": "SeaGame",
+            "address": "105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
+            "description": "Soccer, tennis",
+            "images": [
+                {
+                    "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
+                    "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
+                }
+            ],
+            "user_id": 1,
+            "long": "99.99999999",
+            "lag": "16.04922300",
+            "group_id": "1",
+            "status": "1",
+            "date_start": "0000-00-00 00:00:00",
+            "date_end": "0000-00-00 00:00:00",
+            "user_max": "50",
+            "created_at": "2016-10-03 02:07:45",
+            "updated_at": "2016-10-03 02:07:45"
         }
-    ],
-    "message": "Succesfully."
-    }
+        ],
+        "message": "Succesfully."
+        }
      */
     
-    public function index()
+  /*  public function index()
     {
 
         return Response::json([
@@ -233,44 +265,44 @@ class EventsController extends Controller
             'data'      => $this->eventRepository->eventsList(1),
             'message'   => trans('messages.success')
         ]);
-    }
-    
+    }*/
      /**
-    getShow
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+     public function getIndex()
+    {
+        $event = $this->eventRepository->index(0,['*']);
+        return $this->buildResponseSuccess($event);
+       
+    }
+     /**
+    getDetailEvent
     @param int $id
     @return \Illuminate\Http\JsonResponse
     */
-    /**
-     *@api {get} api.events.get.show View
-     *@apiName View 
-     *@apiGroup Event
-     @apiParam {integer} user_id ID-User
-     @apiParam {integer} event_id ID-Event
-     @apiSuccess {Number} status Status Response
-     @apiSuccess {Object} data Date Response
-     @apiSuccess {string} name Name of Event
-     @apiSuccess {string} address Address of Event
-     @apiSuccess {string} description Description of Event
-     @apiSuccess {string} images Images of Event
-     @apiSuccess {Number} long  Latitude
-     @apiSuccess {Number}  lag  Longitude
-     @apiSuccess {integer} group_id Event of Group
-     @apiSuccess {Number}  date_start Date start of Event
-     @apiSuccess {Number}  date_end Date finish of Event
-     @apiSuccess {integer} user_max The maximum number people of events
-     @apiSuccessExample Response:
-     {
-    "status": 200,
-    "data": {
-        "id": 125,
+   /**
+    @api {get} http://line-matching.dev.bap.jp/api/v1/events/{id} GetDetailEvent
+    @apiName GetDetailEvent
+    @apiGroup Event
+    @apiSuccess {string} status Status Response
+    @apiSuccess {Object} data Data_Event
+    @apiSuccess {string} Message Response
+    @apiSuccess {Number} Error of request
+    @apiSuccessExample Response
+        {
+        "status": 200,
+        "data": {
+        "id": 1,
         "cat_id": "1",
-        "name": "Thi chim canh",
+        "name": "Happy New Year",
         "address": "109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
-        "description": "Xem những con chim chơi hay nhất",
+        "description": "25.1214581",
         "images": [
             {
-                "origin": "uploads/images/event/origin/125-1474960304qb6Hb87UaEieHbrr.jpg",
-                "thumb": "uploads/images/event/thumb/125-1474960304qb6Hb87UaEieHbrr.jpg"
+                "origin": "uploads/images/event/origin/1-1475312974iupLRHMHScNP8I86.jpg",
+                "thumb": "uploads/images/event/thumb/1-1475312974iupLRHMHScNP8I86.jpg"
             }
         ],
         "user_id": 0,
@@ -281,15 +313,17 @@ class EventsController extends Controller
         "date_start": "0000-00-00 00:00:00",
         "date_end": "0000-00-00 00:00:00",
         "user_max": "50",
-        "created_at": "2016-09-27 07:11:44",
-        "updated_at": "2016-09-27 07:11:44"
-    },
-    "message": "Succesfully.",
-    "error": null
-    }
-     */
+        "created_at": "2016-10-01 09:09:33",
+        "updated_at": "2016-10-01 09:38:16"
+        },
+        "message": "Succesfully.",
+        "error": null
+        } 
+    */
+   
     
     public function getShow($id){
+        
         $events = $this->eventRepository->show($id);
         if(!empty($events)){
          return $this->buildResponseSuccess($events);   
@@ -299,23 +333,31 @@ class EventsController extends Controller
         }
         
     }
-    /**
-      @api {post} api.events.join.post.create CreateJoinEvent
-      @apiName CreatJoinEvent
-      @apiGroup Event
-      @apiParam {integer} is_join  Status 1:join | 0:leave | -2:block
-      @apiSuccess {Number} status Status Response
-      @apiSuccess {Object} data   Date Response
-      @apiSuccess {string} message status Response
-      @apiSuccessExample Response:
-      {
+   /**
+     * Create a JoinEvent.
+     *
+     * @param CreateJoinEventRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+   /**
+    @api {post} http://line-matching.dev.bap.jp/api/v1/events/{id}/join CreatJoinEvent
+    @apiName CreatJoinEvent
+    @apiGroup Event
+    @apiParam {integer} id_event ID-Event
+    @apiParam {integer} is_join Stustus|1:join|0:leave|-2:block
+    @apiSuccess {string} status Status Response
+    @apiSuccess {Object} data Data
+    @apiSuccess {string} Message Response
+    @apiSuccess {Number} Error of Request
+    @apiSuccessExample Response 
+        {
         "status": 201,
         "data": null,
         "message": "Succesfully.",
         "error": 0
         }
-     
-     */
+    */
+   
     
     public function postCreateJoinEvent($id,CreateJoinEventRequest $request){  
         $user   = array(); // get_current_user_by_token();
@@ -331,24 +373,25 @@ class EventsController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-     /**
-      @api {delete} api.events.get.leave LeaveEvent
+    /**
+      @api {delete} http://line-matching.dev.bap.jp/api/v1/events/join/{id} LeaveEvent
       @apiName LeaveEvent
       @apiGroup Event
-      @apiParam {integer} id_events_users_maps ID-events_users_maps
-      @apiSuccess {Number} status Status Response
-      @apiSuccess {Object} data   Date Response
-      @apiSuccess {string} message status Response
-      @apiSuccessExample Response:
+      @apiParam {integer} id_events_users_maps ID_events_users_maps
+      @apiSuccess {string} status Status Response
+      @apiSuccess {Object} data EventData
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} Error of Request
+      @apiSuccessExample Response
       {
-        "status": 201,
+        "status": 200,
         "data": true,
         "message": "Succesfully.",
-        "error": 0
-        }  
+       "error": null
+        }
       */
      
-      public function deleteleaveEvent($id)
+      public function deleteLeaveEvent($id)
     {
         $Id = $this->eventUserMapsRepository->delete($id);
         if(!empty($Id))
@@ -360,20 +403,5 @@ class EventsController extends Controller
 
         return $this->buildResponseSuccess($JoinId);
     }
-     /**
-     * Delete PrPoint.
-     * @param int $id
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-     /*public function deletePrPoint($id){
-        $Id = $this->eventPrPointRepository->delete($id);
-        if (!empty($Id)) {
-            return $this->buildResponseSuccess($Id);
-        } else {
-            return $this->buildResponseError()
-        }
-        return $this->buildResponseSuccess($PrPoint);
-     }*/
 }
 

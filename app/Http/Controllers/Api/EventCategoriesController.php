@@ -34,65 +34,27 @@ class EventCategoriesController extends Controller
 
     /**
      *
-     * @api {post} api/v1/create Create EventCategory
-     * @apiName Create EventCategory
+     * @api {post} http://line-matching.dev.bap.jp/api/v1/ecategories CreatEventCategory
+     * @apiName CreateEventCategory
      * @apiGroup EventCategory
-     * @apiParam {Integer} user_id ID USer
      * @apiParam {String} name Name eventCategory
      * @apiSuccess {Number} status Status Response
      * @apiSuccess {Object} data Data Response
-     * @apiSuccessExample Response:
-     *  {
-     *  "status": 200,
-     *  "data": {
-     *   "id": 34,
-     *   "id": 34,
-     *   "cat_id": "1",
-     *   "name": "Thi chim",
-     *   "address": "",
-     *   "description": "Xem những con chim chơi hay nhất",
-     *   "images": null,
-     *   "user_id": 0,
-     *   "long": "0.00000000",
-     *   "lag": "0.00000000",
-     *   "group_id": "0",
-     *   "status": "1",
-     *   "date_start": "0000-00-00 00:00:00",
-     *   "date_end": "0000-00-00 00:00:00",
-     *   "user_max": "50",
-     *   "created_at": "2016-09-22 11:34:48",
-     *   "updated_at": "2016-09-24 06:59:43"
-    },
+     @apiSuccess {string} message Message Response
+     @apiSuccess {Number} error Error of request
+     @apiSuccessExample Response:
+     {
+     "status": 201,
+        "data": {
+        "name": "Hayppy News Years",
+        "status": 1,
+        "updated_at": "2016-10-03 02:54:59",
+        "created_at": "2016-10-03 02:54:59",
+        "id": 1
+     },
     "message": "Succesfully.",
-    "error": null
-}
-     * @apiError BadRequest User ID not Found 
-     * @apiErrorExample:
-     * {
-    "status": 200,
-    "data": {
-     *   "id": 34,
-     *  "cat_id": "1",
-     *   "name": "Thi chim",
-     *   "address": "",
-     *   "description": "Xem những con chim chơi hay nhất",
-     *   "images": null,
-     *   "user_id": 0,
-     *   "long": "0.00000000",
-     *   "lag": "0.00000000",
-     *   "group_id": "0",
-     *   "status": "1",
-     *   "date_start": "0000-00-00 00:00:00",
-     *   "date_end": "0000-00-00 00:00:00",
-     *   "user_max": "50",
-     *  "created_at": "2016-09-22 11:34:48",
-     *   "updated_at": "2016-09-24 06:59:43"
-     
-
-
-    },
-    "message": "Succesfully.",
-    "error": null
+    "error": 0
+    }
 }
      */
     
@@ -113,27 +75,28 @@ class EventCategoriesController extends Controller
         return $this->buildResponseCreated($eCategories);
     }
     /**
-    * @api {put} api.ecategories.put.create Update EventCategory
+    * @api {put} http://line-matching.dev.bap.jp/api/v1/ecategories/{id} Update EventCategory
     * @apiName Update EventCategory
     * @apiGroup EventCategory
-    * @apiParam {integer} user_id ID User
-    * @apiParam {tinyint} status Status
-    * $apiParam {string}  name Name EventCategory
+    * @apiParam {string} status Status
+    * @apiParam {string}  name Name EventCategory
     * @apiSuccess {Number} status Status Reponse
     * @apiSuccess {Object}  data Data Reponse
+     @apiSuccess {string} message Message Response
+     @apiSuccess {Number} error Error of request
     * @apiExample Response:
-    * {
-    *    "status": 201,
-    * "data": {
-    *    "id": 22,
-    *    "name": "check_event",
-    *    "status": "1",
-    *    "created_at": "2016-09-20 07:00:09",
-    *    "updated_at": "2016-09-28 03:04:19"
-    *    },
-    *    "message": "Succesfully.",
-    *    "error": 0
-    *  }
+    {
+    "status": 201,
+    "data": {
+        "id": 1,
+        "name": "check_event",
+        "status": "1",
+        "created_at": "2016-10-03 02:54:59",
+        "updated_at": "2016-10-03 03:02:23"
+    },
+    "message": "Succesfully.",
+    "error": 0
+    }
      */
     
     /**
@@ -160,12 +123,14 @@ class EventCategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
      /**
-      *@api {delete} api.ecategories.get.delete Delete EventCategory
+      *@api {delete} http://line-matching.dev.bap.jp/api/v1/ecategories/{id} Delete EventCategory
       *@apiName Delete EventCategory
       *@apiGroup EventCategory
       *@apiParam {integer} EventCategiry_id ID EventCategory        
       *@apiSuccess {Number} status Status Response
       *@apiSuccess {Object} date   Date Response
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} error Error of request
       *@apiExample Response:
       *{
       *  "status": 200,
@@ -194,18 +159,13 @@ class EventCategoriesController extends Controller
     * @return \Illuminate\Http\JsonResponse
     */
     /**
-     *@api {get} api.ecategories.get.index List
+     *@api {get} http://line-matching.dev.bap.jp/api/v1/ecategories ListEventCategory
      *@apiName getList
      *@apiGroup EventCategory
-    * @apiParam {integer} eventCategory ID-EventCategory
-    * @apiSuccess {integer} Total Record
-    *@apiSuccess {integer} per_page  Some items on 1 page
-    *@apiSuccess {integer} current_page Current Page
-    *@apiSuccess {integer} last_page    Last Page
-    *@apiSuccess {integer} next_page_url  Next Page
-    *@apiSuccess {integer} prev_page_url Prevew Page
-    * @apiSuccess {Number} status Status Response
-    * @apiSuccess {Oject}  data   Data Response
+     *@apiSuccess {Number} status Status Response
+      @apiSuccess {Object} date   Date Response
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} error Error of request
     * @apiExample Response:
     * {
     * "status": 200,
@@ -248,12 +208,14 @@ class EventCategoriesController extends Controller
        
     }
     /**
-    *@api {get} api.ecategories.get.show View
-    *@apiName getShow
+    *@api {get} http://line-matching.dev.bap.jp/api/v1/ecategories/{id} GetDetailEventCategory
+    *@apiName getDetailCategory
     *@apiGroup EventCategory
     * @apiParam {integer} id_eventcategory ID_EventCategoy
     * @apiSuccess {Number} status Status Response
     * @apiSuccess {Oject}  data Data Response
+      @apiSuccess {string} message Message Response
+      @apiSuccess {Number} error Error of request
     * @apiExample Response:
     * {
     *    "status": 200,
