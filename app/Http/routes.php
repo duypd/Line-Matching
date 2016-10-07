@@ -23,6 +23,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
      * Route Users
      */
+    post('users', ['as' => 'api.users.post.index', 'uses' => 'UsersController@postCreate']);
     get('users', ['as' => 'api.users.get.index', 'uses' => 'UsersController@index']);
 
     /*

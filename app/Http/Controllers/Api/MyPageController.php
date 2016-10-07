@@ -185,34 +185,34 @@ class MyPageController extends Controller
     *@apiSuccess {string} message Message Response
     *@apiSuccess {Number} error Error of request
     *@apiSuccessExample Response
-     {
-     "status": 200,
-     "data": {
-     "id": 2,
-     "cat_id": "2",
-     "name": "Happy Birthday 1",
-     "address": "504-508 Ông Ích Khiêm, Hải Châu 2, Đà Nẵng, Việt Nam",
-     "description": "Birth good",
-     "images": [
-     {
-     "origin": "uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg",
-     "thumb": "uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg"
-     }
-     ],
-     "user_id": 0,
-     "long": "108.21574200",
-     "lat": "16.06317400",
-     "group_id": "2",
-     "status": "0",
-     "date_start": "0000-00-00 00:00:00",
-     "date_end": "0000-00-00 00:00:00",
-     "user_max": "50",
-     "created_at": "2016-10-01 09:15:59",
-     "updated_at": "2016-10-01 09:16:00"
-     },
-     "message": "Succesfully.",
-     "error": null
-     }
+    *{
+    *"status": 200,
+    *"data": {
+    *"id": 2,
+    *"cat_id": "2",
+    *"name": "Happy Birthday 1",
+    *"address": "504-508 Ông Ích Khiêm, Hải Châu 2, Đà Nẵng, Việt Nam",
+    *"description": "Birth good",
+    *"images": [
+    *{
+    *"origin": "uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg",
+    *"thumb": "uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg"
+    *}
+    *],
+    *"user_id": 0,
+    *"long": "108.21574200",
+    *"lat": "16.06317400",
+    *"group_id": "2",
+    *"status": "0",
+    *"date_start": "0000-00-00 00:00:00",
+    *"date_end": "0000-00-00 00:00:00",
+    *"user_max": "50",
+    *"created_at": "2016-10-01 09:15:59",
+    *"updated_at": "2016-10-01 09:16:00"
+    *},
+    *"message": "Succesfully.",
+    *"error": null
+    *}
     */
      public function getDetailEvent($id)
      {
