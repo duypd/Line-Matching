@@ -46,59 +46,59 @@ class GroupsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
       /**
-       @api {get} http://line-matching.dev.bap.jp/api/v1/groups ListGroup
-       @apiName ListGroup
-       @apiGroup Group
-       @apiSuccess {Number} status Status Response
-       @apiSuccess {Object} data Data Response
-       @apiSuccess {string} message Message Response
-       @apiSuccess {Number} error Error of request
-       @apiSuccessExample Response:
-       {
-     "status": 200,
-     "data": [
-        {
-            "id": 1,
-            "name": "Group great",
-            "images": [
-                {
-                    "origin": "uploads/images/groups/origin/1-1475464381NlUlKOiBRkLjqwra.jpg",
-                    "thumb": "uploads/images/groups/thumb/1-1475464381NlUlKOiBRkLjqwra.jpg"
-                }
-            ],
-            "leader_max": "50",
-            "user_max": "50",
-            "user_id": 1,
-            "description": "descripton of the group",
-            "status": "0",
-            "lag": "15.24554100",
-            "long": "21.25400000",
-            "created_at": "2016-10-03 10:12:49",
-            "updated_at": "2016-10-03 03:13:01"
-        },
-        {
-            "id": 2,
-            "name": "Group great",
-            "images": [
-                {
-                    "origin": "uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg",
-                    "thumb": "uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg"
-                }
-            ],
-            "leader_max": "50",
-            "user_max": "50",
-            "user_id": 1,
-            "description": "descripton of the group",
-            "status": "1",
-            "lag": "15.24554100",
-            "long": "21.25400000",
-            "created_at": "2016-10-03 10:15:29",
-            "updated_at": "2016-10-03 03:15:41"
-        }
-      ],
-      "message": "Succesfully."
-      } 
-       */
+    *@api {get} http://line-matching.dev.bap.jp/api/v1/groups ListGroup
+    *@apiName ListGroup
+    *@apiGroup Group
+    *@apiSuccess {Number} status Status Response
+    *@apiSuccess {Object} data Data Response
+    *@apiSuccess {string} message Message Response
+    *@apiSuccess {Number} error Error of request
+    *@apiSuccessExample Response:
+    *{
+    *"status": 200,
+    *"data": [
+    * {
+    * "id": 1,
+    * "name": "Group great",
+    * "images": [
+    * {
+    * "origin": "uploads/images/groups/origin/1-1475464381NlUlKOiBRkLjqwra.jpg",
+    * "thumb": "uploads/images/groups/thumb/1-1475464381NlUlKOiBRkLjqwra.jpg"
+    *  }
+    * ],
+    * "leader_max": "50",
+    * "user_max": "50",
+    * "user_id": 1,
+    * "description": "descripton of the group",
+    * "status": "0",
+    * "lag": "15.24554100",
+    *  "long": "21.25400000",
+    *  "created_at": "2016-10-03 10:12:49",
+    *  "updated_at": "2016-10-03 03:13:01"
+    *  },
+    *  {
+    * "id": 2,
+    * "name": "Group great",
+    *  "images": [
+    *  {
+    * "origin": "uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg",
+    * "thumb": "uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg"
+    *  }
+    * ],
+    * "leader_max": "50",
+    * "user_max": "50",
+    * "user_id": 1,
+    * "description": "descripton of the group",
+    * "status": "1",
+    * "lag": "15.24554100",
+    * "long": "21.25400000",
+    * "created_at": "2016-10-03 10:15:29",
+    *  "updated_at": "2016-10-03 03:15:41"
+    * }
+    *  ],
+    *  "message": "Succesfully."
+    *  } 
+    *   */
       
        public function getIndex()
     {
