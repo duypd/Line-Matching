@@ -225,7 +225,7 @@ class GroupsController extends Controller
          
     public function putUpdate($id,UpdateGroupRequest $request)
     {   
-        $user   = array(); // get_current_user_by_token();
+        $user   = array(); //  get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
         $UGroup  = $this->groupRepository->update($id,array_merge($request->all(), ['user' => $user] ));
