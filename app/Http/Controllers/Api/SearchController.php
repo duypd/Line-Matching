@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\SearchEventsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PagingRequest;
-use App\Http\Requests\SearchEventsRequest;
 use Illuminate\Http\Request;
 use Response;
 
@@ -70,9 +69,11 @@ class SearchController extends Controller {
      * }
      */
 
-    public function searchEvents(SearchEventsRequest $request) {
+    public function searchEvents(PagingRequest $request) {
         $params = $request->all();
-        $events = $this->repo->searchEvents($params);
+        $page = isset($request->page) ? $request->page : 1;
+        $perPage = isset($request->perPage) ? $request->perPage : 10;
+        $events = $this->repo->searchEvents($params,$page, $perPage);
         return $this->buildResponseCreated($events, trans('messages.success'));
     }
 

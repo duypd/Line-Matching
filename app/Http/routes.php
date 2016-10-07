@@ -83,5 +83,14 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     * Related Event
     */
     get('related-event/{id}', ['as' => 'api.related-event.get', 'uses' => 'EventsController@getRelatedEvent']);
-
+    /*
+    * update User Profile
+    */
+    put('user-profile/{id}', ['as' => 'api.user-profile.update', 'uses' => 'UserProfileController@putUpadte']);
+    put('user-profile-notifi/{id}', ['as' => 'api.user-profile-notifi.update', 'uses' => 'UserProfileController@NotificationUpdate']);
+    /*
+    * Buy Event
+    */
+    get('user_plan', ['as' => 'api.user-plan.get', 'uses' => 'UserPlanController@getList']);
+    post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
 });

@@ -24,7 +24,7 @@ class SearchEventsRepository extends AbstractRepository {
     //      return $query->select('*')->addSelect($raw)->orderBy( 'distance', 'ASC' )->groupBy('distance')->where('distance', '<=', $distance);
     //     }
 
-    public function searchEvents($params) {
+    public function searchEvents($params, $page, $perPage) {
         $builder = $this->models;
         if (isset($params['name'])) {
             $builder = $builder->where('name','LIKE', '%'.$params['name'].'%');

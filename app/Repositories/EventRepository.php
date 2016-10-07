@@ -4,6 +4,7 @@ use App\Models\Event;
 use App\Models\Group;
 use App\Models\EventCategory;
 use App\Models\EventsUsersMaps;
+use App\Models\LogUserPlan;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
 
@@ -156,6 +157,5 @@ class EventRepository extends AbstractRepository
                 'related_event' => []
            ];
     }
-
 }
 
