@@ -17,7 +17,10 @@ class EventCategory extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','name'];
+
+    protected $fillable = [
+        'id', 'name', 'status'
+    ];
 
     /**
      * The attributes that should be casted to native types.

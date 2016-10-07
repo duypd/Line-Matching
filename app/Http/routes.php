@@ -72,4 +72,16 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      get('/mypage', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getIndex']);
      get('/mypage/event', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getAllEvent']);
      get('/mypage/event/{id}', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getDetailEvent']);
+
+    /*
+    * Search Event
+    */
+    get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
+    get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
+    get('event-detail', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
+    /*
+    * Related Event
+    */
+    get('related-event/{id}', ['as' => 'api.related-event.get', 'uses' => 'EventsController@getRelatedEvent']);
+
 });

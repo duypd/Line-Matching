@@ -125,6 +125,7 @@ class EventRepository extends AbstractRepository
          return $data;
     }
 
+
     /**
      * Get list event.a
      * @return array
@@ -137,4 +138,24 @@ class EventRepository extends AbstractRepository
 
         }  
 
+    public function getRelatedEvent($id, $page = 0, $attributes = ['*']){
+        $event = $this->getBy('id', $id);
+        $event_group = $event->group_id;
+        $event_category = $event->cat_id;
+        $related_event = $this->model->select('name','images')
+        ->where('group_id',$event_group)
+        ->where('cat_id',$event_category)->get(); 
+        if($related_event->count() >= 2){
+            return[
+                'note' => 1,
+                'related_event' => $related_event
+            ];
+        }
+            return [
+                'note' => 0,
+                'related_event' => []
+           ];
+    }
+
 }
+

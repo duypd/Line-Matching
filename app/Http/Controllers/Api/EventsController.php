@@ -393,5 +393,53 @@ class EventsController extends Controller
 
         return $this->buildResponseSuccess($JoinId);
     }
+
+     /**
+     * @api {get} api/v1/related-event/:id Get Related Events
+     * @apiName Get Related Events
+     * @apiVersion 1.0.0
+     * @apiGroup Events
+     * @apiParam {Integer} event id Event Id
+     * From event id, find group id and category id, continue get event
+     * have the same group joined and category
+     * @apiSuccess {Number} status Status return
+     * @apiSuccess {Object} data Data return
+     * @apiSuccess {String} message Message return
+     * @apiSuccess {String} error Error return
+     * @apiSuccessExample Response:
+     * {
+     * "status": 201,
+     * "data": {
+     * "related_event": [
+     *  {
+     * "name": "Happy Birthday 1",
+     * "images": [
+     *  {
+     * "origin": "uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg",
+     * "thumb": "uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg"
+     *  }
+     *  ]
+     *   },
+     *  {
+     * "name": "Apec",
+     * "images": [
+     *   {
+     * "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
+     * "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
+     *   }
+     *   ]
+     * ]
+     *  },
+     * "message": "Succesfully.",
+     *
+     * }
+     */
+     public function getRelatedEvent($id){
+         $related_events = $this->eventRepository->getRelatedEvent($id,0,['*']);
+         if ($related_events['note'] == 0) {
+            return $this->buildResponseCreated($related_events, trans('messages.not_found'));
+        }
+         return $this->buildResponseCreated($related_events, trans('messages.success'));
+     }
 }
 

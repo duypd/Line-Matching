@@ -6,22 +6,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event  extends Model
+class EventGroup  extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'events';
+    protected $table = 'groups';
      /**
      * The attributes that are mass assignable.
      *
      * @var array 
    **/
     protected $fillable = [
-
-        'cat_id','name','description','user_id','address','images','lat','long'
+        'id','name','images','leader_max','user_max','user_id','description','status','lag','log'
     ];
 
     /**
@@ -46,23 +45,12 @@ class Event  extends Model
     protected $casts = [
         'id'    => 'integer',
         'user_id'    => 'integer',
-        'images'     => 'json'
+        'images'     => 'json',
     ];
     
-    public function event_group(){
-        return $this->belongsTo(EventGroup::class, 'group_id', 'id');
+    public function event(){
+        return $this->hasMany(Event::class, 'group_id', 'id');
     }
 
-    public function groups(){
-       return $this->belongsTo('\App\Models\Group','id');
-    }
-
-    public function category(){
-       return $this->belongsTo('\App\Models\EventCategory','id');
-    }
-
-    public function event_category(){
-        return $this->belongsTo(EventCategory::class, 'cat_id', 'id');
-    }
 }
-    
+   
