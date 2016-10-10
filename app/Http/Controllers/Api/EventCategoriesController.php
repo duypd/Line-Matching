@@ -34,28 +34,28 @@ class EventCategoriesController extends Controller
 
     /**
      *
-     * @api {post} http://line-matching.dev.bap.jp/api/v1/ecategories CreatEventCategory
-     * @apiName CreateEventCategory
-     * @apiGroup EventCategory
-     * @apiParam {String} name Name eventCategory
-     * @apiSuccess {Number} status Status Response
-     * @apiSuccess {Object} data Data Response
-     @apiSuccess {string} message Message Response
-     @apiSuccess {Number} error Error of request
-     @apiSuccessExample Response:
-     {
-     "status": 201,
-        "data": {
-        "name": "Hayppy News Years",
-        "status": 1,
-        "updated_at": "2016-10-03 02:54:59",
-        "created_at": "2016-10-03 02:54:59",
-        "id": 1
-     },
-    "message": "Succesfully.",
-    "error": 0
-    }
-}
+    * @api {post} http://line-matching.dev.bap.jp/api/v1/ecategories CreatEventCategory
+    * @apiName CreateEventCategory
+    * @apiGroup EventCategory
+    * @apiParam {String} name Name eventCategory
+    * @apiSuccess {Number} status Status Response
+    * @apiSuccess {Object} data Data Response
+    * @apiSuccess {string} message Message Response
+    * @apiSuccess {Number} error Error of request
+    * @apiSuccessExample Response:
+    * {
+    * "status": 201,
+    * "data": {
+    * "name": "Hayppy News Years",
+    * "status": 1,
+    * "updated_at": "2016-10-03 02:54:59",
+    * "created_at": "2016-10-03 02:54:59",
+    * "id": 1
+    * },
+    * "message": "Succesfully.",
+    * "error": 0
+    * }
+    * }
      */
     
 
@@ -82,22 +82,22 @@ class EventCategoriesController extends Controller
     * @apiParam {string}  name Name EventCategory
     * @apiSuccess {Number} status Status Reponse
     * @apiSuccess {Object}  data Data Reponse
-     @apiSuccess {string} message Message Response
-     @apiSuccess {Number} error Error of request
+    * @apiSuccess {string} message Message Response
+    * @apiSuccess {Number} error Error of request
     * @apiExample Response:
-    {
-    "status": 201,
-    "data": {
-        "id": 1,
-        "name": "check_event",
-        "status": "1",
-        "created_at": "2016-10-03 02:54:59",
-        "updated_at": "2016-10-03 03:02:23"
-    },
-    "message": "Succesfully.",
-    "error": 0
-    }
-     */
+    * {
+    * "status": 201,
+    * "data": {
+    * "id": 1,
+    * "name": "check_event",
+    * "status": "1",
+    * "created_at": "2016-10-03 02:54:59",
+    * "updated_at": "2016-10-03 03:02:23"
+    * },
+    * "message": "Succesfully.",
+    * "error": 0
+    * }
+    */
     
     /**
      * Update a EventCategories.
@@ -123,22 +123,21 @@ class EventCategoriesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
      /**
-      *@api {delete} http://line-matching.dev.bap.jp/api/v1/ecategories/{id} Delete EventCategory
-      *@apiName Delete EventCategory
-      *@apiGroup EventCategory
-      *@apiParam {integer} EventCategiry_id ID EventCategory        
-      *@apiSuccess {Number} status Status Response
-      *@apiSuccess {Object} date   Date Response
-      @apiSuccess {string} message Message Response
-      @apiSuccess {Number} error Error of request
-      *@apiExample Response:
-      *{
-      *  "status": 200,
-      * "data": true,
-      *  "message": "Succesfully.",
-      *  "error": null
-      * }
-      */
+    *@api {delete} http://line-matching.dev.bap.jp/api/v1/ecategories/{id} Delete EventCategory
+    *@apiName Delete EventCategory
+    *@apiGroup EventCategory
+    *@apiParam {integer} EventCategiry_id ID EventCategory        
+    *@apiSuccess {Number} status Status Response
+    *@apiSuccess {Object} date   Date Response
+    *@apiSuccess {string} message Message Response
+    *@apiSuccess {Number} error Error of request
+    *@apiExample Response:
+    *{    *  "status": 200,
+    * "data": true,
+    *  "message": "Succesfully.",
+    *  "error": null
+    * }
+    */
      
     public function delete($id)
     {
@@ -159,43 +158,42 @@ class EventCategoriesController extends Controller
     * @return \Illuminate\Http\JsonResponse
     */
     /**
-     *@api {get} http://line-matching.dev.bap.jp/api/v1/ecategories ListEventCategory
-     *@apiName getList
-     *@apiGroup EventCategory
-     *@apiSuccess {Number} status Status Response
-      @apiSuccess {Object} date   Date Response
-      @apiSuccess {string} message Message Response
-      @apiSuccess {Number} error Error of request
+    *@api {get} http://line-matching.dev.bap.jp/api/v1/ecategories ListEventCategory
+    *@apiName getList
+    *@apiGroup EventCategory
+    *@apiSuccess {Number} status Status Response
+    * @apiSuccess {Object} date   Date Response
+    *@apiSuccess {string} message Message Response
+    * @apiSuccess {Number} error Error of request
     * @apiExample Response:
     * {
     * "status": 200,
     * "data": {
-    *    "total": 22,
-    *    "per_page": 10,
-    *    "current_page": 1,
-    *    "last_page": 3,
-    *    "next_page_url": "http://line-matching.dev.bap.jp/api/v1/ecategories?page=2",
-    *    "prev_page_url": null,
-    *    "from": 1,
-    *    "to": 10,
-    *    "data": [
-    *        {
-    *            "id": 8,
-    *           "name": "die",
-    *            "status": "1",
-    *            "created_at": "2016-09-19 09:10:37",
-    *            "updated_at": "2016-09-19 09:10:37"
-    *        },
-    *       
-    *        {
-    *            "id": 19,
-    *            "name": "bycial",
-    *            "status": "1",
-    *            "created_at": "2016-09-20 06:53:21",
-    *            "updated_at": "2016-09-20 06:53:21"
-    *        }
-    *    ]
-    *    },
+    * "total": 22,
+    * "per_page": 10,
+    * "current_page": 1,
+    * "last_page": 3,
+    * "next_page_url": "http://line-matching.dev.bap.jp/api/v1/ecategories?page=2",
+    * "prev_page_url": null,
+    * "from": 1,
+    * "to": 10,
+    * "data": [
+    *  {
+    *  "id": 8,
+    *  "name": "die",
+    *  "status": "1",
+    *  "created_at": "2016-09-19 09:10:37",
+    *  "updated_at": "2016-09-19 09:10:37"
+    *  },   
+    *  {
+    *  "id": 19,
+    *  "name": "bycial",
+    *  "status": "1",
+    *  "created_at": "2016-09-20 06:53:21",
+    *  "updated_at": "2016-09-20 06:53:21"
+    *  }
+    *  ]
+    *  },
     * "message": "Succesfully.",
     * "error": null
     *}
@@ -214,21 +212,21 @@ class EventCategoriesController extends Controller
     * @apiParam {integer} id_eventcategory ID_EventCategoy
     * @apiSuccess {Number} status Status Response
     * @apiSuccess {Oject}  data Data Response
-      @apiSuccess {string} message Message Response
-      @apiSuccess {Number} error Error of request
+    * @apiSuccess {string} message Message Response
+    * @apiSuccess {Number} error Error of request
     * @apiExample Response:
     * {
-    *    "status": 200,
-    *    "data": {
-    *    "id": 22,
-    *    "name": "check_event",
-    *    "status": "1",
-    *    "created_at": "2016-09-20 07:00:09",
-    *    "updated_at": "2016-09-28 03:04:19"
-    *    },
-    *    "message": "Succesfully.",
-    *    "error": null
-    *    }
+    * "status": 200,
+    * "data": {
+    * "id": 22,
+    * "name": "check_event",
+    * "status": "1",
+    * "created_at": "2016-09-20 07:00:09",
+    * "updated_at": "2016-09-28 03:04:19"
+    * },
+    * "message": "Succesfully.",
+    * "error": null
+    * }
      */
     
     public function getShow($id){

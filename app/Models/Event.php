@@ -37,6 +37,7 @@ class Event  extends Model
      * @var int
      */
     public $height = 400;
+    public $timestamps = false;
 
     /**
      * The attributes that should be casted to native types.
