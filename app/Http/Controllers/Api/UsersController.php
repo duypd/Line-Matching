@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
-
+use App\Http\Requests\RegisterRequest;
 class UsersController extends Controller
 {
     /**
@@ -40,5 +40,16 @@ class UsersController extends Controller
             'message'   => trans('messages.success')
         ]);
     }
+/**
+ *Creat a User
+ * 
+ *@return \Illuminate\Http\JsonResponse
+ */
+public function postCreate(RegisterRequest $request)
+{
+    $params = $request->all();
+    $register = $this->userRepository->Register($params);
+    return $this->buildResponseCreated($register, trans('messages.success'));
+}
 
 }

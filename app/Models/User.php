@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password','avatar','telephone'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +36,28 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+      /**
+     * @var string
+     */
+    public $path = 'uploads/images/User/';
+    /**
+     * @var int
+     */
+    public $width = 400;
+
+    /**
+     * @var int
+     */
+    public $height = 400;
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id'    => 'integer',
+        'user_id'    => 'integer',
+        'images'     => 'json',
+    ];
 }
