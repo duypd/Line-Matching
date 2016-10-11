@@ -36,13 +36,12 @@ class EventPrPointRepository extends AbstractRepository
      * @return array
      */
     public function create(array $param){
-            \DB::transaction(function($q) use(&$prPoint, $param) {
-                $prPoint = new EventsPrPoints();   
-                $prPoint->event_id = $param['event_id'];
-                $prPoint->content  =$param['content'];
-                $prPoint->updated_at = date('Y-m-d H:i:s');
-                $prPoint->save();
-            });
+
+            $prPoint = new EventsPrPoints();   
+            $prPoint->event_id = $param['event_id'];
+            $prPoint->content  =$param['content'];
+            $prPoint->updated_at = date('Y-m-d H:i:s');
+            $prPoint->save();
             if (!empty($param['images'])) {
             $upload = $this->__postImageEvent($prPoint,$param['images']);
             $image = $prPoint->images;
@@ -52,8 +51,7 @@ class EventPrPointRepository extends AbstractRepository
             if (! empty($image)) {
                 event(new DeleteImageEvent($image));
             }
-        }
-            
+        }           
        return $prPoint;
     }
 

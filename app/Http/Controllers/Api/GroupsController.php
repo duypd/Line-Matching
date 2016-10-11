@@ -243,7 +243,7 @@ class GroupsController extends Controller
     */
     public function delete($id)
     {
-        $Id = $this->groupRepository->delete($id);
+        $Id = $this->groupRepository->destroy($id);
         if(!empty($Id))
         {
             return $this->buildResponseSuccess($Id);

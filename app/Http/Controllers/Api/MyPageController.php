@@ -99,7 +99,7 @@ class MyPageController extends Controller
 
     public function getIndex()
     { 
-       $group = $this->groupRepository->getindex(0,['*']);
+       $group = $this->groupRepository->getGroupall(0,['*']);
         return $this->buildResponseSuccess($group);
     }
 

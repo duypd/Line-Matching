@@ -63,15 +63,15 @@ class SearchEventsRepository extends AbstractRepository {
     }
 
 
-     public function searchEventGroups($params) {
-        $event_groups = $this->groups;
+     public function searchGroups($params) {
+        $groups = $this->groups;
         if (isset($params['name'])) {
-            $event_groups = $event_groups->where('name',$params['name'])->with('event');
+            $groups = $groups->where('name','LIKE','%'.$params['name'].'%')->with('event');
         }
-        $count = $event_groups->count();
+        $count = $groups->count();
         $page = isset($params['page']) ? $params['page'] : 1;
         $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
-        $event_groups_f = $event_groups->forPage($page, $perPage)->get();
+        $groups_f = $groups->forPage($page, $perPage)->get();
         $meta = [
             'page' => $page,
             'perPage' => $perPage,
@@ -79,14 +79,18 @@ class SearchEventsRepository extends AbstractRepository {
         ];
         return $result = [
             'meta' => $meta,
-            'event_groups_f' => $event_groups_f
+            'event_groups_f' => $groups_f
         ];
     }
 
-
-    public function getEvent($params)
+    /*public function getEvent($id)
     {
         $event = $this->models->Where('name',$params['name'])->with(['event_group', 'event_category'])->get();
+        return $event;
+    }*/
+    public function show($id)
+    {   $builder = $this->models;
+        $event   = $builder->where('id', $id)->first();
         return $event;
     }
 

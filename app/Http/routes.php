@@ -70,16 +70,16 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /**
      *Rout MyPage
      */
-     get('/mypage', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getIndex']);
+     get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getIndex']);
      get('/mypage/event', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getAllEvent']);
      get('/mypage/event/{id}', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getDetailEvent']);
 
     /*
     * Search Event
     */
-    get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
-    get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
-    get('event-detail', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
+    get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@getSearchEvents']);
+    get('search-group', ['as' => 'api.search-group.get', 'uses' => 'SearchController@getSearchGroup']);
+    get('event-detail/{id}', ['as' => 'api.event.get', 'uses' => 'SearchController@getDetailEvent']);
     /*
     * Related Event
     */
@@ -88,7 +88,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     * update User Profile
     */
     put('user-profile/{id}', ['as' => 'api.user-profile.update', 'uses' => 'UserProfileController@putUpadte']);
-    put('user-profile-notifi/{id}', ['as' => 'api.user-profile-notifi.update', 'uses' => 'UserProfileController@NotificationUpdate']);
+    put('user-profile-notifi/{id}', ['as' => 'api.user-profile-notifi.update', 'uses' => 'UserProfileController@putNotificationUpdate']);
     /*
     * Buy Event
     */

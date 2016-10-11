@@ -33,7 +33,7 @@ class CreateGroupRequest extends Request
         return [
             'name'              => 'required|max:200',
             'description'       => 'required',
-            'lag'               => 'required|between:0,99.99/',
+            'lat'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/',
             'images'            => 'required'
         ];

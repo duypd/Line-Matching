@@ -69,7 +69,7 @@ class SearchController extends Controller {
      * }
      */
 
-    public function searchEvents(PagingRequest $request) {
+    public function getSearchEvents(PagingRequest $request) {
         $params = $request->all();
         $page = isset($request->page) ? $request->page : 1;
         $perPage = isset($request->perPage) ? $request->perPage : 10;
@@ -150,10 +150,10 @@ class SearchController extends Controller {
 
 
 
-    public function searchEventsGroup(Request $request) {
+    public function getSearchGroup(Request $request) {
         $params = $request->all();
-        $event_groups = $this->repo->searchEventGroups($params);
-        return $this->buildResponseCreated($event_groups, trans('messages.success'));
+        $groups = $this->repo->searchGroups($params);
+        return $this->buildResponseCreated($groups, trans('messages.success'));
     }
 
     /**
@@ -218,10 +218,21 @@ class SearchController extends Controller {
      * "error": 0
      * }
      */
-     public function getEvent(Request $request) {
+     /*public function getEvent(Request $request) {
         $params = $request->all();
         $event = $this->repo->getEvent($params);
         return $this->buildResponseCreated($event, trans('messages.success'));
+    }*/
+      
+    public function getDetailEvent($id){
+        $events = $this->repo->show($id);
+        if(!empty($events)){
+         return $this->buildResponseSuccess ($events);   
+        }
+        else{
+            return $this->buildResponseError();
+        }
+        
     }
-   
+    
 }

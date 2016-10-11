@@ -20,7 +20,7 @@ class EventGroup  extends Model
      * @var array 
    **/
     protected $fillable = [
-        'id','name','images','leader_max','user_max','user_id','description','status','lag','log'
+        'id','name','images','leader_max','user_max','user_id','description','status','lat','log'
     ];
 
     /**

@@ -34,7 +34,7 @@ class UpdateEventRequest extends Request
             'name'              => 'required|max:200',
             'address'			=> 'required',
             'images'            =>  'required',
-            'lag'               => 'required|between:0,99.99/',
+            'lat'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/'
         ];
     }

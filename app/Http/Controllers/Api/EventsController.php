@@ -179,7 +179,7 @@ class EventsController extends Controller
      
     public function delete($id)
     {
-        $Id = $this->eventRepository->delete($id);
+        $Id = $this->eventRepository->destroy($id);
         if(!empty($Id))
         {
             return $this->buildResponseSuccess($Id);

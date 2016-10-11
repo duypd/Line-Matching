@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 use App\Repositories\UserProfileRepository;
 use App\Http\Controllers\Controller;
@@ -55,7 +54,7 @@ class UserProfileController extends Controller {
         return $this->buildResponseCreated($user_pro, trans('messages.success'));
     }   
 
-    public function NotificationUpdate($id, UserProfileRequest $request) {
+    public function putNotificationUpdate($id, UserProfileRequest $request) {
         $params = $request->all();
         $user_pro = $this->repo->NotificationUpdate($id,$params);
         return $this->buildResponseCreated($user_pro, trans('messages.success'));

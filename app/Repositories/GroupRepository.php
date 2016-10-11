@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Group;
+use App\Models\GroupCategory;
 use App\Utilities\Upload;
 use App\Events\DeleteImageEvent;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,7 +42,6 @@ class GroupRepository extends AbstractRepository
      */
     public function create(array $param)
     {
-        \DB::transaction(function($q) use(&$group, $param) {
             $group = new Group();
             $group->user_id     = $param['user']['user']->id;
             $group->leader_max  = $param['leader_max'];
@@ -49,18 +49,17 @@ class GroupRepository extends AbstractRepository
             $group->name        = $param['name'];
             $group->description = $param['description'];
             $group->status      = $param['status'];
-            $group->lag         = $param['lag'];
+            $group->lat         = $param['lat'];
             $group->long        = $param['long'];
             $group->updated_at  = date('Y-m-d H:i:s');
             $group->save();
-        });
          if (!empty($param['images'])) {
              $upload = $this->__postImageGroup($group,$param['images']);
              $image = $group->images;
              $group->images =$upload;  
              $group->images =  transfer_url_images($group->images); 
              $group->save();
-              if (! empty($image)) {
+             if (! empty($image)) {
                 event(new DeleteImageEvent($image));
             }
          }         
@@ -81,7 +80,7 @@ class GroupRepository extends AbstractRepository
         $UGroup->user_max = !empty($params['user_max']) ? $params['user_max'] : $UGroup->user_max;
         $UGroup->status = !empty($params['status']) ? $params['status']: $UGroup->status;
         $UGroup->status = !empty($params['long']) ? $params['long']: $UGroup->status;
-        $UGroup->status = !empty($params['lag']) ? $params['lag']: $UGroup->status;
+        $UGroup->status = !empty($params['lat']) ? $params['lat']: $UGroup->status;
         $UGroup->status = !empty($params['leader_max']) ? $params['leader_max']: $UGroup->status;
         $UGroup->save();
         return $UGroup;
@@ -92,18 +91,16 @@ class GroupRepository extends AbstractRepository
             $UGroup->save();
         }
     }
-        /**
+    /**
      * Delete a record Group.
      *
      * @param int $id
      * @param $eventId
      * @return mixed
      */
-    public function destroy($id, $groupId)
+    public function destroy($id)
         {
-            $DGroup = $this->where('event_id', $groupId)
-                ->getBy('id', $id);
-
+            $DGroup = $this->getBy('id', $id);
             return $DGroup->delete();
         }
       /**
@@ -129,7 +126,8 @@ class GroupRepository extends AbstractRepository
 
     public function __postImageGroup($group,$files){
         $data =array();
-        foreach ($files as $file) {
+        foreach ($files as $file)
+        {
             $upload = new Upload($group->path, $group->width, $group->height, $file);
             $data[] = $upload->handle($group);
         }      
@@ -139,8 +137,23 @@ class GroupRepository extends AbstractRepository
      * Get list group.
      * @return array
      */
-     function getindex($page = 0, $attributes = ['*']){
+    /* function getindex($page = 0, $attributes = ['*']){
         $result = $this->with('event')->paginate($attributes);
         return $result->toArray();
-    }
+    }*/
+    /**
+     * Get list event in my Page
+     * @return array
+     */
+     function getGroupall($page = 0, $attributes = ['*']){  
+        $filtergroup = ['images','name','user_max','id','leader_max','cat_id'];
+        $result = $this->model->select($filtergroup)
+                 ->take(5)
+                 ->with(['groupcategory' => function($c) {
+                        $c->select('id','name');
+                    }])
+                 ->get();
+        return $result;
+
+        }  
 }
