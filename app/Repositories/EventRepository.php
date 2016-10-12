@@ -97,6 +97,7 @@ class EventRepository extends AbstractRepository
         if (!empty($params['images'])) {
             $image = $UEvent->Images;
             $UEvent->images = $upload;
+            $UEvent->images =  transfer_url_images($UEvent->images); 
             $UEvent->save();
         }
     }
@@ -157,8 +158,7 @@ class EventRepository extends AbstractRepository
                         $c->select('id','name');
                     }])
                  ->get();
-        return $result;
-
+        return  $result->toArray();
         }  
     /**
      *

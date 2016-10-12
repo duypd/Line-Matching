@@ -20,7 +20,7 @@ class GroupsUsersMaps  extends Model
      * @var array 
    **/
     protected $fillable = [
-        'group_id','user_id','is_join'
+        'group_id','user_id','is_join','id'
     ];
 
     /**
@@ -31,5 +31,9 @@ class GroupsUsersMaps  extends Model
     protected $casts = [
         'id'    => 'integer',
     ]; 
+    public function Group()
+    {
+        return $this->belongsTo(Group::class,'group_id','id');
+    }
 }
    

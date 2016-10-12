@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers\Api;
-use App\Repositories\MyPageRepository;
 use App\Repositories\GroupRepository;
 use App\Repositories\EventRepository;
 use Illuminate\Http\Request;
@@ -97,7 +96,7 @@ class MyPageController extends Controller
     *  }     
     **/
 
-    public function getIndex()
+    public function getGroupAll()
     { 
        $group = $this->groupRepository->getGroupall(0,['*']);
         return $this->buildResponseSuccess($group);

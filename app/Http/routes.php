@@ -70,9 +70,9 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /**
      *Rout MyPage
      */
-     get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getIndex']);
+     get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getGroupAll']);
      get('/mypage/event', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getAllEvent']);
-     get('/mypage/event/{id}', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getDetailEvent']);
+     get('/mypage/event_detail/{id}', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getDetailEvent']);
 
     /*
     * Search Event

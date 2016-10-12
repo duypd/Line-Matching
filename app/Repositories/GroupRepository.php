@@ -1,8 +1,9 @@
 <?php
 namespace App\Repositories;
-
 use App\Models\Group;
 use App\Models\GroupCategory;
+use App\Models\GroupsUsersMaps;
+use App\Models\GroupsLeaderMaps;
 use App\Utilities\Upload;
 use App\Events\DeleteImageEvent;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,13 +13,24 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class GroupRepository extends AbstractRepository
 {
     /**
-     * @var Event
+     * @var Group
      */
     protected $model;
+     /**
+     * @var GroupsUsersMaps
+     */
+    protected $groupsUsersMaps;
+    /**
+     * @var GroupsUsersMaps
+     */
+    protected $groupLeaderMaps;
 
-    public function __construct(Group $group)
+    public function __construct(Group $group, GroupsUsersMaps $groupsUsersMaps,
+        GroupsLeaderMaps $groupLeaderMaps)
     {
         $this->model = $group;
+        $this->groupsUsersMaps = $groupsUsersMaps;
+        $this->groupLeaderMaps = $groupLeaderMaps;
     }
    /* function eventsList($userId){
 
@@ -145,15 +157,27 @@ class GroupRepository extends AbstractRepository
      * Get list event in my Page
      * @return array
      */
-     function getGroupall($page = 0, $attributes = ['*']){  
-        $filtergroup = ['images','name','user_max','id','leader_max','cat_id'];
-        $result = $this->model->select($filtergroup)
-                 ->take(5)
-                 ->with(['groupcategory' => function($c) {
-                        $c->select('id','name');
-                    }])
+     function getGroupall($page = 0, $attributes = ['*'])
+     {
+        $uid = 5;
+        $filtergroup = ['images','name','id','cat_id'];
+        $result = $this->model->select($filtergroup)->take(5)
+                 ->with(['groupcategory' => function($a){
+                        $a->select('id','name');},
+                        'is_leader'  => function($b){
+                         $b->first()->count() ;
+                        }])
                  ->get();
         return $result;
 
-        }  
+    }
 }
+
+/// List group 
+/*1 => function check userid leader 
+group 1 {
+    name,
+    is_leader: 12
+    is_leader:null
+}
+*/
