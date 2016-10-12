@@ -35,8 +35,8 @@ class EventRepository extends AbstractRepository
      * @return array
      */
     public function index($page = 0, $attributes = ['*']){
-       $result = $this->paginate($attributes); 
-       return  $result->toArray();
+       $result = $this->paginate($attributes)->toArray(); 
+       return  $result;
     }
      /**
      * create event.
@@ -45,23 +45,20 @@ class EventRepository extends AbstractRepository
      * @return array
      */
     public function create(array $param){
-
-       \DB::transaction(function($q) use(&$cevent, $param) {
             $cevent = new Event();   
             $cevent->name = $param['name'];
             $cevent->description = $param['description'];
             $cevent->address = $param['address'];
             $cevent->user_max = $param['user_max'];
             $cevent->cat_id = $param['cat_id'];
+            $cevent->lat = $param['lat'];
             $cevent->long = $param['long'];
-            $cevent->lag = $param['lag'];
             $cevent->status = 1;
             $cevent->user_id = $param['user_id'];
             $cevent->group_id = $param['group_id'];
             $cevent->updated_at = date('Y-m-d H:i:s');
             $cevent->save();
-        }); 
-         if (!empty($param['images'])) {
+            if (!empty($param['images'])) {
              $upload = $this->__postImageEvent($cevent,$param['images']);
              $image = $cevent->images;
              $cevent->images =$upload;
@@ -86,14 +83,13 @@ class EventRepository extends AbstractRepository
         $UEvent->name = !empty($params['name']) ? $params['name'] : $UEvent->name;
         $UEvent->address = !empty($params['address']) ? $params['address'] : $UEvent->address;
         $UEvent->description = !empty($params['description']) ? $params['description'] : $UEvent->description;
-        $UEvent->description = !empty($params['long']) ? $params['long'] : $UEvent->long;
-        $UEvent->description = !empty($params['lag']) ? $params['lag'] : $UEvent->lag;
+        $UEvent->lat = !empty($params['lat']) ? $params['lat'] : $UEvent->lat;
+        $UEvent->long = !empty($params['long']) ? $params['long'] : $UEvent->long;
         $UEvent->save();
         return $UEvent;
         $upload = $this->__postImageEvent($UEvent,$params['images']);
-
         if (!empty($params['images'])) {
-            $image = $UEvent->Images;
+            $image = $UEvent->images;
             $UEvent->images = $upload;
             $UEvent->save();
         }
@@ -107,7 +103,7 @@ class EventRepository extends AbstractRepository
 
     public function show($id)
     {
-        $event = $this->where('status',1)->getBy('id', $id);
+        $event = $this->model->where('id', $id)->where('status', 1)->get();
         return $event;
     }
     /**
@@ -118,6 +114,7 @@ class EventRepository extends AbstractRepository
      * @return mixed
      */
     public function __postImageEvent($cevent,$files){
+
         $data =array();
         foreach ($files as $file) {
             $upload = new Upload($cevent->path, $cevent->width, $cevent->height, $file);
@@ -169,5 +166,41 @@ class EventRepository extends AbstractRepository
                 'related_event' => []
            ];
     }
+
+     public function getTookPlaceEvents($group_id, $page = 0, $attributes = ['*']){
+       $date_start = $this->model->where('group_id',$group_id);
+       // return $date_start;
+       $date_start_f = $date_start->select('id','name','cat_id','status','date_start')->get()->toArray();
+       // dd($date_start_f);
+       $now = strtotime(date('Y-m-d'));
+       // dd($now);
+       $result = array();
+       foreach($date_start_f as $key => $values) {
+            if(($now - strtotime($values['date_start']) > 0) && ($values['status'] == 1) ) {
+                $result[$key] = ['id' => $values['id'],
+                                 'date' => $values['date_start'],
+                                 'name' => $values['name'],
+                                 'cat_id' => $values['cat_id']];
+                    }
+               }
+               return $result;
+    }
+
+     public function getEventsPlan($group_id, $page = 0, $attributes = ['*']){
+       $events_plan = $this->model->where('group_id', $group_id);
+       $events_plan_f = $events_plan->select('id','name','cat_id','status','date_start')->get()->toArray();
+       $now = strtotime(date('Y-m-d'));
+       $result = array();
+       foreach($events_plan_f as $key => $values) {
+            if(($now - strtotime($values['date_start']) < 0) && ($values['status'] == 1) ) {
+                $result[$key] = ['id' => $values['id'],
+                                 'date' => $values['date_start'],
+                                 'name' => $values['name'],
+                                 'cat_id' => $values['cat_id']];
+                    }
+               }
+               return $result;
+    }
+
 }
 

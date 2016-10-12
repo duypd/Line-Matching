@@ -65,5 +65,8 @@ class Event  extends Model
     public function event_category(){
         return $this->belongsTo(EventCategory::class, 'cat_id', 'id');
     }
+     public function eventspoints(){
+        return $this->hasMany(EventsPrPoints::class, 'event_id', 'id');
+    }
 }
     
