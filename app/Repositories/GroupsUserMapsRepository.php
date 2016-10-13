@@ -15,25 +15,16 @@ class GroupsUserMapsRepository extends AbstractRepository
         $this->model = $groupUserMaps;
     }
     
-    /**
-     *Creat join Events.
-     * @return array
-     *
-     */
-    public function createJoinGroup($group, array $param){
-       
-    	$gmap = $this->where('group_id','=',$group->id,'and')->getAll()->count();
-	    if($gmap<(int)$group->user_max){
-	    	\DB::transaction(function($q) use(&$joinGroup, $param,$group){
-	            $joinGroup = new GroupsUsersMaps();
-                $joinGroup->group_id    = $group->id;
-	            $joinGroup->user_id   	= $param['user']['user']->id;
-	            $joinGroup->is_join     = $param['is_join'];
-	            $joinGroup->updated_at  = date('Y-m-d H:i:s');
-	            $joinGroup->save();	      
-	         });
-	    } 	
-   }
+    public function index($page = 0,$attributes =['*'])
+    {
+        $result = $this->paginate($attributes);
+        return $result->toArray();
+    }
+    public function getDetailGroupUserMaps($id)
+    {
+        $groupUserMaps = $this->getBy('id',$id);
+        return $groupUserMaps;
+    }
    /**
     *Leave Events
     * @param int $id

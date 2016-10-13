@@ -51,7 +51,7 @@ class Group  extends Model
         return $this->belongsTo(GroupCategory::class,'cat_id');
     } 
     public function is_leader(){
-        return $this->mapLeaders()->where('user_id','=',1);
+        return $this->mapLeaders()->where('user_id','=',1);/*Not complate*/
     }
     public function mapLeaders(){
         return $this->hasMany(GroupsLeaderMaps::class,'group_id');

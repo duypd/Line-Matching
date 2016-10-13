@@ -150,8 +150,7 @@ class EventRepository extends AbstractRepository
      */
      function getindexall($page = 0, $attributes = ['*']){
         $filterevent = ['group_id','images','date_start','name','user_max','id','cat_id'];
-        $result = $this->model->select($filterevent)
-                 ->take(2)
+        $result = $this->model->select($filterevent)->take(3)
                  ->with(['groups' => function($q){
                     $q->select('id','name');},
                     'category' => function($c) {
@@ -168,8 +167,9 @@ class EventRepository extends AbstractRepository
      */
     public function showEvent($id)
     {
-        $event = $this->getBy('id', $id);
-        return $event;
+        $eventfill =['name','address','description','images','date_start','date_end','user_max'];
+        $event = $this->model->where('id',$id)->select($eventfill)->first();
+        return $event->toArray();
     }
 
 

@@ -159,25 +159,28 @@ class GroupRepository extends AbstractRepository
      */
      function getGroupall($page = 0, $attributes = ['*'])
      {
-        $uid = 5;
+            
         $filtergroup = ['images','name','id','cat_id'];
-        $result = $this->model->select($filtergroup)->take(5)
-                 ->with(['groupcategory' => function($a){
-                        $a->select('id','name');},
-                        'is_leader'  => function($b){
-                         $b->first()->count() ;
-                        }])
-                 ->get();
-        return $result;
-
+        // $result = $this->model->select($filtergroup)->take(5)
+        //          ->with(['groupcategory' => function($a){
+        //                 $a->select('id','name');},
+        //                 'is_leader'  => function($b){ 
+        //                  $b->select('group_id');
+        //                 }])               
+        //          ->get();
+        //  not complate------------------------------------------------------------------
+        $resultgroup = $this->model->select($filtergroup)
+                                    ->with(['groupcategory' => function($a){
+                                        $a->select('id','name');}])
+                                   ->get();
+        $resultleader = $this->groupLeaderMaps->select('group_id')->get()->toArray();
+        foreach($resultgroup as $key => $values) {
+            if(in_array(['group_id' => $values['id']],$resultleader)){
+                $resultgroup[$key]['is_leader'] = 1;   
+            }else {
+                $resultgroup[$key]['is_leader'] = 0; 
+            }
+        }
+        return $resultgroup;
     }
 }
-
-/// List group 
-/*1 => function check userid leader 
-group 1 {
-    name,
-    is_leader: 12
-    is_leader:null
-}
-*/

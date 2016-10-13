@@ -68,6 +68,12 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     delete('/groups/join/{id}', ['as' => 'api.group.get.leave', 'uses' => 'GroupsController@deleteLeaveGroup']);
 
     /**
+     *Route GroupUserMaps
+     */
+    get('/groupsusermap', ['as' => 'api.groupsusermap.get.index', 'uses' => 'GroupUsersMapsController@getIndex']);
+    get('/groupsusermap/{id}', ['as' => 'api.groupsusermap.get.show', 'uses' => 'GroupUsersMapsController@getShow']);
+
+    /**
      *Rout MyPage
      */
      get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getGroupAll']);
