@@ -18,7 +18,7 @@ class Event  extends Model
    **/
     protected $fillable = [
 
-        'cat_id','name','description','user_id','address','images','lat','long'
+        'cat_id','name','description','user_id','address','images','lat','long','id'
     ];
 
     /**
@@ -64,6 +64,22 @@ class Event  extends Model
     }
     public function eventPoint(){
         return $this->hasMany(EventsPrPoint::class, 'event_id','id');
+    }
+    public function is_leaderevent()
+    {
+        return $this->mapLeader();
+    }
+    public function mapleader()
+    {
+        return $this->hasMany(EventsLeaderMaps::class,'event_id','id');
+    }
+
+    /**
+     * hasMany PrPoint
+     */
+    public function EventPrPoint()
+    {
+        return $this->hasMany(EventsPrPoints::class,'id');
     }
 }
 

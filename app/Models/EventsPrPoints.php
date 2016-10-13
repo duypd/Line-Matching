@@ -20,7 +20,7 @@ class EventsPrPoints  extends Model
      * @var array 
    **/
     protected $fillable = [
-        'event_id','content'
+        'event_id','content','id','images'
     ];
     /**
      * @var string
@@ -47,7 +47,7 @@ class EventsPrPoints  extends Model
     ]; 
     public function event()
     {
-        return $this->belongsTo(Event::class,'id');
+        return $this->belongsTo(Event::class,'event_id');
     }
 }
    

@@ -77,7 +77,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      *Rout MyPage
      */
      get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getGroupAll']);
-     get('/mypage/event', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getAllEvent']);
+     get('/mypage/events', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getAllEvent']);
      get('/mypage/event_detail/{id}', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getDetailEvent']);
 
     /*

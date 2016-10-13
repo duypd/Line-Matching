@@ -3,6 +3,7 @@ namespace App\Repositories;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\EventsPrPoints;
+use App\Models\EventsLeaderMaps;
 use App\Models\EventCategory;
 use App\Models\EventsUsersMaps;
 use App\Models\LogUserPlan;
@@ -15,19 +16,27 @@ class EventRepository extends AbstractRepository
      * @var Event
      */
     protected $model;
+
      /**
      * @var EventPrPoint
      */
     protected $eventPrPoint;
+
     /**
      * @var CURL
      */
     protected $curl;
 
-    public function __construct(Event $event, EventsPrPoints $eventPrPoint)
+    /**
+     * @var EventsLeaderMaps
+     */
+    protected $eventLeaderMaps;
+
+    public function __construct(Event $event, EventsPrPoints $eventPrPoint, EventsLeaderMaps $eventLeaderMaps)
     {
         $this->model = $event;
         $this->eventPrPoint = $eventPrPoint;
+        $this->eventLeaderMaps = $eventLeaderMaps;
         $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
    /* function eventsList($userId){
@@ -149,16 +158,32 @@ class EventRepository extends AbstractRepository
      * @return array
      */
      function getindexall($page = 0, $attributes = ['*']){
-        $filterevent = ['group_id','images','date_start','name','user_max','id','cat_id'];
-        $result = $this->model->select($filterevent)->take(3)
+        $filterevent = ['images','date_start','name','user_max','id'];
+       /* $result = $this->model->select($filterevent)->take(3)
                  ->with(['groups' => function($q){
                     $q->select('id','name');},
                     'category' => function($c) {
                         $c->select('id','name');
                     }])
                  ->get();
-        return  $result->toArray();
-        }  
+        return  $result->toArray();*/
+        $resultevent = $this->model->select($filterevent)->take(5)
+                                                ->with(['groups' => function($a){
+                                                $a->select('id','name');},'category'=>function($b){
+                                                $b->select('id','name');
+                                                }])->get();                                  
+        $resultleader = $this->eventLeaderMaps->select('event_id')->get()->toArray();
+        foreach ($resultevent as $key => $values) 
+        {
+           if (in_array(['event_id' => $values['id']], $resultleader)) 
+           {
+               $resultevent[$key]['is_leaderevent'] = 1;
+           } else{
+               $resultevent[$key]['is_leaderevent'] = 0;
+           }    
+        }
+        return $resultevent;
+     }  
     /**
      *
      * Get DetailEvent in My Page
@@ -167,8 +192,11 @@ class EventRepository extends AbstractRepository
      */
     public function showEvent($id)
     {
-        $eventfill =['name','address','description','images','date_start','date_end','user_max'];
-        $event = $this->model->where('id',$id)->select($eventfill)->first();
+        $eventfill =['name','address','description','images','date_start','date_end','user_max','id'];
+        $event = $this->model->where('id',$id)->select($eventfill)->with(['EventPrPoint' =>function($a){
+            $a->select('id','content');
+        }])->first();
+
         return $event->toArray();
     }
 
