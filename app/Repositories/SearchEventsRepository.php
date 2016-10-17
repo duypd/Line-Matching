@@ -13,7 +13,11 @@ class SearchEventsRepository extends AbstractRepository {
     protected $models;
     protected $groups;
 
+
     public function __construct(Event $events, Group $event_groups) {
+
+    public function __construct(Event $events, EventGroup $event_groups) {
+
         $this->models = $events;
         $this->groups = $event_groups;
     }
@@ -35,7 +39,6 @@ class SearchEventsRepository extends AbstractRepository {
         }
 
 
-       
         
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
            $builder = DB::select("
@@ -56,9 +59,11 @@ class SearchEventsRepository extends AbstractRepository {
         }
         
             return $builder;
+
             // $result = $builder->paginate($attributes);
             // return $result->toArray();
         
+
     }
 
 
@@ -67,6 +72,7 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['name'])) {
             $event_groups = $event_groups->where('name',$params['name'])->with('event');
         }
+
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
            $event_groups = DB::select("
             SELECT
@@ -88,7 +94,6 @@ class SearchEventsRepository extends AbstractRepository {
             'event_groups' => $event_groups
         ];
     }
-
 
     public function getEvent($id)
     {

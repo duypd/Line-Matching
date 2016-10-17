@@ -220,6 +220,7 @@ class SearchController extends Controller {
      public function getEvent($id) {
         $event = $this->repo->getEvent($id);
         return $this->buildResponseSuccess($event, trans('messages.success'));
+
     }
    
 }
