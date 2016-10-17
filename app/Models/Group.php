@@ -56,8 +56,4 @@ class Group  extends Model
     public function mapLeaders(){
         return $this->hasMany(GroupsLeaderMaps::class,'group_id');
     }
-    /*public function groupusermap()
-    {
-        return $this->hasMany(GroupsUsersMaps::class,'group_id','id');
-    }*/
 }

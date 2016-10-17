@@ -204,32 +204,63 @@ class EventsController extends Controller
     * @apiSuccess {string} message Message Response
     * @apiSuccessExample Response
     * {
-    * "status": 200,
+    "status": 200,
+    "data": {
+    * "total": 33,
+    * "per_page": 10,
+    * "current_page": 1,
+    * "last_page": 4,
+    * "next_page_url": "http://line-matching.dev.bap.jp/api/v1/events?page=2",
+    * "prev_page_url": null,
+    * "from": 1,
+    * "to": 10,
     * "data": [
     * {
-    * "id": 2,
-    * "cat_id": "1",
-    * "name": "Happy Birthday",
-    * "address": "105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
-    * "description": "Birth good",
+    * "id": 1,
+    * "cat_id": "4",
+    * "name": "birth day",
+    * "address": "Cẩm Lệ",
+    * "description": "Tiệc sinh nhật ",
     * "images": [
     * {
-    * "origin": "uploads/images/event/origin/2-1475313359Nbg57HO35W1wnCbU.jpg",
-    * "thumb": "uploads/images/event/thumb/2-1475313359Nbg57HO35W1wnCbU.jpg"
+    * "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
+    * "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
     * }
     * ],
-    * "user_id": 0,
-    * "long": "99.99999999",
-    * "lag": "16.04922300",
+    * "long": "108.23129100",
+    * "lat": "16.04066400",
+    * "group_id": "3",
+    * "status": "1",
+    * "date_start": "2016-10-06 00:00:00",
+    * "date_end": "0000-00-00 00:00:00",
+    * "user_max": "0",
+    * "created_at": "2016-10-06 13:33:32",
+    * "updated_at": "2016-10-06 13:33:32"
+    * },
+    * {
+    * "id": 2,
+    * "cat_id": "4",
+    * "name": "Thi chim canh",
+    * "address": "109 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam",
+    * "description": "Xem những con chim chơi hay nhất",
+    * "images": [
+    * {
+    * "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
+    * "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
+    * }
+    * ],
+    * "user_id": 3,
+    * "long": "12.25365000",
+    * "lat": "25.12145810",
     * "group_id": "0",
     * "status": "1",
-    * "date_start": "0000-00-00 00:00:00",
+    * "date_start": "2016-10-20 00:00:00",
     * "date_end": "0000-00-00 00:00:00",
-    * "user_max": "50",
-    * "created_at": "2016-10-01 09:15:59",
-    * "updated_at": "2016-10-01 09:16:00"
-    *  },
-    *  {
+    * "user_max": "0",
+    * "created_at": "2016-10-06 13:33:32",
+    * "updated_at": "2016-10-06 13:33:32"
+    * }, 
+    * {
     * "id": 5,
     * "cat_id": "1",
     * "name": "SeaGame",
@@ -237,25 +268,27 @@ class EventsController extends Controller
     * "description": "Soccer, tennis",
     * "images": [
     * {
-    * "origin": "uploads/images/event/origin/5-147546046523uKCJyuELH4q2gj.jpg",
-    * "thumb": "uploads/images/event/thumb/5-147546046523uKCJyuELH4q2gj.jpg"
+    * "origin": "http://line-matching.dev.bap.jp/uploads/images/event/origin/17-1476264116Nauzhcx5WOInr19D.jpg",
+    * "thumb": "http://line-matching.dev.bap.jp/uploads/images/event/thumb/17-1476264116Nauzhcx5WOInr19D.jpg"
     * }
     * ],
     * "user_id": 1,
-    * "long": "99.99999999",
-    * "lag": "16.04922300",
+    * "long": "108.22080800",
+    * "lat": "16.04922300",
     * "group_id": "1",
     * "status": "1",
     * "date_start": "0000-00-00 00:00:00",
     * "date_end": "0000-00-00 00:00:00",
     * "user_max": "50",
-    * "created_at": "2016-10-03 02:07:45",
-    * "updated_at": "2016-10-03 02:07:45"
-    *  }
-    *  ],
-    * "message": "Succesfully."
-    *  }
-    * */
+    * "created_at": "2016-10-12 16:21:39",
+    * "updated_at": "2016-10-12 09:21:56"
+    * }
+    * ]
+    *},
+    *"message": "Succesfully.",
+    * "error": null
+    * }
+    */
      /**
     * Display a listing of the resource.
     *

@@ -74,6 +74,10 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     get('/groupsusermap/{id}', ['as' => 'api.groupsusermap.get.show', 'uses' => 'GroupUsersMapsController@getShow']);
 
     /**
+     *Route Leader Group
+     */
+    get('/leadergroup', ['as' => 'api.leadergroup.get.index', 'uses' => 'GroupLeaderController@getLeaderGroup']);
+    /**
      *Rout MyPage
      */
      get('/mypage/group', ['as' => 'api.mypage.get.index', 'uses' => 'MyPageController@getGroupAll']);

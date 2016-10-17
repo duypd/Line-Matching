@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password','avatar','telephone'];
+    protected $fillable = ['name', 'email', 'password','images','telephone','id','status'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,4 +60,26 @@ class User extends Model implements AuthenticatableContract,
         'user_id'    => 'integer',
         'images'     => 'json',
     ];
+
+    public function groupleadermap()
+    {
+        return $this->hasMany(GroupsLeaderMaps::class,'user_id');
+    }
+    public function event()
+    {
+        return $this->belongsTo(Event::class,'user_id');
+    }   
+    /*Join To Event Leader*/
+    public function eventLeaderMap()
+    {
+        return $this->hasOne(EventLeaderMaps::class,'user_id');
+    }
+
+    /**
+     * hasOne to UserProfile
+     */
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class ,'user_id','id');
+    }
 }

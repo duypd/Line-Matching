@@ -37,46 +37,54 @@ class PrPointController extends Controller
     *@apiSuccess {string} message Message Response
     *@apiSuccessExample Response
     * {
-    *"status": 200,
-    *"data": [
-    *{
-    *"id": 2,
-    *"event_id": 2,
-    *"content": "Store Telephone",
-    *images": [
-    *{
-    *"origin": "http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/2-1475317232ymZDa1oT5epxaeqk.jpg",
-    *"thumb": "http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/2-1475317232ymZDa1oT5epxaeqk.jpg"
+    * "status": 200,
+    * "data": {
+    * "total": 6,
+    * "per_page": 10,
+    * "current_page": 1,
+    * "last_page": 1,
+    * "next_page_url": null,
+    * "prev_page_url": null,
+    * "from": 1,
+    * "to": 6,
+    * "data": [
+    * {
+    * "id": 1,
+    * "event_id": 3,
+    * "content": "Quảng cáo Nhà Hàng",
+    * "images": [
+    * {
+    * "origin": "http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/13-1476167829PIqAofppp9PTaRf7.jpg",
+    * "thumb": "http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/13-1476167829PIqAofppp9PTaRf7.jpg"
     * }
     * ],
-    *"created_at": "2016-10-01 10:20:32",
-    *"updated_at": "2016-10-01 10:20:32"
-    *},
-    *{
-    *"id": 4,
-    *"event_id": 1,
-    *"content": "Quảng cáo Nhà Hàng",
-    *"images": [
-    *{
-    *"origin": "http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/4-14754673726UJOqRPC0ErVRMJK.jpg",
-    *"thumb": "http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/4-14754673726UJOqRPC0ErVRMJK.jpg"
-    *}
-    *],
-    *"created_at": "2016-10-03 04:02:52",
-    *"updated_at": "2016-10-03 04:02:52"
-    *}
-    *],
-    *"message": "Succesfully."
-    * 
+    * "created_at": "2016-10-11 06:37:09",
+    * "updated_at": "2016-10-11 06:37:09"
+    * },
+    * {
+    * "id": 6,
+    * "event_id": 6,
+    * "content": "Content healthy, entertament",
+    * "images": [
+    * {
+    * "origin": "http://line-matching.dev.bap.jp/uploads/images/prpoint/origin/14-1476167833WhgP0NLojINaiaJ0.jpg",
+    * "thumb": "http://line-matching.dev.bap.jp/uploads/images/prpoint/thumb/14-1476167833WhgP0NLojINaiaJ0.jpg"
+    * }
+    * ],
+    * "created_at": "2016-10-11 06:37:13",
+    * "updated_at": "2016-10-11 06:37:13"
+    * }
+    * ]
+    * },
+    * "message": "Succesfully.",
+    * "error": null
+    * }
      */
     
     public function index()
     {
-        return Response::json([
-            'status'    => config('status.ok'),
-            'data'      => $this->eventPrPointRepository->eventsList(1),
-            'message'   => trans('messages.success')
-        ]);
+       $eventPrPoint = $this->eventPrPointRepository->eventsList(0,['*']);
+       return $this->buildResponseSuccess($eventPrPoint);
     }
     /**
     getDetailEventPrPoint

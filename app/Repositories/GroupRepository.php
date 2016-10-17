@@ -168,8 +168,8 @@ class GroupRepository extends AbstractRepository
         //                  $b->select('group_id');
         //                 }])               
         //          ->get();
-        //  not complate------------------------------------------------------------------
-        $resultgroup = $this->model->select($filtergroup)
+        //  not complate-------------------------I was just make basic way-----------------------------------------
+        $resultgroup = $this->model->select($filtergroup)->take(5)
                                     ->with(['groupcategory' => function($a){
                                         $a->select('id','name');}])
                                    ->get();

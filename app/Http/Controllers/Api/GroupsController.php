@@ -55,50 +55,63 @@ class GroupsController extends Controller
     *@apiSuccess {Number} error Error of request
     *@apiSuccessExample Response:
     *{
-    *"status": 200,
-    *"data": [
-    * {
-    * "id": 1,
-    * "name": "Group great",
+    * "status": 200,
+    * "data": {
+    * "total": 33,
+    * "per_page": 10,
+    * "current_page": 1,
+    * "last_page": 4,
+    * "next_page_url": "http://line-matching.dev.bap.jp/api/v1/groups?page=2",
+    * "prev_page_url": null,
+    * "from": 1,
+    * "to": 10,
+    * "data": [
+    *        {
+    * "id": 3,
+    * "cat_id": "1",
+    * "name": "Group Great",
     * "images": [
     * {
-    * "origin": "uploads/images/groups/origin/1-1475464381NlUlKOiBRkLjqwra.jpg",
-    * "thumb": "uploads/images/groups/thumb/1-1475464381NlUlKOiBRkLjqwra.jpg"
-    *  }
-    * ],
-    * "leader_max": "50",
-    * "user_max": "50",
-    * "user_id": 1,
-    * "description": "descripton of the group",
-    * "status": "0",
-    * "lag": "15.24554100",
-    *  "long": "21.25400000",
-    *  "created_at": "2016-10-03 10:12:49",
-    *  "updated_at": "2016-10-03 03:13:01"
-    *  },
-    *  {
-    * "id": 2,
-    * "name": "Group great",
-    *  "images": [
-    *  {
-    * "origin": "uploads/images/groups/origin/2-1475464541VXBznZso1uvK6oyn.jpg",
-    * "thumb": "uploads/images/groups/thumb/2-1475464541VXBznZso1uvK6oyn.jpg"
-    *  }
-    * ],
-    * "leader_max": "50",
-    * "user_max": "50",
-    * "user_id": 1,
-    * "description": "descripton of the group",
-    * "status": "1",
-    * "lag": "15.24554100",
-    * "long": "21.25400000",
-    * "created_at": "2016-10-03 10:15:29",
-    *  "updated_at": "2016-10-03 03:15:41"
+    * "origin": "http://line-matching.dev.bap.jp/uploads/images/groups/origin/3-14755628190ctCsqlZa0RqZsnH.jpeg",
+    * "thumb": "http://line-matching.dev.bap.jp/uploads/images/groups/thumb/3-14755628190ctCsqlZa0RqZsnH.jpeg"
     * }
-    *  ],
-    *  "message": "Succesfully."
-    *  } 
-    *   */
+    * ],
+    * "leader_max": "2",
+    * "user_max": "50",
+    * "user_id": 1,
+    * "description": "descripton of the group",
+    * "status": "50",
+    * "lat": "16.04922300",
+    * "long": "108.22080800",
+    * "created_at": "2016-10-11 17:15:54",
+    * "updated_at": "2016-10-11 02:00:28"
+    * },
+    * {
+    * "id": 15,
+    * "cat_id": "2",
+    * "name": "Group 9",
+    * "images": [
+    * {
+    * "origin": "http://line-matching.dev.bap.jp/uploads/images/groups/origin/15-1476153566doJqEawXIj6ShHFa.jpg",
+    * "thumb": "http://line-matching.dev.bap.jp/uploads/images/groups/thumb/15-1476153566doJqEawXIj6ShHFa.jpg"
+    * }
+    * ],
+    * "leader_max": "50",
+    * "user_max": "40",
+    * "user_id": 1,
+    * "description": "descripton of the grouphj",
+    * "status": "1",
+    * "lat": "15.24554100",
+    * "long": "21.25400000",
+    * "created_at": "2016-10-11 15:47:04",
+    * "updated_at": "2016-10-11 02:39:26"
+    * }
+    * ]
+    * },
+    * "message": "Succesfully.",
+    * "error": null
+    * }
+   */
       
        public function getIndex()
     {

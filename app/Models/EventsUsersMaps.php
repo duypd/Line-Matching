@@ -20,7 +20,7 @@ class EventsUsersMaps  extends Model
      * @var array 
    **/
     protected $fillable = [
-        'event_id','user_id','status','is_join'
+        'event_id','user_id','status','is_join','id'
     ];
 
     /**
@@ -31,5 +31,13 @@ class EventsUsersMaps  extends Model
     protected $casts = [
         'id'    => 'integer',
     ]; 
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(UserProfile::class, 'user_id');
+    }
 }
    

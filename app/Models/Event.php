@@ -65,7 +65,7 @@ class Event  extends Model
     public function eventPoint(){
         return $this->hasMany(EventsPrPoint::class, 'event_id','id');
     }
-    public function is_leaderevent()
+    public function is_leader()
     {
         return $this->mapLeader();
     }
@@ -77,9 +77,25 @@ class Event  extends Model
     /**
      * hasMany PrPoint
      */
-    public function EventPrPoint()
+    public function prPoint()
     {
-        return $this->hasMany(EventsPrPoints::class,'id');
+        return $this->hasMany(EventsPrPoints::class,'event_id');
     }
+
+    /**
+     * hasMany to EventUsersMaps
+     */
+    public function eventUsersMaps()
+    {
+        return $this->hasMany(EventsUsersMaps::class, 'event_id','id');
+    }
+    /**
+     * belongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(UserProfile::class,'user_id');
+    }
+    
 }
 

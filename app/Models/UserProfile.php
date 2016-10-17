@@ -27,4 +27,15 @@ class UserProfile extends Model
      * @var array
      */
     protected $hidden = [];
+    
+    /**
+     *
+     * hasOne to User
+     *
+     */
+    public function userProfile()
+    {
+        $this->hasOne(User::class, 'id','user_id');
+    }
+    
 }

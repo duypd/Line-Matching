@@ -15,8 +15,9 @@ class EventPrPointRepository extends AbstractRepository
     {
         $this->model = $eventPrPoints;
     }
-     function eventsList($eventPrPointId){
-        return $this->prepareQuery()->get();
+     function eventsList($page =0, $attributes = ['*']){
+        $result = $this->paginate($attributes);
+        return $result->toArray();
     }
      /**
      * get DetailEventPrPoint.

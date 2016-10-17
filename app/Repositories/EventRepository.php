@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Models\Event;
 use App\Models\Group;
+use App\Models\User;
 use App\Models\EventsPrPoints;
 use App\Models\EventsLeaderMaps;
 use App\Models\EventCategory;
@@ -31,12 +32,22 @@ class EventRepository extends AbstractRepository
      * @var EventsLeaderMaps
      */
     protected $eventLeaderMaps;
+    /**
+     * @var EventsLeaderMaps
+     */
+    protected $eventsUsersMaps;
+    /**
+     * @var user
+     */
+    protected $user;
 
-    public function __construct(Event $event, EventsPrPoints $eventPrPoint, EventsLeaderMaps $eventLeaderMaps)
+    public function __construct(Event $event, EventsPrPoints $eventPrPoint, EventsLeaderMaps $eventLeaderMaps,EventsUsersMaps $eventsUsersMaps,User $user)
     {
         $this->model = $event;
         $this->eventPrPoint = $eventPrPoint;
         $this->eventLeaderMaps = $eventLeaderMaps;
+        $this->eventsUsersMaps = $eventsUsersMaps;
+        $this->user            = $user;
         $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
    /* function eventsList($userId){
@@ -73,12 +84,12 @@ class EventRepository extends AbstractRepository
             $cevent->updated_at = date('Y-m-d H:i:s');
             $cevent->save();
          if (!empty($param['images'])) {
-             $upload = $this->__postImageEvent($cevent,$param['images']);
-             $image = $cevent->images;
-             $cevent->images =$upload;
-             $cevent->images =  transfer_url_images($cevent->images); 
-             $cevent->save();
-              if (! empty($image)) {
+            $upload = $this->__postImageEvent($cevent,$param['images']);
+            $image = $cevent->images;
+            $cevent->images =$upload;
+            $cevent->images =  transfer_url_images($cevent->images); 
+            $cevent->save();
+            if (! empty($image)) {
                 event(new DeleteImageEvent($image));
             }
          } 
@@ -102,8 +113,7 @@ class EventRepository extends AbstractRepository
         $UEvent->save();
         return $UEvent;
         $upload = $this->__postImageEvent($UEvent,$params['images']);
-
-        if (!empty($params['images'])) {
+        if (!empty($params['images'])){
             $image = $UEvent->Images;
             $UEvent->images = $upload;
             $UEvent->images =  transfer_url_images($UEvent->images); 
@@ -132,10 +142,20 @@ class EventRepository extends AbstractRepository
      */
 
     public function show($id)
-    {
-        $event = $this->where('status',1)->getBy('id', $id);
-        return $event;
+    {   
+        $eventfill =['name','address','description','images','date_start','date_end','user_max','id','user_id'];
+        $event = $this->model->where('id',$id)->select($eventfill)
+        ->with(['prPoint'=>function($q){
+            $q->select('event_id','content','images','id');},
+            'user' =>function($a){
+                $a->select('user_id','id','images','description');},'eventUsersMaps'=>function($b){
+                $b->select('id','event_id');
+                },'userProfile'=>function($c){
+                    dd($c);
+                }])->first();
+         return $event->toArray(); 
     }
+        
     /**
      * Upload image
      *
@@ -177,9 +197,9 @@ class EventRepository extends AbstractRepository
         {
            if (in_array(['event_id' => $values['id']], $resultleader)) 
            {
-               $resultevent[$key]['is_leaderevent'] = 1;
+               $resultevent[$key]['is_leader'] = 1;
            } else{
-               $resultevent[$key]['is_leaderevent'] = 0;
+               $resultevent[$key]['is_leader'] = 0;
            }    
         }
         return $resultevent;
@@ -193,11 +213,14 @@ class EventRepository extends AbstractRepository
     public function showEvent($id)
     {
         $eventfill =['name','address','description','images','date_start','date_end','user_max','id'];
-        $event = $this->model->where('id',$id)->select($eventfill)->with(['EventPrPoint' =>function($a){
-            $a->select('id','content');
-        }])->first();
-
-        return $event->toArray();
+        $event = $this->model->where('id',$id)->select($eventfill)->with(['prPoint'=>function($q){
+            $q->select('event_id','content','images');
+        }])->first(); 
+        $countUserMapsEvent = $this->eventsUsersMaps->where('event_id',$id)->count();
+       /* $countLeaderMapsEvent = $this->eventLeaderMaps->where('event_id',$id)->count();*/
+        $event->totaljoin = $countUserMapsEvent;
+       /* $event->totalleader =$countLeaderMapsEvent;*/
+        return $event->toArray();    
     }
 
 
