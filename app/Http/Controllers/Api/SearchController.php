@@ -218,9 +218,8 @@ class SearchController extends Controller {
      * "error": 0
      * }
      */
-     public function getEvent(Request $request) {
-        $params = $request->all();
-        $event = $this->repo->getEvent($params);
+     public function getEvent($id) {
+        $event = $this->repo->getEvent($id);
         return $this->buildResponseCreated($event, trans('messages.success'));
     }
    
