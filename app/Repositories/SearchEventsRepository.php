@@ -14,22 +14,11 @@ class SearchEventsRepository extends AbstractRepository {
     protected $groups;
 
 
-    public function __construct(Event $events, EventGroup $event_groups) {
-        $this->models = $events;
-        $this->groups = $event_groups;
-    }
-       
-    // public function ScopeDistance($query,$lat,$long,$distance)
-    //     {
-    //      $raw = \DB::raw('ROUND ( ( 6371 * acos( cos( radians('.$lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$long.') ) + sin( radians('.$lat.') ) * sin( radians( latitude ) ) ) ) ) AS distance');
-    //      return $query->select('*')->addSelect($raw)->orderBy( 'distance', 'ASC' )->groupBy('distance')->where('distance', '<=', $distance);
-    //     }
-
-    public function searchEvents($params, $page, $perPage) {
     public function __construct(Event $events, Group $event_groups) {
         $this->models = $events;
         $this->groups = $event_groups;
     }
+       
 
     public function searchEvents($params,$page = 0, $attributes = ['*']) {
         $builder = $this->models;
