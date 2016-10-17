@@ -55,9 +55,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', '192.168.0.254'),
-            'database'  => env('DB_DATABASE', 'line_matching'),
-            'username'  => env('DB_USERNAME', 'line_matching'),
-            'password'  => env('DB_PASSWORD', 'line_matching'),
+            'database'  => env('DB_DATABASE', 'matching_unitest'),
+            'username'  => env('DB_USERNAME', 'matching_unitest'),
+            'password'  => env('DB_PASSWORD', 'matching_unitest'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => 'line_',
