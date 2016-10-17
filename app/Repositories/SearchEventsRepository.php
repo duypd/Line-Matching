@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 use App\Models\Event;
-use App\Models\EventGroup;
+use App\Models\Group;
 use App\Models\EventCategory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
@@ -13,18 +13,12 @@ class SearchEventsRepository extends AbstractRepository {
     protected $models;
     protected $groups;
 
-    public function __construct(Event $events, EventGroup $event_groups) {
+    public function __construct(Event $events, Group $event_groups) {
         $this->models = $events;
         $this->groups = $event_groups;
     }
-       
-    // public function ScopeDistance($query,$lat,$long,$distance)
-    //     {
-    //      $raw = \DB::raw('ROUND ( ( 6371 * acos( cos( radians('.$lat.') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('.$long.') ) + sin( radians('.$lat.') ) * sin( radians( latitude ) ) ) ) ) AS distance');
-    //      return $query->select('*')->addSelect($raw)->orderBy( 'distance', 'ASC' )->groupBy('distance')->where('distance', '<=', $distance);
-    //     }
 
-    public function searchEvents($params, $page, $perPage) {
+    public function searchEvents($params,$page = 0, $attributes = ['*']) {
         $builder = $this->models;
         if (isset($params['name'])) {
             $builder = $builder->where('name','LIKE', '%'.$params['name'].'%');
@@ -39,27 +33,32 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['address'])) {
             $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
         }
+
+
+       
         
-        // if (isset($params['lat']) && ($params['long']) && ($params['distance'])) {
-
-        //             $query = $this->models;
-        //             $builder = $this->ScopeDistance($query,$params['lat'],$params['long'],$params['distance']);
-                                   
-        //         }
-
-        $count = $builder->count();
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
-        $events = $builder->forPage($page, $perPage)->get();
-        $meta = [
-            'page' => $page,
-            'perPage' => $perPage,
-            'total' => ceil($count / $perPage)
-        ];
-        return $result = [
-            'meta' => $meta,
-            'events' => $events
-        ];
+        if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
+           $builder = DB::select("
+            SELECT
+              *, (
+                3959 * acos (
+                  cos ( radians(?) )
+                  * cos( radians( `lat` ) )
+                  * cos( radians( `long` ) - radians(?) )
+                  + sin ( radians(?) )
+                  * sin( radians( `lat` ) )
+                )
+              ) AS distance
+            FROM line_events
+            HAVING distance <= ?
+            ORDER BY distance
+            ", array($params['lat'], $params['long'], $params['lat'], $params['radius']));
+        }
+        
+            return $builder;
+            // $result = $builder->paginate($attributes);
+            // return $result->toArray();
+        
     }
 
 
@@ -68,25 +67,32 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['name'])) {
             $event_groups = $event_groups->where('name',$params['name'])->with('event');
         }
-        $count = $event_groups->count();
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
-        $event_groups_f = $event_groups->forPage($page, $perPage)->get();
-        $meta = [
-            'page' => $page,
-            'perPage' => $perPage,
-            'total' => ceil($count / $perPage)
-        ];
+        if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
+           $event_groups = DB::select("
+            SELECT
+              *, (
+                3959 * acos (
+                  cos ( radians(?) )
+                  * cos( radians( `lat` ) )
+                  * cos( radians( `long` ) - radians(?) )
+                  + sin ( radians(?) )
+                  * sin( radians( `lat` ) )
+                )
+              ) AS distance
+            FROM line_groups
+            HAVING distance <= ?
+            ORDER BY distance
+            ", array($params['lat'], $params['long'], $params['lat'], $params['radius']));
+        }
         return $result = [
-            'meta' => $meta,
-            'event_groups_f' => $event_groups_f
+            'event_groups' => $event_groups
         ];
     }
 
 
-    public function getEvent($params)
+    public function getEvent($id)
     {
-        $event = $this->models->Where('name',$params['name'])->with(['event_group', 'event_category'])->get();
+        $event = $this->models->Where('id',$id)->with(['event_group', 'event_category'])->get();
         return $event;
     }
 

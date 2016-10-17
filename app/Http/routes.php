@@ -18,7 +18,7 @@ Route::pattern('id', '\d+');
 /**
  * Route Api
  */
-Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
+Route::group(['prefix' => '/api/v1', 'namespace' => 'Api', 'middleware' => 'verify_system'], function() {
 
     /*
      * Route Users
@@ -79,7 +79,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     */
     get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
     get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
-    get('event-detail', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
+    get('event-detail/{id}', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
     /*
     * Related Event
     */

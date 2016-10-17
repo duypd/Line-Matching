@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'limit' => 10
+    'limit' => 5
 ];

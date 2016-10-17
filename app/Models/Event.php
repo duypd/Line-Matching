@@ -51,7 +51,7 @@ class Event  extends Model
     ];
     
     public function event_group(){
-        return $this->belongsTo(EventGroup::class, 'group_id', 'id');
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
     public function groups(){
