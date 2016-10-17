@@ -15,6 +15,9 @@ class SearchEventsRepository extends AbstractRepository {
 
 
     public function __construct(Event $events, Group $event_groups) {
+
+    public function __construct(Event $events, EventGroup $event_groups) {
+
         $this->models = $events;
         $this->groups = $event_groups;
     }
@@ -35,6 +38,8 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['address'])) {
             $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
         }
+
+
         
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
            $builder = DB::select("
@@ -55,7 +60,11 @@ class SearchEventsRepository extends AbstractRepository {
         }
         
             return $builder;
-           
+
+            // $result = $builder->paginate($attributes);
+            // return $result->toArray();
+        
+
     }
 
 

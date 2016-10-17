@@ -206,6 +206,7 @@ class PrPointController extends Controller
     
     public function postUpdate($id, UpdatePrPointRequest $request)
     {   
+        
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];

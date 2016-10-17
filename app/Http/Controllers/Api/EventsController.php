@@ -261,7 +261,7 @@ class EventsController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-     public function getIndex()
+     public function getEvents()
     {
         $event = $this->eventRepository->index(0,['*']);
         return $this->buildResponseSuccess($event);
@@ -312,7 +312,7 @@ class EventsController extends Controller
     */
    
     
-    public function getShow($id){
+    public function getEvent($id){
         
         $events = $this->eventRepository->show($id);
         if(!empty($events)){
@@ -441,6 +441,77 @@ class EventsController extends Controller
         }
          return $this->buildResponseCreated($related_events, trans('messages.success'));
      }
+
+
+     /**
+     * @api {get} api/v1/took-place-events Get Events Took Place
+     * @apiName Get Events Took Place
+     * @apiVersion 1.0.0
+     * @apiGroup Events
+     * @apiSuccess {Number} status Status return
+     * @apiSuccess {Object} data Data return
+     * @apiSuccess {String} message Message return
+     * @apiSuccess {String} error Error return
+     * @apiSuccessExample Response:
+     * {
+     * "status": 200,
+     * "data": [
+     *  {
+     * "id": 3,
+     * "date": "2016-10-05 00:00:00",
+     * "name": "Open soon restaurant 2",
+     * "cat_id": "20"
+     * },
+     *  {
+     * "id": 7,
+     * "date": "2016-10-06 00:00:00",
+     * "name": "birth day",
+     * "cat_id": "4"
+     *  }
+     *  ],
+     * "message": "Succesfully.",
+     * "error": null
+     *  }
+     */
+
+     public function getTookPlaceEvents($group_id){
+         $events = $this->eventRepository->getTookPlaceEvents($group_id, 0,['*']);
+         return $this->buildResponseSuccess($events);
+       
+    }
+
+
+     /**
+     * @api {get} api/v1/events-plan Get Events will Take Place
+     * @apiName Get Events will Take Place
+     * @apiVersion 1.0.0
+     * @apiGroup Events
+     * @apiSuccess {Number} status Status return
+     * @apiSuccess {Object} data Data return
+     * @apiSuccess {String} message Message return
+     * @apiSuccess {String} error Error return
+     * @apiSuccessExample Response:
+     * {
+     * "status": 200,
+     * "data": {
+     * "2": {
+     * "id": 8,
+     * "date": "2016-10-20 00:00:00",
+     * "name": "event 1",
+     * "cat_id": "4"
+     *  }
+     * },
+     * "message": "Succesfully.",
+     * "error": null
+     * }
+     */
+
+    public function getEventsPlan($group_id){
+         $events = $this->eventRepository->getEventsPlan($group_id,0,['*']);
+         return $this->buildResponseSuccess($events);
+       
+    }
+
 }
 
 

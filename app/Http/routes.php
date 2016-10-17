@@ -18,7 +18,7 @@ Route::pattern('id', '\d+');
 /**
  * Route Api
  */
-Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
+Route::group(['prefix' => '/api/v1', 'namespace' => 'Api', 'middleware' => 'verify_system'], function() {
 
     /*
      * Route Users
@@ -30,8 +30,6 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      * Route Events
      */
 
-    get('/events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@getEvents']);
-    get('/event/{id}', ['as' => 'api.event.get.show', 'uses' => 'EventsController@getEvent']);
     post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);
     post('/event/{id}', ['as' => 'api.events.put.update', 'uses' => 'EventsController@postUpdate']);
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);
@@ -80,6 +78,8 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     */
     get('search-events', ['as' => 'api.search-events.get', 'uses' => 'SearchController@searchEvents']);
     get('search-events-group', ['as' => 'api.search-events-group.get', 'uses' => 'SearchController@searchEventsGroup']);
+    get('event-detail/{id}', ['as' => 'api.event.get', 'uses' => 'SearchController@getEvent']);
+
     /*
     * Related Event
     */
@@ -92,8 +92,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
     * Buy Event
     */
-
-    get('user_plan', ['as' => 'api.user-plan.get', 'uses' => 'UserPlanController@getList']);
+    get('event-packges', ['as' => 'api.event-packges.get', 'uses' => 'UserPlanController@getList']);
     post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
     get('event-packges', ['as' => 'api.event-packges.get', 'uses' => 'UserPlanController@getList']);
     post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
@@ -105,7 +104,6 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     * Events Plan
     */
     get('events-plan/{group_id}', ['as' => 'api.events-plan.get', 'uses' => 'EventsController@getEventsPlan']);
-
 
 
 });

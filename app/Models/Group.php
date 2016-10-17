@@ -18,7 +18,7 @@ class Group  extends Model
      * @var array
    */
     protected $fillable = [
-        'id','name','leader_max','user_max','description','status','lag','long','images'
+        'id','name','leader_max','user_max','description','status','lat','long','images'
     ];
     /**
      * @var string
@@ -45,7 +45,7 @@ class Group  extends Model
         'images'     => 'json',
     ];
      public function event(){
-       return $this->hasMany(Event::class,'group_id');
+       return $this->hasMany(Event::class,'group_id','id');
     }
 
 }

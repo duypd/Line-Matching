@@ -69,12 +69,11 @@ class SearchController extends Controller {
      * }
      */
 
-    public function searchEvents(PagingRequest $request) {
+    public function searchEvents(Request $request) {
         $params = $request->all();
-        $page = isset($request->page) ? $request->page : 1;
-        $perPage = isset($request->perPage) ? $request->perPage : 10;
-        $events = $this->repo->searchEvents($params,$page, $perPage);
-        return $this->buildResponseCreated($events, trans('messages.success'));
+       
+        $events = $this->repo->searchEvents($params);
+        return $this->buildResponseSuccess($events, trans('messages.success'));
     }
 
 
@@ -153,7 +152,7 @@ class SearchController extends Controller {
     public function searchEventsGroup(Request $request) {
         $params = $request->all();
         $event_groups = $this->repo->searchEventGroups($params);
-        return $this->buildResponseCreated($event_groups, trans('messages.success'));
+        return $this->buildResponseSuccess($event_groups);
     }
 
     /**
@@ -220,7 +219,8 @@ class SearchController extends Controller {
      */
      public function getEvent($id) {
         $event = $this->repo->getEvent($id);
-        return $this->buildResponseCreated($event, trans('messages.success'));
+        return $this->buildResponseSuccess($event, trans('messages.success'));
+
     }
    
 }
