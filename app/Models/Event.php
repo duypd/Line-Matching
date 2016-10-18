@@ -92,10 +92,9 @@ class Event  extends Model
     /**
      * belongsTo
      */
-    public function user()
+    public function userProfile()
     {
-        return $this->belongsTo(UserProfile::class,'user_id');
+        return $this->hasOne(UserProfile::class,'id');
     }
-    
 }
 

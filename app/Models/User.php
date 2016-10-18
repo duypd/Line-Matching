@@ -80,6 +80,10 @@ class User extends Model implements AuthenticatableContract,
      */
     public function userProfile()
     {
-        return $this->hasOne(UserProfile::class ,'user_id','id');
+        return $this->belongsTo(UserProfile::class,'user_id');
+    }
+    public function eventUserMaps()
+    {
+        return $this->hasOne(EventsUsersMaps::class,'id');
     }
 }

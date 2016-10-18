@@ -35,9 +35,15 @@ class EventsUsersMaps  extends Model
     {
         return $this->belongsTo(Event::class, 'event_id');
     }
+    /**
+     *
+     * EventUsersMap belong to User
+     *
+     */
     public function user()
     {
-        return $this->belongsTo(UserProfile::class, 'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
+    
 }
    

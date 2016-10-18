@@ -19,7 +19,7 @@ class UserProfile extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'address', 'description','on_groups', 'on_chat', 'on_event'];
+    protected $fillable = ['id','user_id', 'address', 'description','on_groups', 'on_chat', 'on_event'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -30,12 +30,11 @@ class UserProfile extends Model
     
     /**
      *
-     * hasOne to User
+     * belongsTo User
      *
      */
-    public function userProfile()
+    public function infouser()
     {
-        $this->hasOne(User::class, 'id','user_id');
-    }
-    
+        return  $this->belongsTo('\App\Models\User','id');
+    }   
 }

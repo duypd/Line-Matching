@@ -144,15 +144,18 @@ class EventRepository extends AbstractRepository
     public function show($id)
     {   
         $eventfill =['name','address','description','images','date_start','date_end','user_max','id','user_id'];
-        $event = $this->model->where('id',$id)->select($eventfill)
-        ->with(['prPoint'=>function($q){
-            $q->select('event_id','content','images','id');},
-            'user' =>function($a){
-                $a->select('user_id','id','images','description');},'eventUsersMaps'=>function($b){
-                $b->select('id','event_id');
-                },'userProfile'=>function($c){
-                    dd($c);
-                }])->first();
+        $event = $this->model->select($eventfill)->where('id',$id) 
+        ->with(['prPoint'=>function($q)
+        {
+            $q->select('each(`)vent_id','content','images','id');
+        },
+            'userProfile' =>function($a)
+        {
+                $a->select('id','images','description','user_id')
+                ->with(['infouser' =>function($b){
+                    $b->select('id','username');
+                }]);
+        }])->get();
          return $event->toArray(); 
     }
         
@@ -191,7 +194,7 @@ class EventRepository extends AbstractRepository
                                                 ->with(['groups' => function($a){
                                                 $a->select('id','name');},'category'=>function($b){
                                                 $b->select('id','name');
-                                                }])->get();                                  
+                                                }])->get();                                 
         $resultleader = $this->eventLeaderMaps->select('event_id')->get()->toArray();
         foreach ($resultevent as $key => $values) 
         {
@@ -214,12 +217,10 @@ class EventRepository extends AbstractRepository
     {
         $eventfill =['name','address','description','images','date_start','date_end','user_max','id'];
         $event = $this->model->where('id',$id)->select($eventfill)->with(['prPoint'=>function($q){
-            $q->select('event_id','content','images');
+        $q->select('event_id','content','images');
         }])->first(); 
         $countUserMapsEvent = $this->eventsUsersMaps->where('event_id',$id)->count();
-       /* $countLeaderMapsEvent = $this->eventLeaderMaps->where('event_id',$id)->count();*/
         $event->totaljoin = $countUserMapsEvent;
-       /* $event->totalleader =$countLeaderMapsEvent;*/
         return $event->toArray();    
     }
 
