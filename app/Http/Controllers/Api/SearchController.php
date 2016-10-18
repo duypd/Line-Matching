@@ -71,7 +71,6 @@ class SearchController extends Controller {
 
     public function searchEvents(Request $request) {
         $params = $request->all();
-       
         $events = $this->repo->searchEvents($params);
         return $this->buildResponseSuccess($events, trans('messages.success'));
     }

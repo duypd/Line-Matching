@@ -169,11 +169,8 @@ class EventRepository extends AbstractRepository
 
      public function getTookPlaceEvents($group_id, $page = 0, $attributes = ['*']){
        $date_start = $this->model->where('group_id',$group_id);
-       // return $date_start;
        $date_start_f = $date_start->select('id','name','cat_id','status','date_start')->get()->toArray();
-       // dd($date_start_f);
        $now = strtotime(date('Y-m-d'));
-       // dd($now);
        $result = array();
        foreach($date_start_f as $key => $values) {
             if(($now - strtotime($values['date_start']) > 0) && ($values['status'] == 1) ) {
