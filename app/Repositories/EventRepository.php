@@ -182,14 +182,7 @@ class EventRepository extends AbstractRepository
      */
      function getindexall($page = 0, $attributes = ['*']){
         $filterevent = ['images','date_start','name','user_max','id'];
-       /* $result = $this->model->select($filterevent)->take(3)
-       ->with(['groups' => function($q){
-          $q->select('id','name');},
-          'category' => function($c) {
-              $c->select('id','name');
-          }])
-       ->get();
-        return  $result->toArray();*/
+      
         $resultevent = $this->model->select($filterevent)->take(5)
                                                 ->with(['groups' => function($a){
                                                 $a->select('id','name');},'category'=>function($b){
