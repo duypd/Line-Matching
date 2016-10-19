@@ -157,8 +157,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         // /*Aauth2-server-laravel */
-        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
-        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+       
 
     ],
 
