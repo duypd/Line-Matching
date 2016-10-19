@@ -71,10 +71,8 @@ class SearchController extends Controller {
 
     public function getSearchEvents(PagingRequest $request) {
         $params = $request->all();
-        $page = isset($request->page) ? $request->page : 1;
-        $perPage = isset($request->perPage) ? $request->perPage : 10;
-        $events = $this->repo->searchEvents($params,$page, $perPage);
-        return $this->buildResponseCreated($events, trans('messages.success'));
+        $events = $this->repo->searchEvents($params,0,['*']);
+        return $this->buildResponseSuccess($events, trans('messages.success'));
     }
 
 

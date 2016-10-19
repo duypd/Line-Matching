@@ -149,10 +149,6 @@ class GroupRepository extends AbstractRepository
      * Get list group.
      * @return array
      */
-    /* function getindex($page = 0, $attributes = ['*']){
-        $result = $this->with('event')->paginate($attributes);
-        return $result->toArray();
-    }*/
     /**
      * Get list event in my Page
      * @return array
@@ -161,18 +157,10 @@ class GroupRepository extends AbstractRepository
      {
             
         $filtergroup = ['images','name','id','cat_id'];
-       /* $result = $this->model->select($filtergroup)->take(5)
-                 ->with(['groupcategory' => function($a){
-                        $a->select('id','name');},
-                        'is_leader'  => function($b){ 
-                         $b->select('group_id');
-                        }])               
-                 ->get();
-         not complate-------------------------I was just make basic way--------------------*/
-        $resultgroup = $this->model->select($filtergroup)->take(5)
+        $resultgroup = $this->model->select($filtergroup)
                                     ->with(['groupcategory' => function($a){
                                         $a->select('id','name');}])
-                                   ->get();
+                                   ->paginate(5);
         $resultleader = $this->groupLeaderMaps->select('group_id')->get()->toArray();
         foreach($resultgroup as $key => $values) {
             if(in_array(['group_id' => $values['id']],$resultleader)){
@@ -181,6 +169,6 @@ class GroupRepository extends AbstractRepository
                 $resultgroup[$key]['is_leader'] = 0; 
             }
         }
-        return $resultgroup;
+        return $resultgroup->toArray();
     }
 }

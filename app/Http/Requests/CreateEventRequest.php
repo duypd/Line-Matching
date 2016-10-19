@@ -39,6 +39,7 @@ class CreateEventRequest extends Request
             'address'           => 'required',
             'user_id'           => 'required',
             'group_id'          => 'required'
+            /*required for image max:50 'photo' => 'mimes:jpeg,bmp,png'*/
 
         ];
     }
