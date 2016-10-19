@@ -147,7 +147,7 @@ class EventRepository extends AbstractRepository
         $event = $this->model->select($eventfill)->where('id',$id) 
         ->with(['prPoint'=>function($q)
         {
-            $q->select('each(`)vent_id','content','images','id');
+            $q->select('event_id','content','images','id');
         },
             'userProfile' =>function($a)
         {
@@ -183,18 +183,18 @@ class EventRepository extends AbstractRepository
      function getindexall($page = 0, $attributes = ['*']){
         $filterevent = ['images','date_start','name','user_max','id'];
        /* $result = $this->model->select($filterevent)->take(3)
-                 ->with(['groups' => function($q){
-                    $q->select('id','name');},
-                    'category' => function($c) {
-                        $c->select('id','name');
-                    }])
-                 ->get();
+       ->with(['groups' => function($q){
+          $q->select('id','name');},
+          'category' => function($c) {
+              $c->select('id','name');
+          }])
+       ->get();
         return  $result->toArray();*/
         $resultevent = $this->model->select($filterevent)->take(5)
                                                 ->with(['groups' => function($a){
                                                 $a->select('id','name');},'category'=>function($b){
                                                 $b->select('id','name');
-                                                }])->get();                                 
+                                                }])->get();  
         $resultleader = $this->eventLeaderMaps->select('event_id')->get()->toArray();
         foreach ($resultevent as $key => $values) 
         {
@@ -215,7 +215,7 @@ class EventRepository extends AbstractRepository
      */
     public function showEvent($id)
     {
-        $eventfill =['name','address','description','images','date_start','date_end','user_max','id'];
+        $eventfill =['name','address','description','images','date_start','date_end','id'];
         $event = $this->model->where('id',$id)->select($eventfill)->with(['prPoint'=>function($q){
         $q->select('event_id','content','images');
         }])->first(); 
@@ -224,12 +224,11 @@ class EventRepository extends AbstractRepository
         return $event->toArray();    
     }
 
-
     public function getRelatedEvent($id, $page = 0, $attributes = ['*']){
-        $event = $this->getBy('id', $id);
-        $event_group = $event->group_id;
+        $event          = $this->getBy('id', $id);
+        $event_group    = $event->group_id;
         $event_category = $event->cat_id;
-        $related_event = $this->model->select('name','images')
+        $related_event  = $this->model->select('name','images')
         ->where('group_id',$event_group)
         ->where('cat_id',$event_category)->get(); 
         if($related_event->count() >= 2){
