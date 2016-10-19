@@ -6,8 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "lucadegasperi/oauth2-server-laravel":  "5.1.*",
         "laravel/framework": "5.1.*",
+        "lucadegasperi/oauth2-server-laravel":  "5.1.*",
+        "dingo/api": "1.0.x@dev",
         "barryvdh/laravel-ide-helper": "^2.2",
         "barryvdh/laravel-debugbar": "^2.2",
         "intervention/image": "2.3.0"
