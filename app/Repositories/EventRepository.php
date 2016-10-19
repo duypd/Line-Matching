@@ -181,13 +181,20 @@ class EventRepository extends AbstractRepository
      * @return array
      */
      function getindexall($page = 0, $attributes = ['*']){
+         /* $result = $this->model->select($filterevent)->take(3)
+      ->with(['groups' => function($q){
+         $q->select('id','name');},
+        'category' => function($c) {
+            $c->select('id','name');
+        }])
+     ->get();
+      return  $result->toArray();*/
         $filterevent = ['images','date_start','name','user_max','id'];
-      
-        $resultevent = $this->model->select($filterevent)->take(5)
+        $resultevent = $this->model->select($filterevent)
                                                 ->with(['groups' => function($a){
                                                 $a->select('id','name');},'category'=>function($b){
                                                 $b->select('id','name');
-                                                }])->get();  
+                                                }])->get();
         $resultleader = $this->eventLeaderMaps->select('event_id')->get()->toArray();
         foreach ($resultevent as $key => $values) 
         {
@@ -197,7 +204,7 @@ class EventRepository extends AbstractRepository
            } else{
                $resultevent[$key]['is_leader'] = 0;
            }    
-        }
+        }  
         return $resultevent;
      }  
     /**
