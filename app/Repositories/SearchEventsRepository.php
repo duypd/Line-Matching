@@ -36,9 +36,6 @@ class SearchEventsRepository extends AbstractRepository {
             $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
         }
 
-
-        
-
          $events = $builder->paginate(5);
          return $events->toArray();
 
@@ -58,15 +55,8 @@ class SearchEventsRepository extends AbstractRepository {
             HAVING distance <= ?
             ORDER BY distance
             ", array($params['lat'], $params['long'], $params['lat'], $params['radius']));
-        }
-        
+        }      
             return $builder;
-
-            // $result = $builder->paginate($attributes);
-            // return $result->toArray();
-        
-
-
     }
 
 
@@ -75,11 +65,8 @@ class SearchEventsRepository extends AbstractRepository {
         if (isset($params['name'])) {
             $groups = $groups->where('name','LIKE','%'.$params['name'].'%')->with('event');
         }
-
-       
         $groups_f = $groups->paginate(5);
         return $groups_f->toArray();
-       
     }
     public function show($id)
     {   $builder = $this->models;
