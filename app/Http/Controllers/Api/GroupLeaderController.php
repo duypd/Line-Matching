@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
 use App\Http\Requests\RegisterRequest;
+
 class GroupLeaderController extends Controller
 {
     /**
@@ -33,9 +34,7 @@ class GroupLeaderController extends Controller
 */
     public function getLeaderGroup()
     {
-
         $leaderGroup = $this->groupLeaderRepository->LeaderGroup(0,['*']);
         return $this->buildResponseSuccess($leaderGroup);
     }
-
 }

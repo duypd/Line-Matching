@@ -1,11 +1,13 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Repositories\Upload;
 use App\Repositories\GroupsUserMapsRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
+
 class GroupUsersMapsController extends Controller
 {
     /**
@@ -48,13 +50,11 @@ class GroupUsersMapsController extends Controller
     public function delete($id)
     {
         $Id = $this->eventRepository->destroy($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)){
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
         }
-
         return $this->buildResponseSuccess($eventId);
     }
     /**
@@ -72,7 +72,6 @@ class GroupUsersMapsController extends Controller
     {
         $groupUserMaps = $this->groupUserMapsRepository->index(0,['*']);
         return $this->buildResponseSuccess($groupUserMaps);
-       
     }
     
      /**
@@ -80,24 +79,16 @@ class GroupUsersMapsController extends Controller
     @param int $id
     @return \Illuminate\Http\JsonResponse
     */  
-    public function getShow($id){
+    public function getShow($id)
+    {
         $groupUserMaps = $this->groupUserMapsRepository->getDetailGroupUserMaps($id);
-        if(!empty($groupUserMaps)){
+        if(!empty($groupUserMaps)) {
          return $this->buildResponseSuccess($groupUserMaps);   
         }
         else{
             return $this->buildResponseError();
-        }
-        
+        } 
     }
-   /**
-     * Create a JoinEvent.
-     *
-     * @param CreateJoinEventRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-  
-   
 }
 
 

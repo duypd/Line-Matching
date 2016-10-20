@@ -1,11 +1,13 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Repositories\GroupRepository;
 use App\Repositories\EventRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
+
 class MyPageController extends Controller
 {
     /**
@@ -95,7 +97,7 @@ class MyPageController extends Controller
     public function getGroupAll()
     { 
        $group = $this->groupRepository->getGroupall(0,['*']);
-        return $this->buildResponseSuccess($group);
+       return $this->buildResponseSuccess($group);
     }
 
     /**
@@ -214,7 +216,7 @@ class MyPageController extends Controller
         $eventId = $this->eventRepository->showEvent($id);
         if(!empty($eventId)){
          return $this->buildResponseSuccess($eventId);   
-    }else{
+         }else{
             return $this->buildResponseError();
          }
         

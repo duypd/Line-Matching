@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\EventsUsersMaps;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,9 +21,10 @@ class EventUserMapsRepository extends AbstractRepository
      * @return array
      *
      */
-    public function createJoinEvent($event,array $param){
+    public function createJoinEvent($event,array $param)
+    {
     	$emap = $this->where('event_id','=',$event->id,'and')->getAll()->count();
-	    if($emap<(int)$event->user_max){
+	    if($emap<(int)$event->user_max) {
 	    	\DB::transaction(function($q) use(&$joinEvent, $param,$event){
 	            $joinEvent = new EventsUsersMaps();
 	            $joinEvent->user_id   	= $param['user']['user']->id;
@@ -32,7 +34,7 @@ class EventUserMapsRepository extends AbstractRepository
 	            $joinEvent->save();	      
 	         });
 	    } 	
-   }
+    }
    /**
     *Leave Events
     * @param int $id
@@ -41,9 +43,9 @@ class EventUserMapsRepository extends AbstractRepository
     *
     */
    public function destroy($id, $Id)
-        {
-            $LEvent = $this->where('JoinId', $Id)
-                ->getBy('id', $id);
-            return $LEvent->delete();
-        }
+    {
+        $LEvent = $this->where('JoinId', $Id)
+            ->getBy('id', $id);
+        return $LEvent->delete();
+    }
 }

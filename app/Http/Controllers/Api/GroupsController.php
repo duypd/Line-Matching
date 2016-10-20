@@ -19,6 +19,7 @@ use App\Http\Requests\CreateJoinGroupRequest;
 use App\Http\Requests\UploadAlbumRequest;
 use App\Http\Controllers\Controller;
 use Response;
+
 class GroupsController extends Controller
 {
     /**
@@ -113,11 +114,10 @@ class GroupsController extends Controller
     * }
    */
       
-       public function getIndex()
+    public function getIndex()
     {
         $group = $this->groupRepository->index(0,['*']);
-        return $this->buildResponseSuccess($group);
-       
+        return $this->buildResponseSuccess($group);  
     }
     /**
      * Create a group.
@@ -172,9 +172,7 @@ class GroupsController extends Controller
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
-
         $group  = $this->groupRepository->create(array_merge($request->all(), ['user' => $user]));
-
         return $this->buildResponseCreated($group);
     }
         /**
@@ -257,8 +255,7 @@ class GroupsController extends Controller
     public function delete($id)
     {
         $Id = $this->groupRepository->destroy($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
@@ -312,15 +309,15 @@ class GroupsController extends Controller
     *}
     **/
     
-    public function getShow($id){
+    public function getShow($id)
+    {
         $group = $this->groupRepository->show($id);
-        if(!empty($group)){
+        if(!empty($group)) {
          return $this->buildResponseSuccess($group);   
         }
         else{
             return $this->buildResponseError();
         }
-        
     }
     /**
      * Create a group Upload
@@ -349,9 +346,9 @@ class GroupsController extends Controller
      * @param CreateGroupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public  function postUploadImage($id, UploadAlbumRequest $request){
+    public  function postUploadImage($id, UploadAlbumRequest $request)
+    {
         $result = $this->groupRepository->upload($id, $request->file('image'));
-
         return $this->buildResponseSuccess($result);
     }
     /**
@@ -379,7 +376,8 @@ class GroupsController extends Controller
     * }
     * 
     * */
-    public function postCreateJoinGroup($id, CreateJoinGroupRequest $request){
+    public function postCreateJoinGroup($id, CreateJoinGroupRequest $request)
+    {
         $user = array();
         $group =$this->groupRepository->getBy('id',$id,['id','user_max']);
         $user['user']['id'] =1;
@@ -413,13 +411,11 @@ class GroupsController extends Controller
       public function deleteLeaveGroup($id)
     {
         $Id = $this->groupUserMapsRepository->delete($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
         }
-
         return $this->buildResponseSuccess($JoinId);
     }
 

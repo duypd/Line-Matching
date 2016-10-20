@@ -4,17 +4,20 @@ namespace App\Repositories;
 
 use App\Models\UserPlan;
 use App\Models\LogUserPlan;
-class UserPlanRepository extends AbstractRepository {
+class UserPlanRepository extends AbstractRepository 
+{
     /**
      * @var User
      */
     protected $model;
    
-    public function __construct(UserPlan $plan_user) {
+    public function __construct(UserPlan $plan_user)
+    {
         $this->model = $plan_user;
     }
 
-    public function getList($page, $perPage) {
+    public function getList($page, $perPage) 
+    {
         $user_plan = $this->model;
         $count = $user_plan->count();
         $page = isset($params['page']) ? $params['page'] : 1;
@@ -31,7 +34,8 @@ class UserPlanRepository extends AbstractRepository {
         ];
     }
 
-     public function postBuyEvent($event_id) {
+     public function postBuyEvent($event_id) 
+     {
         $event = $this->model->where('id', $event_id)->first();
         if ($event == null) {
             return $result = [

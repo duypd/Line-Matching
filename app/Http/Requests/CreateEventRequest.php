@@ -9,8 +9,6 @@
 
 namespace App\Http\Requests;
 
-
-
 class CreateEventRequest extends Request
 {
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Repositories\SearchEventsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PagingRequest;
@@ -11,9 +12,9 @@ class SearchController extends Controller {
 
     private $repo;
 
-    public function __construct(SearchEventsRepository $repo) {
+    public function __construct(SearchEventsRepository $repo) 
+    {
         $this->repo = $repo;
-
     }
 
      /**
@@ -70,7 +71,8 @@ class SearchController extends Controller {
      */
 
 
-    public function getSearchEvents(PagingRequest $request) {
+    public function getSearchEvents(PagingRequest $request)
+    {
         $params = $request->all();
         $events = $this->repo->searchEvents($params,0,['*']);
         return $this->buildResponseSuccess($events, trans('messages.success'));
@@ -149,7 +151,8 @@ class SearchController extends Controller {
 
 
 
-    public function getSearchGroup(Request $request) {
+    public function getSearchGroup(Request $request) 
+    {
         $params = $request->all();
         $event_groups = $this->repo->searchGroups($params);
         return $this->buildResponseSuccess($event_groups);
@@ -218,15 +221,14 @@ class SearchController extends Controller {
      * }
      */
       
-    public function getDetailEvent($id){
+    public function getDetailEvent($id)
+    {
         $events = $this->repo->show($id);
-        if(!empty($events)){
+        if(!empty($events)) {
          return $this->buildResponseSuccess ($events);   
         }
         else{
             return $this->buildResponseError();
         }
-        
-    
     }
 }

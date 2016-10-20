@@ -71,7 +71,6 @@ class EventCategoriesController extends Controller
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
         $eCategories  = $this->eventCategoryRepository->create(array_merge($request->all(), ['user' => $user]));
-
         return $this->buildResponseCreated($eCategories);
     }
     /**
@@ -110,9 +109,7 @@ class EventCategoriesController extends Controller
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
-
         $UCategories  = $this->eventCategoryRepository->update($id,array_merge($request->all(), ['user' => $user] ));
-
         return $this->buildResponseCreated($UCategories);
     }
 
@@ -142,8 +139,7 @@ class EventCategoriesController extends Controller
     public function delete($id)
     {
         $Id = $this->eventCategoryRepository->delete($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
@@ -229,9 +225,10 @@ class EventCategoriesController extends Controller
     * }
      */
     
-    public function getShow($id){
+    public function getShow($id)
+    {
         $eCategory = $this->eventCategoryRepository->show($id);
-        if(!empty($eCategory)){
+        if(!empty($eCategory)) {
          return $this->buildResponseSuccess($eCategory);   
         }
         else{

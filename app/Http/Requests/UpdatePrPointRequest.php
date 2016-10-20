@@ -9,8 +9,6 @@
 
 namespace App\Http\Requests;
 
-
-
 class UpdatePrPointRequest extends Request
 {
     /**

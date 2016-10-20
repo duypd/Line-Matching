@@ -1,19 +1,23 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Repositories\UserProfileRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Upload;
 use Response;
-class UserProfileController extends Controller {
+
+class UserProfileController extends Controller 
+{
 
     private $repo;
 
-    public function __construct(UserProfileRepository $repo) {
+    public function __construct(UserProfileRepository $repo)
+     {
         $this->repo = $repo;
 
-    }
+     }
 
      /**
      * @api {put} api/v1/user-profile/:id Update User Profile
@@ -48,7 +52,8 @@ class UserProfileController extends Controller {
      *  }
      */
 
-    public function postUpadte($id, UserProfileRequest $request){
+    public function postUpadte($id, UserProfileRequest $request)
+    {
         $params = $request->all();
         $user_pro = $this->repo->putUpdate($id,$params);
         return $this->buildResponseCreated($user_pro, trans('messages.success'));
@@ -82,7 +87,8 @@ class UserProfileController extends Controller {
      *  }
      */
 
-    public function NotificationUpdate($id, UserProfileRequest $request) {
+    public function NotificationUpdate($id, UserProfileRequest $request) 
+    {
         $params = $request->all();
         $user_pro = $this->repo->NotificationUpdate($id,$params);
         return $this->buildResponseCreated($user_pro, trans('messages.success'));

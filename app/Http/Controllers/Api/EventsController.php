@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Http\Requests\UpdateEventRequest;
 use App\Http\Requests\CreateJoinEventRequest;
 use App\Http\Requests\CreatEventsPrPointsRequest;
@@ -11,20 +12,24 @@ use App\Http\Requests;
 use App\Http\Requests\CreateEventRequest;
 use App\Http\Controllers\Controller;
 use Response;
+
 class EventsController extends Controller
 {
     /**
      * @var eventRepository
      */
     private $eventRepository;
+
     /**
      * @var eventUserMapsRepository
      */
     private $eventUserMapsRepository;
+
     /**
      * @var eventUserMapsRepository
      */
     private $eventPrPointRepository;
+
     /**
      * UsersController constructor.
      * @param EventRepository $userRepository
@@ -34,6 +39,7 @@ class EventsController extends Controller
         $this->eventRepository         = $eventRepository;
         $this->eventUserMapsRepository = $eventUserMapsRepository;
     }
+
     /**
      * Create a Event.
      *
@@ -94,6 +100,7 @@ class EventsController extends Controller
         $event  = $this->eventRepository->create(array_merge($request->all(), ['user' => $user]));
         return $this->buildResponseCreated($event);
     }
+
     /**
      * Update a Event.
      *
@@ -144,7 +151,6 @@ class EventsController extends Controller
     *  "error": 0
     *  }
     * */
-    
     public function postUpdate($id, UpdateEventRequest $request)
     {  
         $user   = array(); // get_current_user_by_token();
@@ -153,6 +159,7 @@ class EventsController extends Controller
         $UEvent  = $this->eventRepository->update($id,array_merge($request->all(), ['user' => $user] ));
         return $this->buildResponseCreated($UEvent);
     }
+
     /**
     * Delete a event.
     * @param int $id
@@ -176,19 +183,17 @@ class EventsController extends Controller
     * "error": null
     *    }
      */
-     
     public function delete($id)
     {
         $Id = $this->eventRepository->destroy($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
         }
-
         return $this->buildResponseSuccess($eventId);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -300,6 +305,7 @@ class EventsController extends Controller
         return $this->buildResponseSuccess($event);
        
     }
+
      /**
     getDetailEvent
     @param int $id
@@ -343,12 +349,11 @@ class EventsController extends Controller
     * "error": null
     * } 
     */
-   
-    
-    public function getEvent($id){
+    public function getEvent($id)
+    {
         
         $events = $this->eventRepository->show($id);
-        if(!empty($events)){
+        if(!empty($events)) {
          return $this->buildResponseSuccess($events);   
         }
         else{
@@ -356,6 +361,7 @@ class EventsController extends Controller
         }
         
     }
+
    /**
      * Create a JoinEvent.
      *
@@ -380,9 +386,8 @@ class EventsController extends Controller
     *"error": 0
     * }
     */
-   
-    
-    public function postCreateJoinEvent($id,CreateJoinEventRequest $request){  
+    public function postCreateJoinEvent($id,CreateJoinEventRequest $request)
+    {  
         $user   = array(); // get_current_user_by_token();
         $event = $this->eventRepository->getBy('id',$id,['id','user_max']); 
         $user['user']['id'] = 1;
@@ -390,6 +395,7 @@ class EventsController extends Controller
         $JoinEvent  = $this->eventUserMapsRepository->createJoinEvent($event,array_merge($request->all(), ['user' => $user]));
         return $this->buildResponseCreated($JoinEvent); 
     }
+
      /**
      * Leave Events.
      * @param int $id
@@ -413,12 +419,10 @@ class EventsController extends Controller
     * "error": null
     *  }
       */
-     
       public function deleteLeaveEvent($id)
     {
         $Id = $this->eventUserMapsRepository->delete($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
@@ -467,14 +471,14 @@ class EventsController extends Controller
      *
      * }
      */
-     public function getRelatedEvent($id){
+     public function getRelatedEvent($id)
+     {
          $related_events = $this->eventRepository->getRelatedEvent($id,0,['*']);
          if ($related_events['note'] == 0) {
             return $this->buildResponseCreated($related_events, trans('messages.not_found'));
         }
          return $this->buildResponseCreated($related_events, trans('messages.success'));
      }
-
 
      /**
      * @api {get} api/v1/took-place-events Get Events Took Place
@@ -506,12 +510,12 @@ class EventsController extends Controller
      * "error": null
      *  }
      */
-
-     public function getTookPlaceEvents($group_id){
+     public function getTookPlaceEvents($group_id)
+     {
          $events = $this->eventRepository->getTookPlaceEvents($group_id, 0,['*']);
          return $this->buildResponseSuccess($events);
        
-    }
+     }
 
 
      /**
@@ -538,8 +542,8 @@ class EventsController extends Controller
      * "error": null
      * }
      */
-
-    public function getEventsPlan($group_id){
+    public function getEventsPlan($group_id)
+    {
          $events = $this->eventRepository->getEventsPlan($group_id,0,['*']);
          return $this->buildResponseSuccess($events);
        

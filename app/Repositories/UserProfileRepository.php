@@ -1,21 +1,25 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Utilities\Upload;
 use App\Models\UserProfile;
 
-class UserProfileRepository extends AbstractRepository {
+class UserProfileRepository extends AbstractRepository 
+{
 
     /**
      * @var User
      */
-    protected $model,$a;
+    protected $model;
 
-    public function __construct(UserProfile $user_pro) {
+    public function __construct(UserProfile $user_pro)
+    {
         $this->model = $user_pro;
     }
 
-    public function putUpdate($id,array $params) {
+    public function putUpdate($id,array $params)
+     {
         $user_pro = $this->getBy('id',$id);
         $user_pro->user_id = isset($params['user_id']) ? $params['user_id'] : $user_pro->user_id;
         $user_pro->address = isset($params['address']) ? $params['address'] : $user_pro->address;
@@ -35,7 +39,8 @@ class UserProfileRepository extends AbstractRepository {
         return $user_pro;
         
     }
-     public function NotificationUpdate($id,  array $params) {
+     public function NotificationUpdate($id,  array $params) 
+      {
         $user_pro = $this->getBy('id',$id);
         $user_pro->on_groups = isset($params['on_groups']) ? $params['on_groups'] : $user_pro->on_groups;
         $user_pro->on_chat = isset($params['on_chat']) ? $params['on_chat'] : $user_pro->on_chat;
@@ -43,7 +48,7 @@ class UserProfileRepository extends AbstractRepository {
         $user_pro->save();
         $user_pro_f = $user_pro->select(['on_groups', 'on_chat', 'on_event'])->where('id', $id)->get();
         return $user_pro_f;
-    }
+      }
     /**
      * Upload image
      *
@@ -51,7 +56,8 @@ class UserProfileRepository extends AbstractRepository {
      * @param $file
      * @return mixed
      */
-    public function __postImageUserPro($user_pro,$files){
+    public function __postImageUserPro($user_pro,$files)
+        {
         $data   =array();
         $upload = new Upload($user_pro->path, $user_pro->width, $user_pro->height, $files);
         $data   = $upload->handle($user_pro);

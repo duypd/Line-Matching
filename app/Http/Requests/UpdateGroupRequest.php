@@ -9,8 +9,6 @@
 
 namespace App\Http\Requests;
 
-
-
 class UpdateGroupRequest extends Request
 {
     /**

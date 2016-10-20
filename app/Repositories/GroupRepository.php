@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\Group;
 use App\Models\GroupCategory;
 use App\Models\GroupsUsersMaps;
@@ -42,7 +43,8 @@ class GroupRepository extends AbstractRepository
      *
      * @return array
      */
-    public function index($page = 0, $attributes = ['*']){
+    public function index($page = 0, $attributes = ['*'])
+    {
        $result = $this->paginate($attributes); 
        return  $result->toArray();
     }
@@ -136,7 +138,8 @@ class GroupRepository extends AbstractRepository
      * @return mixed
      */
 
-    public function __postImageGroup($group,$files){
+    public function __postImageGroup($group,$files)
+    {
         $data =array();
         foreach ($files as $file)
         {

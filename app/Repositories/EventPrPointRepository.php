@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\EventsPrPoints;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +37,8 @@ class EventPrPointRepository extends AbstractRepository
      *
      * @return array
      */
-    public function create(array $param){
+    public function create(array $param)
+    {
 
             $prPoint = new EventsPrPoints();   
             $prPoint->event_id = $param['event_id'];
@@ -83,7 +85,8 @@ class EventPrPointRepository extends AbstractRepository
      * @param $file
      * @return mixed
      */
-    public function __postImageEvent($prPoint,$files){  
+    public function __postImageEvent($prPoint,$files)
+    {  
             $data =array();  
             $upload = new Upload($prPoint->path, $prPoint->width, $prPoint->height, $files);
             $data = $upload->handle($prPoint);        

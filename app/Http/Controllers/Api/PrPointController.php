@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Http\Requests\CreatEventsPrPointsRequest;
 use App\Http\Requests\UpdatePrPointRequest;
 use App\Repositories\Upload;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
+
 class PrPointController extends Controller
 {
     /**
@@ -120,16 +122,16 @@ class PrPointController extends Controller
     * }   
      */
     
-     public function getShow($id){
+     public function getShow($id)
+     {
         $eventPrPoint = $this->eventPrPointRepository->show($id);
-        if(!empty($eventPrPoint)){
+        if(!empty($eventPrPoint)) {
          return $this->buildResponseSuccess($eventPrPoint);   
         }
         else{
             return $this->buildResponseError();
-        }
-        
-    }
+        }   
+     }
     /**
      * Create a Prpoint.
      *
@@ -214,7 +216,6 @@ class PrPointController extends Controller
     
     public function postUpdate($id, UpdatePrPointRequest $request)
     {   
-        
         $user   = array(); // get_current_user_by_token();
         $user['user']['id'] = 1;
         $user['user'] = (object) $user['user'];
@@ -247,8 +248,7 @@ class PrPointController extends Controller
      public function delete($id)
     {
         $Id = $this->eventPrPointRepository->delete($id);
-        if(!empty($Id))
-        {
+        if(!empty($Id)) {
             return $this->buildResponseSuccess($Id);
         }else{
             return $this->buildResponseError();
