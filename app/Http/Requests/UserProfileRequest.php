@@ -25,7 +25,8 @@ class UserProfileRequest extends Request
             'user_id'  => 'integer',
             'on_groups'=> 'integer',
             'on_chat'  => 'integer',
-            'on_event' => 'integer'
+            'on_event' => 'integer',
+            //'images'   => 'required'
         ];
     }
 }

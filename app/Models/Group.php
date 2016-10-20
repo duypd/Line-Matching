@@ -18,7 +18,9 @@ class Group  extends Model
      * @var array
    */
     protected $fillable = [
+
         'id','name','leader_max','user_max','description','status','lat','long','images','cat_id','user_id'
+
     ];
     /**
      * @var string
@@ -55,5 +57,8 @@ class Group  extends Model
     }
     public function mapLeaders(){
         return $this->hasMany(GroupsLeaderMaps::class,'group_id');
+
+       return $this->hasMany(Event::class,'group_id','id');
+
     }
 }

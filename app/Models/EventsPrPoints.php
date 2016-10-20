@@ -45,9 +45,14 @@ class EventsPrPoints  extends Model
         'images'     => 'json',
         'event_id'    => 'integer',
     ]; 
+
     public function event()
     {
         return $this->belongsTo(Event::class,'event_id');
+    }
+
+    public function events(){
+        return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 }
    

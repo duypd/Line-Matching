@@ -11,6 +11,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+    
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \App\Http\Middleware\EncryptCookies::class,
@@ -18,6 +19,7 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
+        // \App\Http\Middleware\OAuthExceptionHandlerMiddleware::class,
     ];
 
     /**
@@ -29,5 +31,10 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-    ];
+        'verify_system' => \App\Http\Middleware\verify_system::class,
+        // 'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+        // 'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+        // 'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+        // 'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
+        ];
 }

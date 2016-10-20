@@ -19,8 +19,8 @@ class UserProfile extends Model
      *
      * @var array
      */
-    protected $fillable = ['id','user_id', 'address', 'description','on_groups', 'on_chat', 'on_event'];
 
+    protected $fillable = ['user_id', 'address', 'description','on_groups', 'on_chat', 'on_event','images'];
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -37,4 +37,29 @@ class UserProfile extends Model
     {
         return  $this->belongsTo('\App\Models\User','id');
     }   
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id'    => 'integer',
+        'user_id'    => 'integer',
+        'images'     => 'json'
+    ];
+    /**
+     * @var string
+     */
+    public $path = 'uploads/images/user_profiles/';
+    /**
+     * @var int
+     */
+    public $width = 400;
+
+    /**
+     * @var int
+     */
+    public $height = 400;
+
 }

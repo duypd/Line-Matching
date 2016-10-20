@@ -69,6 +69,7 @@ class SearchController extends Controller {
      * }
      */
 
+
     public function getSearchEvents(PagingRequest $request) {
         $params = $request->all();
         $events = $this->repo->searchEvents($params,0,['*']);
@@ -150,8 +151,8 @@ class SearchController extends Controller {
 
     public function getSearchGroup(Request $request) {
         $params = $request->all();
-        $groups = $this->repo->searchGroups($params);
-        return $this->buildResponseCreated($groups, trans('messages.success'));
+        $event_groups = $this->repo->searchGroups($params);
+        return $this->buildResponseSuccess($event_groups);
     }
 
     /**
@@ -216,11 +217,6 @@ class SearchController extends Controller {
      * "error": 0
      * }
      */
-     /*public function getEvent(Request $request) {
-        $params = $request->all();
-        $event = $this->repo->getEvent($params);
-        return $this->buildResponseCreated($event, trans('messages.success'));
-    }*/
       
     public function getDetailEvent($id){
         $events = $this->repo->show($id);
@@ -231,6 +227,6 @@ class SearchController extends Controller {
             return $this->buildResponseError();
         }
         
-    }
     
+}
 }
