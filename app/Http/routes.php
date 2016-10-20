@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::pattern('id', '\d+');
+
+Route::post('authenticate', 'Api\AuthController@authenticate');
+
+
 /**
  * Route Api
  */
