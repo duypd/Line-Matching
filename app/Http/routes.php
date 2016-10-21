@@ -16,14 +16,15 @@ Route::get('/', function () {
 });
 Route::pattern('id', '\d+');
 
-// Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function(){
-//     Route::post('authenticate', 'App\Http\Controllers\Auth\AuthController@authenticate');
-// }
+
+
 
 /**
  * Route Api
  */
-Route::group(['prefix' => '/api/v1', 'namespace' => 'Api', 'middleware' => 'verify_system'], function() {
+Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
+
+    post('token', ['as' => 'api.token.post', 'uses' => 'UserTokenController@postCreateToken']);
 
     /*
      * Route Users
