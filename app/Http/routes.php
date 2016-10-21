@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::pattern('id', '\d+');
+
+// Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function(){
+//     Route::post('authenticate', 'App\Http\Controllers\Auth\AuthController@authenticate');
+// }
+
 /**
  * Route Api
  */
