@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-
+use Cache;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
@@ -45,11 +45,12 @@ class UsersController extends Controller
  * 
  *@return \Illuminate\Http\JsonResponse
  */
-public function postCreate(RegisterRequest $request)
+public function postCreate(Request $request)
 {
-    $params = $request->all();
-    $register = $this->userRepository->Register($params);
-    return $this->buildResponseCreated($register, trans('messages.success'));
+    Cache::put('a', 'b', 10);
+    // $params = $request->all();
+    // $register = $this->userRepository->Register($params);
+    // return $this->buildResponseCreated($register, trans('messages.success'));
 }
 
 }

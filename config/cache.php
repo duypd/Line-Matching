@@ -13,8 +13,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'file'),
-
+     'default' => 'redis',
     /*
     |--------------------------------------------------------------------------
     | Cache Stores
