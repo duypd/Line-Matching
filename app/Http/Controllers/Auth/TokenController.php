@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+
+
+class TokenController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -21,7 +23,6 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
      * Create a new authentication controller instance.
@@ -32,6 +33,20 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
+
+    public function authenticate(Request $request){
+
+        $credentials = $request->only('email', 'password');
+        try{
+            if(! $token = JWTAuth::attempt($credentials)){
+                return $this->response->error(['error' => 'User credentials are not connect!'], 401);
+            }
+        }catch(JWTException $ex){
+            return $this->response->error(['error' => 'Something went wrong!'], 500);
+        }
+        return $this->response->array(compact('token'))->setStatusCode(200);
+    }
+
 
     /**
      * Get a validator for an incoming registration request.

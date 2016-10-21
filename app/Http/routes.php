@@ -15,11 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::pattern('id', '\d+');
+
+
+
+
 /**
  * Route Api
  */
-Route::group(['prefix' => '/api/v1', 'namespace' => 'Api', /*'middleware' => 'verify_system'*/], function() {
 
+Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
+
+    post('token', ['as' => 'api.token.post', 'uses' => 'UserTokenController@postCreateToken']);
     /*
      * Route Users
      */
@@ -30,7 +36,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api', /*'middleware' => 've
      * Route Events
      */
     get('/events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@getEvents']);
-    get('/events/{id}', ['as' => 'api.events.get.show', 'uses' => 'EventsController@getEvent']);
+    get('/event/{id}', ['as' => 'api.event.get.show', 'uses' => 'EventsController@getEvent']);
     post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);
     post('/events/{id}', ['as' => 'api.events.put.update', 'uses' => 'EventsController@postUpdate']);
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);

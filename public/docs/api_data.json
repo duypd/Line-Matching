@@ -1200,6 +1200,108 @@
   },
   {
     "type": "get",
+    "url": "api/v1/took-place-events",
+    "title": "Get Events Took Place",
+    "name": "Get_Events_Took_Place",
+    "version": "1.0.0",
+    "group": "Events",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 200,\n\"data\": [\n {\n\"id\": 3,\n\"date\": \"2016-10-05 00:00:00\",\n\"name\": \"Open soon restaurant 2\",\n\"cat_id\": \"20\"\n},\n {\n\"id\": 7,\n\"date\": \"2016-10-06 00:00:00\",\n\"name\": \"birth day\",\n\"cat_id\": \"4\"\n }\n ],\n\"message\": \"Succesfully.\",\n\"error\": null\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Events"
+  },
+  {
+    "type": "get",
+    "url": "api/v1/events-plan",
+    "title": "Get Events will Take Place",
+    "name": "Get_Events_will_Take_Place",
+    "version": "1.0.0",
+    "group": "Events",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 200,\n\"data\": {\n\"2\": {\n\"id\": 8,\n\"date\": \"2016-10-20 00:00:00\",\n\"name\": \"event 1\",\n\"cat_id\": \"4\"\n }\n},\n\"message\": \"Succesfully.\",\n\"error\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/EventsController.php",
+    "groupTitle": "Events"
+  },
+  {
+    "type": "get",
     "url": "api/v1/related-event/:id",
     "title": "Get Related Events",
     "name": "Get_Related_Events",
@@ -2612,6 +2714,274 @@
   },
   {
     "type": "post",
+    "url": "api/v1/event/:id/buy",
+    "title": "Buy Event Packge",
+    "name": "Buy_Event_Packge",
+    "version": "1.0.0",
+    "group": "UserPlan",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "user",
+            "description": "<p>plans id Id User Plans</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 201,\n\"data\": {\n\"note\": 0,\n\"buy_event\": {\n\"event_id\": \"1\",\n\"name\": \"event 1\",\n\"price\": \"5000\",\n\"updated_at\": \"2016-10-11 07:50:29\",\n\"created_at\": \"2016-10-11 07:50:29\",\n\"id\": 7\n}\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserPlanController.php",
+    "groupTitle": "UserPlan"
+  },
+  {
+    "type": "get",
+    "url": "api/v1/user_plan",
+    "title": "Get Event Packge",
+    "name": "Get_Event_Packge",
+    "version": "1.0.0",
+    "group": "UserPlan",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 201,\n\"data\": {\n\"meta\": {\n\"page\": 1,\n\"perPage\": 10,\n\"total\": 1\n },\n\"plan_user\": [\n{\n\"name\": \"event 1\",\n\"amount\": \"5000\"\n },\n {\n\"name\": \"event 2\",\n\"amount\": \"3\"\n },\n {\n\"name\": \"event 3\",\n\"amount\": \"2\"\n },\n {\n\"name\": \"event 4\",\n\"amount\": \"100000000\"\n}\n]\n},\n\"message\": \"Succesfully.\",\n\"error\": 0\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserPlanController.php",
+    "groupTitle": "UserPlan"
+  },
+  {
+    "type": "put",
+    "url": "api/v1/user-profile-notifi/:id",
+    "title": "Update Notification User Profile",
+    "name": "Update_Notification_User_Profile",
+    "version": "1.0.0",
+    "group": "UserProfile",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 201,\n\"data\": [\n{\n\"on_groups\": \"0\",\n\"on_chat\": \"1\",\n\"on_event\": \"0\"\n}\n],\n\"message\": \"Succesfully.\",\n\"error\": 0\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserProfileController.php",
+    "groupTitle": "UserProfile"
+  },
+  {
+    "type": "put",
+    "url": "api/v1/user-profile/:id",
+    "title": "Update User Profile",
+    "name": "Update_User_Profile",
+    "version": "1.0.0",
+    "group": "UserProfile",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 201,\n\"data\": {\n\"id\": \"1\",\n\"user_id\": \"2\",\n\"avatar\": \"abc.jpg\",\n\"address\": \"America\",\n\"description\": \"Test upload\",\n\"on_groups\": \"1\",\n\"on_chat\": \"0\",\n\"on_event\": \"1\",\n\"created_at\": \"-0001-11-30 00:00:00\",\n\"updated_at\": \"2016-10-07 10:05:20\"\n },\n\"message\": \"Succesfully.\",\n\"error\": 0\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserProfileController.php",
+    "groupTitle": "UserProfile"
+  },
+  {
+    "type": "put",
+    "url": "api/v1/user-profile/:id",
+    "title": "Update User Profile",
+    "name": "Update_User_Profile",
+    "version": "1.0.0",
+    "group": "UserProfile",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Status return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Data return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message return</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error return</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response:",
+          "content": "{\n\"status\": 201,\n\"data\": {\n\"id\": \"1\",\n\"user_id\": \"2\",\n\"avatar\": \"abc.jpg\",\n\"address\": \"America\",\n\"description\": \"Test upload\",\n\"on_groups\": \"1\",\n\"on_chat\": \"0\",\n\"on_event\": \"1\",\n\"created_at\": \"-0001-11-30 00:00:00\",\n\"updated_at\": \"2016-10-07 10:05:20\"\n },\n\"message\": \"Succesfully.\",\n\"error\": 0\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserTokenController.php",
+    "groupTitle": "UserProfile"
+  },
+  {
+    "type": "post",
     "url": "http://line-matching.dev.bap.jp/api/v1/groups",
     "title": "CreatGroup",
     "name": "Creat_Group",
@@ -2726,6 +3096,7 @@
       ]
     },
     "version": "0.0.0",
+<<<<<<< HEAD
     "filename": "./app/Http/Controllers/Api/GroupsController.php",
     "group": "_var_www_html_Line_Matching_app_Http_Controllers_Api_GroupsController_php",
     "groupTitle": "_var_www_html_Line_Matching_app_Http_Controllers_Api_GroupsController_php"
@@ -2785,5 +3156,10 @@
     "group": "_var_www_html_Line_Matching_public_docs_main_js",
     "groupTitle": "_var_www_html_Line_Matching_public_docs_main_js",
     "name": ""
+=======
+    "filename": "app/Http/Controllers/Api/GroupsController.php",
+    "group": "_home_viet_Code_Line_Matching_app_Http_Controllers_Api_GroupsController_php",
+    "groupTitle": "_home_viet_Code_Line_Matching_app_Http_Controllers_Api_GroupsController_php"
+>>>>>>> cuong/jwt_token/alpha
   }
 ]

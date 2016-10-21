@@ -145,7 +145,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidatorServiceProvider::class,
-
+        /*
+         * Dingo Laravel service provider
+         */
+        // Dingo\Api\Providers\LaravelService\Provider::class,
         /*
          * Load Service Provider From ThirdParty
          */
@@ -153,8 +156,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         // /*Aauth2-server-laravel */
-        // LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
-        // LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class
 
     ],
 
@@ -204,6 +207,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class
 
     ],
 

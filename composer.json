@@ -6,12 +6,15 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "lucadegasperi/oauth2-server-laravel":  "5.1.*",
         "laravel/framework": "5.1.*",
         "barryvdh/laravel-ide-helper": "^2.2",
         "barryvdh/laravel-debugbar": "^2.2",
-        "intervention/image": "2.3.0"
-    },
+        "intervention/image": "2.3.0",
+        "tymon/jwt-auth": "0.5.*",
+        "zizaco/entrust": "dev-laravel-5",
+        "zendframework/zend-config": "~2.3",
+        "zendframework/zend-http": "~2.3"
+},
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",

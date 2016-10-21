@@ -8,7 +8,11 @@ define({
   "apidoc": "0.2.0",
   "generator": {
     "name": "apidoc",
+<<<<<<< HEAD
     "time": "2016-10-14T02:48:02.749Z",
+=======
+    "time": "2016-10-20T10:02:51.045Z",
+>>>>>>> cuong/jwt_token/alpha
     "url": "http://apidocjs.com",
     "version": "0.16.1"
   }

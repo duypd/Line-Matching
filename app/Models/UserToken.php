@@ -3,21 +3,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MemberToken  extends Model
+class UserToken  extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'member_tokens';
+    protected $table = 'user_tokens';
      /**
      * The attributes that are mass assignable.
      *
      * @var array 
    **/
-    protected $fillable = ['user_id','token'];
-
-
+    protected $fillable = ['user_id','username','email', 'access_token', 'avatar', 'token'];
 }
     
