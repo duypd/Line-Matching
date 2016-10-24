@@ -11,6 +11,7 @@ use App\Models\EventsUsersMaps;
 use App\Models\LogUserPlan;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\DeleteImageEvent;
 
 class EventRepository extends AbstractRepository
 {
@@ -80,6 +81,7 @@ class EventRepository extends AbstractRepository
             $cevent->status = 1;
             $cevent->user_id = $param['user_id'];
             $cevent->group_id = $param['group_id'];
+            // $cevent->fill($param);
             $cevent->updated_at = date('Y-m-d H:i:s');
             $cevent->save();
 
@@ -105,6 +107,10 @@ class EventRepository extends AbstractRepository
     public function update($id, array $params)
     {
         $UEvent = $this->getBy('id', $id);
+        $imga = $UEvent['images'];
+        $chuoi = explode('/', $imga[0]['origin']);
+        dd($chuoi);
+        die;
         $UEvent->name = !empty($params['name']) ? $params['name'] : $UEvent->name;
         $UEvent->address = !empty($params['address']) ? $params['address'] : $UEvent->address;
         $UEvent->description = !empty($params['description']) ? $params['description'] : $UEvent->description;
