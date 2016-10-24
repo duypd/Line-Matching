@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+use Cache;
 use App\Models\Group;
 use App\Models\GroupCategory;
 use App\Models\GroupsUsersMaps;
@@ -86,6 +87,7 @@ class GroupRepository extends AbstractRepository
     public function update($id, array $params)
     {
         $UGroup = $this->getBy('id', $id);
+        Cache::forget('group_'.$id);
         $UGroup->name = !empty($params['name']) ? $params['name'] : $UGroup->name;
         $UGroup->description = !empty($params['description']) ? $params['description'] : $UGroup->description;
         $UGroup->user_id = !empty($params['user_id']) ? $params['user_id'] : $UGroup->user_id;
@@ -113,6 +115,7 @@ class GroupRepository extends AbstractRepository
     public function destroy($id)
         {
             $DGroup = $this->getBy('id', $id);
+            Cache::forget('group_'.$id);
             return $DGroup->delete();
         }
       /**
@@ -123,9 +126,10 @@ class GroupRepository extends AbstractRepository
      */
 
     public function show($id)
-    {
-
-        $group = $this->where('status',1)->getBy('id', $id);
+    { 
+        $group =  Cache::remember('group_'.$id,3600,function()use($id){
+            return $this->where('status',1)->getBy('id', $id); 
+        });
         return $group;
     }
      /**

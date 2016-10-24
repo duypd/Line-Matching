@@ -47,10 +47,9 @@ class UsersController extends Controller
  */
 public function postCreate(Request $request)
 {
-    Cache::put('a', 'b', 10);
-    // $params = $request->all();
-    // $register = $this->userRepository->Register($params);
-    // return $this->buildResponseCreated($register, trans('messages.success'));
+    $params = $request->all();
+    $register = $this->userRepository->Register($params);
+    return $this->buildResponseCreated($register, trans('messages.success'));
 }
 
 }

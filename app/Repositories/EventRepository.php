@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+use Cache;
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\User;
@@ -106,6 +107,7 @@ class EventRepository extends AbstractRepository
     public function update($id, array $params)
     {
         $UEvent = $this->getBy('id', $id);
+        Cache::forget('event_'.$id);
         $UEvent->name = !empty($params['name']) ? $params['name'] : $UEvent->name;
         $UEvent->address = !empty($params['address']) ? $params['address'] : $UEvent->address;
         $UEvent->description = !empty($params['description']) ? $params['description'] : $UEvent->description;
@@ -131,6 +133,7 @@ class EventRepository extends AbstractRepository
     public function destroy($id)
     {
         $DEvent = $this->model->where('id', $id)->first();
+        Cache::forget('event_'.$id);
         $DEvent->delete();
         $eventPrPoint = $this->eventPrPoint->where('event_id',$id);
         $eventPrPoint->delete();
@@ -146,7 +149,8 @@ class EventRepository extends AbstractRepository
 
     {   
         $eventfill =['name','address','description','images','date_start','date_end','user_max','id','user_id'];
-        $event = $this->model->select($eventfill)->where('id',$id) 
+        $event = Cache::remember('event_'.$id,3600, function(), use($id)){
+        return $this->model->select($eventfill)->where('id',$id) 
         ->with(['prPoint'=>function($q)
         {
             $q->select('event_id','content','images','id');
@@ -157,8 +161,9 @@ class EventRepository extends AbstractRepository
                 ->with(['infouser' =>function($b){
                     $b->select('id','username');
                 }]);
-        }])->get();
-         return $event->toArray(); 
+        }])->get()->toArray();
+    }
+         return $event; 
     }
         
     /**
