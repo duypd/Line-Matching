@@ -51,9 +51,7 @@ class EventRepository extends AbstractRepository
         $this->user            = $user;
         $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
-   /* function eventsList($userId){
-        return $this->prepareQuery()->get();
-    } */  
+  
          /**
      * Get list event categories.
      *
