@@ -26,7 +26,6 @@ class GroupLeaderController extends Controller
         $this->groupLeaderRepository = $groupLeaderRepository;
     }
 
-
     /**
 * Display a listing of the resource.
 *
