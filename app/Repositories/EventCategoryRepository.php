@@ -54,7 +54,6 @@ class EventCategoryRepository extends AbstractRepository
     public function update($id, array $params)
     {
         $UCategory = $this->getBy('id', $id);
-        Cache::forget('category_'.$id);
         $UCategory->name = !empty($params['name']) ? $params['name'] : $UCategory->name;
         $UCategory->status = !empty($params['status']) ? $params['status']: $UCategory->status;
         $UCategory->save();
@@ -71,7 +70,6 @@ class EventCategoryRepository extends AbstractRepository
         {
             $DEcategories = $this->where('event_id', $eventId)
                 ->getBy('id', $id);
-            Cache::forget('category_'.$id);
             return $DEcategories->delete();
         }
     /**
@@ -82,10 +80,7 @@ class EventCategoryRepository extends AbstractRepository
      */
     public function show($id)
     {
-        $catagoty = Cache::remember('category_'.$id, 3600, function(), use($id)){
-        return $this->where('status',1)
-                    ->getBy('id', $id);
-         }
+        $catagoty = $this->where('status',1)->where('id', $id);
         return $catagoty;
     }
 }

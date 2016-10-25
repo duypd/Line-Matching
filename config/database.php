@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', '192.168.0.254'),
-            'database'  => env('DB_DATABASE', 'matching_unitest'),
-            'username'  => env('DB_USERNAME', 'matching_unitest'),
-            'password'  => env('DB_PASSWORD', 'matching_unitest'),
+            'host'      => env('DB_HOST', '192.168.0.250'),
+            'database'  => env('DB_DATABASE', 'line_matching'),
+            'username'  => env('DB_USERNAME', 'line_matching'),
+            'password'  => env('DB_PASSWORD', 'line_matching'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => 'line_',
@@ -66,7 +66,7 @@ return [
 
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'      => env('DB_HOST', '192.168.0.254'),
+            'host'      => env('DB_HOST', '192.168.0.250'),
             'database'  => env('DB_DATABASE', 'line_matching'),
             'username'  => env('DB_USERNAME', 'line_matching'),
             'password'  => env('DB_PASSWORD', 'line_matching'),
@@ -77,7 +77,7 @@ return [
 
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
-            'host'     => env('DB_HOST', '192.168.0.254'),
+            'host'     => env('DB_HOST', '192.168.0.250'),
             'database' => env('DB_DATABASE', 'line_matching'),
             'username' => env('DB_USERNAME', 'line_matching'),
             'password' => env('DB_PASSWORD', 'line_matching'),

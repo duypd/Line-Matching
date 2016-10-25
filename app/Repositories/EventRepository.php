@@ -146,9 +146,8 @@ class EventRepository extends AbstractRepository
     public function show($id)
 
     {   
-        $eventfill =['name','address','description','images','date_start','date_end','user_max','id','user_id'];
-        $event = Cache::remember('event_'.$id,3600, function(), use($id)){
-        return $this->model->select($eventfill)->where('id',$id) 
+        $event = Cache::remember('event_'.$id,3600,function()use($id){
+        return $this->model->select('name','address','description','images','date_start','date_end','user_max','id','user_id')->where('id',$id) 
         ->with(['prPoint'=>function($q)
         {
             $q->select('event_id','content','images','id');
@@ -160,7 +159,7 @@ class EventRepository extends AbstractRepository
                     $b->select('id','username');
                 }]);
         }])->get()->toArray();
-    }
+    });
          return $event; 
     }
         
@@ -211,16 +210,7 @@ class EventRepository extends AbstractRepository
      * @return array
      *
      */
-    public function showEvent($id)
-    {
-        $eventfill =['name','address','description','images','date_start','date_end','id'];
-        $event = $this->model->where('id',$id)->select($eventfill)->with(['prPoint'=>function($q){
-        $q->select('event_id','content','images');
-        }])->first(); 
-        $countUserMapsEvent = $this->eventsUsersMaps->where('event_id',$id)->count();
-        $event->totaljoin = $countUserMapsEvent;
-        return $event->toArray();    
-    }
+    
 
     public function getRelatedEvent($id, $page = 0, $attributes = ['*']){
         $event          = $this->getBy('id', $id);

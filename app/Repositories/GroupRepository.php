@@ -44,7 +44,7 @@ class GroupRepository extends AbstractRepository
      * @return array
      */
     public function index($page = 0, $attributes = ['*']){
-       $result = $this->paginate($attributes); 
+        $result = $this->paginate($attributes); 
        return  $result->toArray();
     }
     /**
@@ -66,14 +66,14 @@ class GroupRepository extends AbstractRepository
             $group->long        = $param['long'];
             $group->updated_at  = date('Y-m-d H:i:s');
             $group->save();
-         if (!empty($param['images'])) {
-             $upload = $this->__postImageGroup($group,$param['images']);
-             $image = $group->images;
-             $group->images =$upload;  
-             $group->images =  transfer_url_images($group->images); 
-             $group->save();
-             if (! empty($image)) {
-                event(new DeleteImageEvent($image));
+            if (!empty($param['images'])) {
+                 $upload = $this->__postImageGroup($group,$param['images']);
+                 $image = $group->images;
+                 $group->images =$upload;  
+                 $group->images =  transfer_url_images($group->images); 
+                 $group->save();
+                 if (! empty($image)) {
+                    event(new DeleteImageEvent($image));
             }
          }         
         return $group;
@@ -114,8 +114,8 @@ class GroupRepository extends AbstractRepository
      */
     public function destroy($id)
         {
-            $DGroup = $this->getBy('id', $id);
             Cache::forget('group_'.$id);
+            $DGroup = $this->model->where('id', $id);
             return $DGroup->delete();
         }
       /**
@@ -125,12 +125,12 @@ class GroupRepository extends AbstractRepository
      * @return object $group
      */
 
-    public function show($id)
-    { 
-        $group =  Cache::remember('group_'.$id,3600,function()use($id){
-            return $this->where('status',1)->getBy('id', $id); 
-        });
-        return $group;
+    public function show($id){ 
+              $group =  Cache::remember('group_'.$id,3600,function()use($id){
+              return 
+              $this->model->where('status',1)->where('id', $id)->get();
+          });
+         return $group;
     }
      /**
      * Upload image

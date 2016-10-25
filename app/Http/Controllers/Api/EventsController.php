@@ -352,7 +352,7 @@ class EventsController extends Controller
          return $this->buildResponseSuccess($events);   
         }
         else{
-            return $this->buildResponseError();
+            return $this->buildResponseSuccess();
         }
         
     }
