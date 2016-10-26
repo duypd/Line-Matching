@@ -18,7 +18,6 @@ Route::get('/', function () {
 Route::pattern('id', '\d+');
 
 
-
 /**
  * Route Api
  */
