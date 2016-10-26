@@ -217,6 +217,26 @@ class EventRepository extends AbstractRepository
      * @return array
      *
      */
+
+    /**
+     *
+     * Get DetailEvent in My Page
+     * @return array
+     *
+     */
+    public function showEvent($id)
+    {
+        Cache::flush();
+        $event = Cache::remember('event_'.$id,3600,function()use($id){
+            return $this->model->where('id',$id)->select('name','address','description','images','date_start','date_end','id')->with(['prPoint'=>function($q){
+            $q->select('event_id','content','images');
+            }])->first(); 
+            $countUserMapsEvent = $this->eventsUsersMaps->where('event_id',$id)->count();
+            $event->totaljoin = $countUserMapsEvent;
+        });
+        
+        return $event;
+    }
     
 
     public function getRelatedEvent($id, $page = 0, $attributes = ['*'])
