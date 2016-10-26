@@ -213,7 +213,7 @@ class MyPageController extends Controller
     */
      public function getDetailEvent($id)
      {
-        $eventId = $this->eventRepository->showEvent($id);
+        $eventId = $this->eventRepository->show($id);
         if(!empty($eventId)){
          return $this->buildResponseSuccess($eventId);   
          }else{
