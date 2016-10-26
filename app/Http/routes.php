@@ -35,7 +35,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      * Route Events
      */
     get('/events', ['as' => 'api.events.get.index', 'uses' => 'EventsController@getEvents']);
-    get('/event/{id}', ['as' => 'api.event.get.show', 'uses' => 'EventsController@getEvent']);
+    get('/events/{id}', ['as' => 'api.event.get.show', 'uses' => 'EventsController@getEvent']);
     post('/events', ['as' => 'api.events.post.create', 'uses' => 'EventsController@postCreate']);
     post('/events/{id}', ['as' => 'api.events.put.update', 'uses' => 'EventsController@postUpdate']);
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);

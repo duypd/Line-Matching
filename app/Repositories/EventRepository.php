@@ -217,13 +217,6 @@ class EventRepository extends AbstractRepository
      * @return array
      *
      */
-
-    /**
-     *
-     * Get DetailEvent in My Page
-     * @return array
-     *
-     */
     public function showEvent($id)
     {
         Cache::flush();
