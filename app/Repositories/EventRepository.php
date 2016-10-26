@@ -107,10 +107,6 @@ class EventRepository extends AbstractRepository
     public function update($id, array $params)
     {
         $UEvent = $this->getBy('id', $id);
-        $imga = $UEvent['images'];
-        $chuoi = explode('/', $imga[0]['origin']);
-        dd($chuoi);
-        die;
         $UEvent->name = !empty($params['name']) ? $params['name'] : $UEvent->name;
         $UEvent->address = !empty($params['address']) ? $params['address'] : $UEvent->address;
         $UEvent->description = !empty($params['description']) ? $params['description'] : $UEvent->description;
@@ -233,11 +229,11 @@ class EventRepository extends AbstractRepository
         $event_category = $event->cat_id;
         $related_event  = $this->model->select('name','images')
         ->where('group_id',$event_group)
-        ->where('cat_id',$event_category)->get(); 
+        ->where('cat_id',$event_category)->paginate();
         if($related_event->count() >= 2){
             return[
                 'note' => 1,
-                'related_event' => $related_event
+                'related_event' => $related_event->toArray()
             ];
         }
             return [
