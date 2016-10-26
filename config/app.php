@@ -136,7 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Abhimanyu003\Conversion\ConversionServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -209,8 +209,8 @@ return [
         'Image'     => Intervention\Image\Facades\Image::class,
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-        'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class
-
+        'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
+        'Conversion'  => Abhimanyu003\Conversion\Facades\Conversion::class,
     ],
 
 ];

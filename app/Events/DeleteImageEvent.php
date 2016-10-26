@@ -45,7 +45,6 @@ class DeleteImageEvent extends Event
             \File::delete($this->image['thumb']);
         }
     }
-
     /**
      * Get the channels the event should be broadcast on.
      *

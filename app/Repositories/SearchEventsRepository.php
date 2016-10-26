@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Models\Event;
 use App\Models\Group;
 use App\Models\EventCategory;
@@ -8,20 +9,23 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 
 
-class SearchEventsRepository extends AbstractRepository {
+class SearchEventsRepository extends AbstractRepository
+ {
 
     protected $models;
     protected $groups;
 
 
-    public function __construct(Event $events, Group $event_groups) {
 
+    public function __construct(Event $events, Group $event_groups) 
+    {
         $this->models = $events;
         $this->groups = $event_groups;
     }
 
 
-    public function searchEvents($params,$page = 0, $attributes = ['*']) {
+    public function searchEvents($params,$page = 0, $attributes = ['*']) 
+    {
         $builder = $this->models;
         if (isset($params['name'])) {
             $builder = $builder->where('name','LIKE', '%'.$params['name'].'%');
@@ -61,7 +65,8 @@ class SearchEventsRepository extends AbstractRepository {
     }
 
 
-     public function searchGroups($params, $page =0, $attributes=['*']) {
+     public function searchGroups($params, $page =0, $attributes=['*']) 
+     {
         $groups = $this->groups;
         if (isset($params['name'])) {
             $groups = $groups->where('name','LIKE','%'.$params['name'].'%')->with('event');

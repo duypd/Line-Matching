@@ -24,7 +24,8 @@ class EventCategoryRepository extends AbstractRepository
      *
      * @return array
      */
-    public function index($page = 0, $attributes = ['*']){
+    public function index($page = 0, $attributes = ['*'])
+    {
        $result = $this->paginate($attributes); 
        return  $result->toArray();
     }
@@ -35,8 +36,10 @@ class EventCategoryRepository extends AbstractRepository
      *
      * @return array
      */
-    public function create(array $param){
-       \DB::transaction(function($q) use(&$eCategory, $param) {
+    public function create(array $param)
+    {
+       \DB::transaction(function($q) use(&$eCategory, $param)
+        {
             $eCategory = new EventCategory();   
             $eCategory->name = $param['name'];
             $eCategory->status = 1;
@@ -80,7 +83,7 @@ class EventCategoryRepository extends AbstractRepository
      */
     public function show($id)
     {
-        $catagoty = $this->where('status',1)->where('id', $id);
+        $catagoty = $this->where('status',1)->getBy('id', $id);
         return $catagoty;
     }
 }

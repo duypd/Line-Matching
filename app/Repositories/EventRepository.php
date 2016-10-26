@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+
 use Cache;
 use App\Models\Event;
 use App\Models\Group;
@@ -11,6 +12,7 @@ use App\Models\EventsUsersMaps;
 use App\Models\LogUserPlan;
 use App\Utilities\Upload;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\DeleteImageEvent;
 
 class EventRepository extends AbstractRepository
 {
@@ -51,14 +53,15 @@ class EventRepository extends AbstractRepository
         $this->user            = $user;
         $this->curl  =  'http://maps.google.com/maps/api/geocode/json';
     }
-  
-         /**
+
+
+
+    /**
      * Get list event categories.
-     *
-     *
      * @return array
      */
-    public function index($page = 0, $attributes = ['*']){
+    public function index($page = 0, $attributes = ['*'])
+    {
        $result = $this->paginate($attributes)->toArray(); 
        return  $result;
     }
@@ -68,7 +71,8 @@ class EventRepository extends AbstractRepository
      *
      * @return array
      */
-    public function create(array $param){
+    public function create(array $param)
+    {
             $cevent = new Event();   
             $cevent->name = $param['name'];
             $cevent->description = $param['description'];
@@ -80,6 +84,7 @@ class EventRepository extends AbstractRepository
             $cevent->status = 1;
             $cevent->user_id = $param['user_id'];
             $cevent->group_id = $param['group_id'];
+            // $cevent->fill($param);
             $cevent->updated_at = date('Y-m-d H:i:s');
             $cevent->save();
 
@@ -170,7 +175,8 @@ class EventRepository extends AbstractRepository
      * @param $file
      * @return mixed
      */
-    public function __postImageEvent($cevent,$files){
+    public function __postImageEvent($cevent,$files)
+    {
 
         $data =array();
         foreach ($files as $file) {
@@ -185,7 +191,8 @@ class EventRepository extends AbstractRepository
      * Get list event in my Page
      * @return array
      */
-     function getindexall($page = 0, $attributes = ['*']){
+     function getindexall($page = 0, $attributes = ['*'])
+     {
         $filterevent = ['images','date_start','name','user_max','id'];
         $resultevent = $this->model->select($filterevent)
                                                 ->with(['groups' => function($a){
@@ -195,15 +202,15 @@ class EventRepository extends AbstractRepository
         $resultleader = $this->eventLeaderMaps->select('event_id')->get()->toArray();
         foreach ($resultevent as $key => $values) 
         {
-           if (in_array(['event_id' => $values['id']], $resultleader)) 
-           {
+           if (in_array(['event_id' => $values['id']], $resultleader)) {
                $resultevent[$key]['is_leader'] = 1;
            } else{
                $resultevent[$key]['is_leader'] = 0;
            }    
         }  
         return $resultevent->toArray();
-     }  
+     }
+
     /**
      *
      * Get DetailEvent in My Page
@@ -212,17 +219,18 @@ class EventRepository extends AbstractRepository
      */
     
 
-    public function getRelatedEvent($id, $page = 0, $attributes = ['*']){
+    public function getRelatedEvent($id, $page = 0, $attributes = ['*'])
+    {
         $event          = $this->getBy('id', $id);
         $event_group    = $event->group_id;
         $event_category = $event->cat_id;
         $related_event  = $this->model->select('name','images')
         ->where('group_id',$event_group)
-        ->where('cat_id',$event_category)->get(); 
+        ->where('cat_id',$event_category)->paginate();
         if($related_event->count() >= 2){
             return[
                 'note' => 1,
-                'related_event' => $related_event
+                'related_event' => $related_event->toArray()
             ];
         }
             return [
@@ -231,7 +239,8 @@ class EventRepository extends AbstractRepository
            ];
     }
 
-     public function getTookPlaceEvents($group_id, $page = 0, $attributes = ['*']){
+     public function getTookPlaceEvents($group_id, $page = 0, $attributes = ['*'])
+     {
        $date_start = $this->model->where('group_id',$group_id);
        $date_start_f = $date_start->select('id','name','cat_id','status','date_start')->get()->toArray();
        $now = strtotime(date('Y-m-d'));
@@ -245,9 +254,10 @@ class EventRepository extends AbstractRepository
                     }
                }
                return $result;
-    }
+     }
 
-     public function getEventsPlan($group_id, $page = 0, $attributes = ['*']){
+     public function getEventsPlan($group_id, $page = 0, $attributes = ['*'])
+     {
        $events_plan = $this->model->where('group_id', $group_id);
        $events_plan_f = $events_plan->select('id','name','cat_id','status','date_start')->get()->toArray();
        $now = strtotime(date('Y-m-d'));
@@ -260,7 +270,7 @@ class EventRepository extends AbstractRepository
                                  'cat_id' => $values['cat_id']];
                     }
                }
-               return $result;
+            return $result;
     }
 
 }

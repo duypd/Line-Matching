@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\GroupsUsersMaps;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,9 +34,9 @@ class GroupsUserMapsRepository extends AbstractRepository
     *
     */
    public function destroy($id, $Id)
-        {
-            $LGroup = $this->where('JoinId', $Id)
-                ->getBy('id', $id);
-            return $LGroup->delete();
-        }
+    {
+        $LGroup = $this->where('JoinId', $Id)
+            ->getBy('id', $id);
+        return $LGroup->delete();
+    }
 }

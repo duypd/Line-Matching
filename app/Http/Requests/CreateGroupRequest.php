@@ -36,6 +36,13 @@ class CreateGroupRequest extends Request
             'lat'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/',
             'images'            => 'required'
+            /**
+             *
+             * 'images' => 'image|mimes:jpg,png',
+             *  'picture' => 'required | mimes:jpeg,jpg,png | max:1000',
+             *
+             */
+            
         ];
     }
 }

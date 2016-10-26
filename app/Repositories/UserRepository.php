@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Utilities\Upload;
+
 class UserRepository extends AbstractRepository
 {
     /**
