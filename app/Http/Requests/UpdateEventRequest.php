@@ -31,9 +31,10 @@ class UpdateEventRequest extends Request
        return [
             'name'              => 'required|max:200',
             'address'			=> 'required',
-            'images'            =>  'required',
+            'images'            => 'required',
             'lat'               => 'required|between:0,99.99/',
-            'long'              => 'required|between:0,99.99/'
+            'long'              => 'required|between:0,99.99/',
+            'description'       => 'required'
         ];
     }
 }

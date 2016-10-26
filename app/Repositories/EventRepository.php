@@ -239,14 +239,14 @@ class EventRepository extends AbstractRepository
         $event_category = $event->cat_id;
         $related_event  = $this->model->select('name','images')
         ->where('group_id',$event_group)
-        ->where('cat_id',$event_category)->paginate();
+        ->where('cat_id',$event_category)->paginate(5);
         if($related_event->count() >= 2){
             return[
                 'note' => 1,
                 'related_event' => $related_event->toArray()
             ];
         }
-            return [
+            return [    
                 'note' => 0,
                 'related_event' => []
            ];
@@ -255,7 +255,7 @@ class EventRepository extends AbstractRepository
      public function getTookPlaceEvents($group_id, $page = 0, $attributes = ['*'])
      {
        $date_start = $this->model->where('group_id',$group_id);
-       $date_start_f = $date_start->select('id','name','cat_id','status','date_start')->get()->toArray();
+       $date_start_f = $date_start->select('id','name','cat_id','status','date_start')->paginate(5);
        $now = strtotime(date('Y-m-d'));
        $result = array();
        foreach($date_start_f as $key => $values) {
@@ -266,13 +266,13 @@ class EventRepository extends AbstractRepository
                                  'cat_id' => $values['cat_id']];
                     }
                }
-               return $result;
+        return $date_start_f->toArray();
      }
 
      public function getEventsPlan($group_id, $page = 0, $attributes = ['*'])
      {
        $events_plan = $this->model->where('group_id', $group_id);
-       $events_plan_f = $events_plan->select('id','name','cat_id','status','date_start')->get()->toArray();
+       $events_plan_f = $events_plan->select('id','name','cat_id','status','date_start')->paginate(4);
        $now = strtotime(date('Y-m-d'));
        $result = array();
        foreach($events_plan_f as $key => $values) {
@@ -283,7 +283,8 @@ class EventRepository extends AbstractRepository
                                  'cat_id' => $values['cat_id']];
                     }
                }
-            return $result;
+            
+        return $events_plan_f->toArray();
     }
 
 }

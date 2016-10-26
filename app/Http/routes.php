@@ -110,8 +110,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
     * Buy Event
     */
-    get('event-packges', ['as' => 'api.event-packges.get', 'uses' => 'UserPlanController@getList']);
-    post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
+    
     get('event-packges', ['as' => 'api.event-packges.get', 'uses' => 'UserPlanController@getList']);
     post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
 
