@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\SearchEventsRepository;
+use App\Repositories\EventRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PagingRequest;
 use Illuminate\Http\Request;
@@ -11,10 +12,13 @@ use Response;
 class SearchController extends Controller {
 
     private $repo;
+    private $event_rp;
 
-    public function __construct(SearchEventsRepository $repo) 
+
+    public function __construct(SearchEventsRepository $repo, EventRepository $event_rp) 
     {
         $this->repo = $repo;
+        $this->event_rp = $event_rp;
     }
 
      /**
@@ -223,7 +227,7 @@ class SearchController extends Controller {
       
     public function getDetailEvent($id)
     {
-        $events = $this->repo->show($id);
+        $events = $this->event_rp->show($id);
         if(!empty($events)) {
          return $this->buildResponseSuccess ($events);   
         }

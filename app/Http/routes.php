@@ -41,6 +41,9 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     delete('/events/{id}', ['as' => 'api.events.get.delete', 'uses' => 'EventsController@delete']);
     post('/events/{id}/join', ['as' => 'api.events.join.post.create', 'uses' => 'EventsController@postCreateJoinEvent']);
     delete('/events/join/{id}', ['as' => 'api.events.delete.leave', 'uses' => 'EventsController@deleteLeaveEvent']);
+    get('related-event/{id}', ['as' => 'api.related-event.get', 'uses' => 'EventsController@getRelatedEvent']);
+    get('took-place-events/{group_id}', ['as' => 'api.took-place-events.get', 'uses' => 'EventsController@getTookPlaceEvents']);
+    get('events-plan/{group_id}', ['as' => 'api.events-plan.get', 'uses' => 'EventsController@getEventsPlan']);
 
 
     /*
@@ -100,7 +103,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
     * Related Event
     */
-    get('related-event/{id}', ['as' => 'api.related-event.get', 'uses' => 'EventsController@getRelatedEvent']);
+    
 
     /*
     * update User Profile
@@ -114,14 +117,5 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
     get('event-packges', ['as' => 'api.event-packges.get', 'uses' => 'UserPlanController@getList']);
     post('event/{id}/buy', ['as' => 'api.buy-event.post', 'uses' => 'UserPlanController@postBuyEvent']);
-
-    /*
-    * Took Place Event
-    */
-    get('took-place-events/{group_id}', ['as' => 'api.took-place-events.get', 'uses' => 'EventsController@getTookPlaceEvents']);
-
-    /*
-    * Events Plan
-    */
-    get('events-plan/{group_id}', ['as' => 'api.events-plan.get', 'uses' => 'EventsController@getEventsPlan']);
+    
 });

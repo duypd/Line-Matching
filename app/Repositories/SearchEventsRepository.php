@@ -28,21 +28,30 @@ class SearchEventsRepository extends AbstractRepository
     {
         $builder = $this->models;
         if (isset($params['name'])) {
-            $builder = $builder->where('name','LIKE', '%'.$params['name'].'%');
+            $builder_f = $builder->where('name','LIKE', '%'.$params['name'].'%')->get();
+            return $result = [
+            'builder_f' => $builder_f
+             ];
         }
         if (isset($params['cat_id'])) {
-            $builder = $builder->where('cat_id', $params['cat_id']);
+            $builder_f = $builder->where('cat_id', $params['cat_id'])->get();
+            return $result = [
+            'builder_f' => $builder_f
+             ];
         }
         if (isset($params['user_max'])) {
-            $builder = $builder->where('user_max', $params['user_max']);
+            $builder_f = $builder->where('user_max', $params['user_max'])->get();
+            return $result = [
+            'builder_f' => $builder_f
+             ];
         }
         
         if (isset($params['address'])) {
-            $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
+            $builder_f = $builder->where('address','LIKE', '%'.$params['address'].'%')->get();
+            return $result = [
+            'builder_f' => $builder_f
+             ];
         }
-
-         $events = $builder->paginate(5);
-         return $events->toArray();
 
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
            $builder = DB::select("
@@ -69,16 +78,12 @@ class SearchEventsRepository extends AbstractRepository
      {
         $groups = $this->groups;
         if (isset($params['name'])) {
-            $groups = $groups->where('name','LIKE','%'.$params['name'].'%')->with('event');
-        }
-        $groups_f = $groups->paginate(5);
-        return $groups_f->toArray();
-    }
-    public function show($id)
-    {   $builder = $this->models;
-        $event   = $builder->where('id', $id)->first();
-
-        if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
+            $event_groups = $groups->where('name','LIKE','%'.$params['name'].'%')->with('event')->get();
+            return $result = [
+            'event_groups' => $event_groups
+             ];
+            }
+        if (!empty(($params['lat']) && !empty($params['long']) &&!empty($params['radius'])) ) {
            $event_groups = DB::select("
             SELECT
               *, (
