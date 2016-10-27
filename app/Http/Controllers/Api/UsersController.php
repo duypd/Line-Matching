@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Response;
@@ -25,6 +24,7 @@ class UsersController extends Controller
     {
 
         $this->userRepository = $userRepository;
+        $this->middleware('jwt.auth');
     }
 
 

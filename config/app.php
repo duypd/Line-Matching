@@ -137,6 +137,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Abhimanyu003\Conversion\ConversionServiceProvider::class,
+        Bap\ConnectPlatform\ConnectPlatformServiceProvide::class,
         /*
          * Application Service Providers...
          */
@@ -211,6 +212,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
         'Conversion'  => Abhimanyu003\Conversion\Facades\Conversion::class,
+        'ConnectPlatform'  => Bap\ConnectPlatform\ConnectPlatformFacade::class
     ],
 
 ];

@@ -204,7 +204,7 @@ class EventRepository extends AbstractRepository
         {
            if (in_array(['event_id' => $values['id']], $resultleader)) {
                $resultevent[$key]['is_leader'] = 1;
-           } else{
+           } else {
                $resultevent[$key]['is_leader'] = 0;
            }    
         }  
@@ -220,7 +220,7 @@ class EventRepository extends AbstractRepository
     public function showEvent($id)
     {
         Cache::flush();
-        $event = Cache::remember('event_'.$id,3600,function()use($id){
+        $event = Cache::remember('event_'.$id,3600,function()use($id) {
             return $this->model->where('id',$id)->select('name','address','description','images','date_start','date_end','id')->with(['prPoint'=>function($q){
             $q->select('event_id','content','images');
             }])->first(); 
@@ -240,7 +240,7 @@ class EventRepository extends AbstractRepository
         $related_event  = $this->model->select('name','images')
         ->where('group_id',$event_group)
         ->where('cat_id',$event_category)->paginate(5);
-        if($related_event->count() >= 2){
+        if($related_event->count() >= 2) {
             return[
                 'note' => 1,
                 'related_event' => $related_event->toArray()

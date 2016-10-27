@@ -16,13 +16,16 @@ Route::get('/', function () {
 });
 
 Route::pattern('id', '\d+');
-
+Route::post('me', ['before' => 'jwt-auth', function() {
+        // Todo
+    }]);
 
 /**
  * Route Api
  */
 
 Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
+
 
     post('token', ['as' => 'api.token.post', 'uses' => 'UserTokenController@postCreateToken']);
     /*

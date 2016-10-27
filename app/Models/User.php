@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Bap\ConnectPlatform\Traits\WithDevices;
+use Bap\ConnectPlatform\Contracts\WithDevicesInterface;    
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -12,7 +14,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract
+                                    CanResetPasswordContract,
+                                    WithDevicesInterface
 {
     use Authenticatable, Authorizable, CanResetPassword;
 

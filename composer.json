@@ -15,7 +15,8 @@
         "zendframework/zend-config": "~2.3",
         "zendframework/zend-http": "~2.3",
         "predis/predis": "^1.0",
-        "abhimanyusharma003/conversion": "dev-master"
+        "abhimanyusharma003/conversion": "dev-master",
+        "bap/connect": "1.*"
     },
 
     "require-dev": {
