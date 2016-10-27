@@ -50,7 +50,7 @@ class UserTokenController extends Controller {
 
     public function postCreateToken(Request $request){
         $params = $request->all();
-        $token = $this->repo->CreateToken($params);
+        $token = $this->repo->CreateUser($params);
 
         return $this->buildResponseCreated(['token' => $token]);
     }   

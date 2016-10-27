@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Authentication Driver
@@ -14,9 +13,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'driver' => 'eloquent',
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Model
@@ -27,9 +24,7 @@ return [
     | is often just the "User" model but you may use whatever you like.
     |
     */
-
     'model' => App\Models\User::class,
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Table
@@ -40,9 +35,7 @@ return [
     | default value but you may easily change it to any table you like.
     |
     */
-
     'table' => 'users',
-
     /*
     |--------------------------------------------------------------------------
     | Password Reset Settings
@@ -57,11 +50,9 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
     'password' => [
         'email'  => 'emails.password',
         'table'  => 'password_resets',
         'expire' => 60,
     ],
-
 ];

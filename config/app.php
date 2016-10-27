@@ -157,7 +157,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         // /*Aauth2-server-laravel */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        Bap\ConnectPlatform\ConnectPlatformServiceProvide::class
 
     ],
 
@@ -211,6 +212,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
         'Conversion'  => Abhimanyu003\Conversion\Facades\Conversion::class,
+        'ConnectPlatform'  => Bap\ConnectPlatform\ConnectPlatformFacade::class,
     ],
 
 ];

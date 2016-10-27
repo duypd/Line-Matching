@@ -7,6 +7,7 @@ use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Upload;
 use Response;
+use ConnectPlatform;
 
 class UserProfileController extends Controller 
 {
@@ -16,6 +17,7 @@ class UserProfileController extends Controller
     public function __construct(UserProfileRepository $repo)
      {
         $this->repo = $repo;
+        $this->middleware('jwt.auth');
 
      }
 
@@ -52,11 +54,14 @@ class UserProfileController extends Controller
      *  }
      */
 
-    public function postUpadte($id, UserProfileRequest $request)
+    public function postUpadte()
     {
-        $params = $request->all();
-        $user_pro = $this->repo->putUpdate($id,$params);
-        return $this->buildResponseCreated($user_pro, trans('messages.success'));
+        $a = ConnectPlatform::profile();
+        dd($a);
+           
+        // $params = $request->all();
+        // $user_pro = $this->repo->putUpdate($id,$params);
+        // return $this->buildResponseCreated($user_pro, trans('messages.success'));
     }   
 
      /**
@@ -94,3 +99,7 @@ class UserProfileController extends Controller
         return $this->buildResponseCreated($user_pro, trans('messages.success'));
     }   
 }
+
+
+
+

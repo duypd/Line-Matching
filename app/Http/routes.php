@@ -108,7 +108,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     /*
     * update User Profile
     */
-    put('user-profile/{id}', ['as' => 'api.user-profile.update', 'uses' => 'UserProfileController@putUpadte']);
+    post('user-profile/{id}', ['as' => 'api.user-profile.update', 'uses' => 'UserProfileController@postUpadte']);
     put('user-profile-notifi/{id}', ['as' => 'api.user-profile-notifi.update', 'uses' => 'UserProfileController@putNotificationUpdate']);
     /*
     * Buy Event

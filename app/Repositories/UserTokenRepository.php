@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\UserToken;
+use App\Models\UserDevice;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
@@ -12,38 +13,44 @@ class UserTokenRepository extends AbstractRepository
      */
     private $jwtauth;
 	protected $model;
+    protected $user_device;
 
 
-    public function __construct(User $user, JWTAuth $jwtauth)
+
+    public function __construct(User $user, 
+                                UserDevice $user_device)
     {
 
         $this->model = $user;
-        $this->jwtauth = $jwtauth;
+        $this->user_device = $user_device;
         
     }
 
-    public function CreateToken($params){
-    	$user = $this->model->where('platform_user_id', $params['platform_user_id'])->first();
-    	$token = JWTAuth::fromUser($user);
-    	$user_id = $user->id;
-    	$user_token = new UserToken();
-    	$user_token->user_id = $user_id;
-    	$user_token->username = $params['username'];
-    	$user_token->email = $params['email'];
-    	$user_token->access_token = $params['access_token'];
-    	$user_token->avatar = $params['avatar'];
-    	$user_token->save();
+    public function CreateUser($params)
+     {
+       $user = $this->model->where('uid',$params['uid'])->firstOrNew([]);
+       $user->uid = $params['uid'];
+       $user->username = $params['username'];
+       $user->email = $params['email'];
+       $user->images = $params['images'];
+       $user->save();
+       $token = JWTAuth::fromUser($user, [
+           'device' => $params['devices'],
+       ]);
+       if(! $token) {
+             throw new Exception("Token is required");
+         }
+       $devices = $this->user_device->where('user_id',$user->id)->firstOrNew([]);
+       $devices->user_id = $user->id;
+       $devices->access_token_platform = $params['access_token'];
+       $devices->device = $params['devices'];
+       $devices->token = $token;
+       $devices->save();
+       $result['data'] = $token;
+       return $result;
+   }
     
-    	if(! $token) {
-            throw new Exception("Token is required");
-        }
-
-        $user_token->token = $token;
-        $user_token->save();
-
-     	return $token;
-    }
-    
+  
 
 }
 
