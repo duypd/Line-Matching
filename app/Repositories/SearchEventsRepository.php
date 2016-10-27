@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 namespace App\Repositories;
 
@@ -41,7 +41,7 @@ class SearchEventsRepository extends AbstractRepository
             $builder = $builder->where('address','LIKE', '%'.$params['address'].'%');
         }
 
-         $events = $builder->paginate(5);
+         $events = $builder->paginate();
          return $events->toArray();
 
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
