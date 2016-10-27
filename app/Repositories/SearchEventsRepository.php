@@ -52,7 +52,6 @@ class SearchEventsRepository extends AbstractRepository
             'builder_f' => $builder_f
              ];
         }
-
         if (!empty(($params['lat']) && ($params['long']) &&($params['radius'])) ) {
            $builder = DB::select("
             SELECT

@@ -59,10 +59,8 @@ class UserPlanController extends Controller
     
         public function getList(PagingRequest $request)
          {
-            $page = isset($request->page) ? $request->page : 1;
-            $perPage = isset($request->perPage) ? $request->perPage : 10;
-            $banks = $this->repo->getList($page, $perPage);
-            return $this->buildResponseCreated($banks, trans('messages.success'));
+            $banks = $this->repo->getList(0,['*']);
+            return $this->buildResponseSuccess($banks, trans('messages.success'));
          }
         
      /**

@@ -31,9 +31,12 @@ class EventUserMapsRepository extends AbstractRepository
 	            $joinEvent->event_id    = $event->id;
 	            $joinEvent->is_join     = $param['is_join'];
 	            $joinEvent->updated_at  = date('Y-m-d H:i:s');
-	            $joinEvent->save();	      
+	            $joinEvent->save();	 
 	         });
-	    } 	
+             return $joinEvent; 
+	    }else{
+            return "The event was full of people";
+        }
     }
    /**
     *Leave Events

@@ -16,21 +16,13 @@ class UserPlanRepository extends AbstractRepository
         $this->model = $plan_user;
     }
 
-    public function getList($page, $perPage) 
+    public function getList($page = 0,$attributes = ['* ']) 
     {
         $user_plan = $this->model;
         $count = $user_plan->count();
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $perPage = isset($params['perPage']) ? $params['perPage'] : 10;
-        $plan_user = $user_plan->forPage($page, $perPage)->get();
-        $meta = [
-            'page' => $page,
-            'perPage' => $perPage,
-            'total' => ceil($count / $perPage)
-        ];
+        $plan_user = $user_plan->paginate();
         return $result = [
-            'meta' => $meta,
-            'plan_user' => $plan_user
+            'plan_user' => $plan_user->toArray()
         ];
     }
 
