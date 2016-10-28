@@ -30,6 +30,15 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
      */
     post('users', ['as' => 'api.users.post.index', 'uses' => 'UsersController@postCreate']);
     get('users', ['as' => 'api.users.get.index', 'uses' => 'UsersController@index']);
+    get('user-profiles', ['as' => 'api.user-profiles.get', 'uses' => 'UsersController@ShowProfiles']);
+    /*
+     * Route Friend
+     */
+    get('friends/{uid}', ['as'=> 'api.friend.get', 'uses' => 'FriendController@getList']);
+    get('block-friends/{uid}', ['as' => 'api.block-friend.get', 'uses' => 'FriendController@getBlockFriends']);
+    get('frien-request/{uid}', ['as' => 'api.friend-request.get', 'uses' => 'FriendController@getRequestFriends']);
+    get('friends-waiting-request/{uid}', ['as' => 'api.friend-requesting.get', 'uses' => 'FriendController@getWaitingRequest']);
+    get('checklist-friend/{uid}', ['as' => 'api.checklist-friend.get', 'uses' => 'FriendController@getChecklist']);
 
     /*
      * Route Events

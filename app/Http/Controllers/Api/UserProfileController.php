@@ -56,12 +56,10 @@ class UserProfileController extends Controller
 
     public function postUpadte()
     {
-        $a = ConnectPlatform::profile();
-        dd($a);
            
-        // $params = $request->all();
-        // $user_pro = $this->repo->putUpdate($id,$params);
-        // return $this->buildResponseCreated($user_pro, trans('messages.success'));
+        $params = $request->all();
+        $user_pro = $this->repo->putUpdate($id,$params);
+        return $this->buildResponseCreated($user_pro, trans('messages.success'));
     }   
 
      /**
