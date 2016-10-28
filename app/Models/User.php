@@ -14,8 +14,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract,
-                                    WithDevicesInterface
+                                    CanResetPasswordContract
+                                   /* WithDevicesInterface*/
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
