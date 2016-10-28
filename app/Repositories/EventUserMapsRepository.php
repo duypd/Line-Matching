@@ -34,7 +34,7 @@ class EventUserMapsRepository extends AbstractRepository
 	            $joinEvent->save();	 
 	         });
              return $joinEvent; 
-	    }else{
+	    }else {
             return "The event was full of people";
         }
     }
