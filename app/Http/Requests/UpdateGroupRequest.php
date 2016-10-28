@@ -29,10 +29,13 @@ class UpdateGroupRequest extends Request
     public function rules()
     {
        return [
-            'name'            => 'required|max:200',
-            'user_max'			=>	'required',
-            'leader_max'		=>	'required',
-			'description'		=>'required'   
+            'name'              => 'required|max:200',
+            'description'       => 'required',
+            'lat'               => 'required|between:0,99.99/',
+            'long'              => 'required|between:0,99.99/',
+            'images'            => 'required',
+            'status'            => 'required',
+            'user_max'          => 'required',
         ];
     }
 }

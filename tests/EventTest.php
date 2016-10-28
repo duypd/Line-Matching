@@ -11,39 +11,41 @@ class EventTest extends TestCase
     *
     * @return void
     */
-   protected $params = array(
-       'name' => 'TestEvent',
-       'description' => 'Unit Test description',
-       'address' => '108 Hourse',
-       'user_max' => 50,
-       'cat_id' => 1,
-       'images[]' => 'Unit Test',
-       'long' =>108.220808,
-       'lat' =>16.049223,
-       'status' => 1,
-       'user_id' =>1,
-       'group_id'=>1
-       );  
-   public function setupDatabase()
+    public function testPostEvent()
     {
-        Artisan::call('migrate:refresh');
-        Artisan::call('db:line_matching');
-        $this->migrated = true;
+      $this->json('POST', 'events', [
+         'cat_id'=> '6',
+         'name'=> 'test',
+         'address'=> 'Dong Hoi',
+         'user_id'=> '3',
+         'lat'=> '1609866',
+         'long'=> '108347268',
+         'group_id'=> '4',
+         'stats'=> '1'
+        ]);
+         return $event = DB::table('events')->where('name', 'test')->get();
+             
     }
 
-   public function testExample()
-   {
-       $this->post('/events',$this->params)
-       ->seeJsonStructure([
-              'status',
-              'data' => ['project'],
-              'message',
-              'error'
-          ])
-       ->seeJson([
-              'status' => 201,
-              'message' => trans('event.create_event_success'),
-              'error' => 0
-          ]);
+    public function testgetEventRelated()
+    {
+      $this->json('GET', 'related-event/1');
+         return response([
+                 'message' => true,
+             ]);
+    }
+
+    public function testApplication()
+  {
+      $response = $this->call('GET', 'events');
+
+      $this->assertEquals(404, $response->status());
   }
+
+   public function testgetGroups()
+    {
+        $this->call('GET','groups')
+             ->see('name')
+             ->dontSee('Beta page');
+    }
 }

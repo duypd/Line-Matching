@@ -35,7 +35,9 @@ class CreateGroupRequest extends Request
             'description'       => 'required',
             'lat'               => 'required|between:0,99.99/',
             'long'              => 'required|between:0,99.99/',
-            'images'            => 'required'
+            'images'            => 'required',
+            'status'            => 'required',
+            'user_max'          => 'required',
             /**
              *
              * 'images' => 'image|mimes:jpg,png',
