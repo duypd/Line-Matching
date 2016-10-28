@@ -1,4 +1,11 @@
 <?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class DatabaseTest extends TestCase
+{
 return array(
     'default' => 'mysql',
     'connections' => array(
@@ -14,3 +21,4 @@ return array(
         )
     )
 );
+}
