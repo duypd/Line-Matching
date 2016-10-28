@@ -11,7 +11,7 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testPostEvent()
+ /*   public function testPostEvent()
     {
       $this->json('POST', 'events', [
 				 'cat_id'=> '6',
@@ -47,5 +47,5 @@ class ExampleTest extends TestCase
         $this->call('GET','groups')
              ->see('name')
              ->dontSee('Beta page');
-    }
+    }*/
 }
