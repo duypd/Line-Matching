@@ -27,7 +27,7 @@ class EventTest extends TestCase
              
     }
 
-    /*public function testgetEventRelated()
+    public function testgetEventRelated()
     {
       $this->json('GET', 'related-event/1');
          return response([
@@ -47,5 +47,5 @@ class EventTest extends TestCase
         $this->call('GET','groups')
              ->see('name')
              ->dontSee('Beta page');
-    }*/
+    }
 }
