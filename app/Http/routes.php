@@ -39,6 +39,7 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function() {
     get('frien-request/{uid}', ['as' => 'api.friend-request.get', 'uses' => 'FriendController@getRequestFriends']);
     get('friends-waiting-request/{uid}', ['as' => 'api.friend-requesting.get', 'uses' => 'FriendController@getWaitingRequest']);
     get('checklist-friend/{uid}', ['as' => 'api.checklist-friend.get', 'uses' => 'FriendController@getChecklist']);
+    get('relation/{uid}', ['as' => 'api.relation.get', 'uses' => 'FriendController@getRelationship']);
 
     /*
      * Route Events

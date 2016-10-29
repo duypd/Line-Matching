@@ -12,7 +12,7 @@ class CreateDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_devices', function (Blueprint $table) {
+        Schema::table('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->text('token')->nullable();
@@ -33,6 +33,8 @@ class CreateDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_devices');
+        Schema::table('devices', function (Blueprint $table) {
+            Schema::drop('user_devices');
+        });
     }
 }

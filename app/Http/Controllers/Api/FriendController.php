@@ -18,12 +18,21 @@ class FriendController extends Controller
      * UsersController constructor.
      * @param UserRepository $userRepository
      */
-    public function __construct(User $user)
-    {
-        $this->model = $user;
-        $this->middleware('jwt.auth');
-    }
+        public function __construct(User $user)
+        {
+            $this->model = $user;
+            $this->middleware('jwt.auth');
+        }
 
+        public function getRelationship($uid, Request $request){
+            $params = $request->all();
+            $friend_id = $params['friend_id'];
+            $relation = ConnectPlatform::getRelation($uid, $friend_id);
+            return [
+                'relation' => $relation
+            ];
+
+        }
 
     /**
     * Display a list friend.
@@ -45,12 +54,18 @@ class FriendController extends Controller
     * list blocked friend.
     *
     * @return \Illuminate\Http\JsonResponse
-    */
-        public function getBlockFriends($uid){
+    */  
+
+       public function getBlockFriends($uid){
            $block_friends = ConnectPlatform::getBlockFriends($uid);
-            return[
-            'block_friends' => $block_friends
-        ];
+           $block = array();
+           foreach($block_friends->list_friends as $values) {
+                $listblock = $this->model->select('id','username','email')->where('uid',$values)->get()->toArray();
+                $block[] = $listblock;
+            };
+            return $block; 
+           
+        
     }
 
      /**
@@ -76,9 +91,14 @@ class FriendController extends Controller
             ];
         }
 
-        // public function getCheckList($uid){
-        //     $uids = [4, 29, 10, 51]; 
-        //     $checklist = ConnectPlatform::isFriends($uid, array $uids);
-        // }
+        public function getCheckList($uid, Request $request){
+            $params = $request->all();
+            $uids = array();
+            $uids = $params['uids'];
+            $checklist = ConnectPlatform::isFriends($uid, array($uids));
+            return [
+                    $checklist
+                    ];
+        }
 
 }
