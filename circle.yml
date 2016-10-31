@@ -1,29 +1,27 @@
-##&nbsp;Cấu hình cho máy ảo test
 machine:
-#&nbsp;Cấu hình phiên bản php sử dụng
 php:
 version: 7.0.12
  
 #&nbsp;Cấu hình các biến môi trường
-environment:
-CIRCLE_ENV: testing
-APP_ENV:    testing
-APP_KEY: lpivZFWb3A4xtCc6S4f3eSdE3jdP5hWm
-DB_HOST: 192.168.0.117
-DB_PORT: 3306
-DB_DATABASE: line_matching_v2
-DB_USERNAME: line_matching
-DB_PASSWORD: line_matching
-DB_SOCKET: /var/run/mysqld/mysqld.sock
-APP_DEBUG: false
+# environment:
+# CIRCLE_ENV: testing
+# APP_ENV:    testing
+# APP_KEY: 6KqCHSggLls34qfGYVSAzQ7Y0em8UDVm
+# DB_HOST: 127.0.0.1
+# DB_PORT: 3306
+# DB_DATABASE: line_matching_v2
+# DB_USERNAME: line_matching
+# DB_PASSWORD: line_matching
+# DB_SOCKET: /var/run/mysqld/mysqld.sock
+# APP_DEBUG: false
  
 ## Lệnh cài các thư viện cần thiết, import database mẫu, tạo file .env ...
-dependencies:
-pre:
-- wget http://sangplus.com/db.sql.gz
-- gunzip db.sql.gz
-- mysql line_matching_v2 &lt; db.sql
-- echo "memory_limit = 512M" &gt; ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+# dependencies:
+# pre:
+# - wget http://sangplus.com/db.sql.gz
+# - gunzip db.sql.gz
+# - mysql line_matching_v2 &lt; db.sql
+# - echo "memory_limit = 512M" &gt; ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
 post:
 - composer install --prefer-source --no-interaction
 - php artisan migrate
