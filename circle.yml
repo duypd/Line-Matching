@@ -22,11 +22,6 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init # use submodules
-## Customize dependencies
-dependencies:
-  pre:
-    - gem uninstall bundler # use a custom version of bundler
-    - gem install bundler --pre
 
   override:
     - bundle install: # note ':' here
