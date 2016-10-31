@@ -43,9 +43,9 @@ test:
 ## Customize deployment commands
 deployment:
   staging:
-    branch: master
+    branch: duypd/testcodingstandart
     heroku:
-    appname: foo-bar-123
+    appname: Line-Matching
 
 ## Custom notifications
 notify:
