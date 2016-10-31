@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\GroupRepository;
@@ -166,7 +167,7 @@ class MyPageController extends Controller
     public function getAllEvent()
     { 
        $event = $this->eventRepository->getindexall(0,['*']);
-        return $this->buildResponseSuccess($event);
+       return $this->buildResponseSuccess($event);
     }
     /**
     getDetailEvent
@@ -214,9 +215,9 @@ class MyPageController extends Controller
      public function getDetailEvent($id)
      {
         $eventId = $this->eventRepository->showEvent($id);
-        if(!empty($eventId)){
+        if (!empty($eventId)) {
          return $this->buildResponseSuccess($eventId);   
-         }else{
+         } else {
             return $this->buildResponseError();
          }
         

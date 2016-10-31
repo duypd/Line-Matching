@@ -49,11 +49,12 @@ class UsersController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-    public function ShowProfiles(){      
+    public function ShowProfiles()
+    {      
 
-            $atributes = ['id','username','email','telephone'];
-            $user_po = ConnectPlatform::profile($atributes);
-            return $user_po;
+        $atributes = ['id','username','email','telephone'];
+        $user_po = ConnectPlatform::profile($atributes);
+        return $user_po;
     }
 
     /**
@@ -67,6 +68,4 @@ class UsersController extends Controller
         $register = $this->userRepository->Register($params);
         return $this->buildResponseCreated($register, trans('messages.success'));
     }
-
-
 }

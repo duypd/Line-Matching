@@ -228,10 +228,9 @@ class SearchController extends Controller {
     public function getDetailEvent($id)
     {
         $events = $this->event_rp->show($id);
-        if(!empty($events)) {
+        if (!empty($events)) {
          return $this->buildResponseSuccess ($events);   
-        }
-        else{
+        } else {
             return $this->buildResponseError();
         }
     }

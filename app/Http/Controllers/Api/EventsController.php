@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UpdateEventRequest;
@@ -186,9 +187,9 @@ class EventsController extends Controller
     public function delete($id)
     {
         $Id = $this->eventRepository->destroy($id);
-        if(!empty($Id)) {
+        if (!empty($Id)) {
             return $this->buildResponseSuccess($Id);
-        }else{
+        } else {
             return $this->buildResponseError();
         }
         return $this->buildResponseSuccess($eventId);
@@ -303,7 +304,6 @@ class EventsController extends Controller
     {
         $event = $this->eventRepository->index(0,['*']);
         return $this->buildResponseSuccess($event);
-       
     }
 
      /**
@@ -355,8 +355,7 @@ class EventsController extends Controller
         $events = $this->eventRepository->show($id);
         if(!empty($events)) {
          return $this->buildResponseSuccess($events);   
-        }
-        else{
+        } else {
             return $this->buildResponseSuccess();
         }
         
@@ -422,13 +421,12 @@ class EventsController extends Controller
       public function deleteLeaveEvent($id)
     {
         $Id = $this->eventUserMapsRepository->delete($id);
-        if(!empty($Id)) {
+        if (!empty($Id)) {
             return $this->buildResponseSuccess($Id);
-        }else{
+        } else {
             return $this->buildResponseError();
         }
-
-        return $this->buildResponseSuccess($JoinId);
+            return $this->buildResponseSuccess($JoinId);
     }
 
      /**

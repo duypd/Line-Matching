@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\Upload;
@@ -50,9 +51,9 @@ class GroupUsersMapsController extends Controller
     public function delete($id)
     {
         $Id = $this->eventRepository->destroy($id);
-        if(!empty($Id)){
+        if (!empty($Id)) {
             return $this->buildResponseSuccess($Id);
-        }else{
+        } else {
             return $this->buildResponseError();
         }
         return $this->buildResponseSuccess($eventId);
@@ -82,10 +83,9 @@ class GroupUsersMapsController extends Controller
     public function getShow($id)
     {
         $groupUserMaps = $this->groupUserMapsRepository->getDetailGroupUserMaps($id);
-        if(!empty($groupUserMaps)) {
+        if (!empty($groupUserMaps)) {
          return $this->buildResponseSuccess($groupUserMaps);   
-        }
-        else{
+        } else {
             return $this->buildResponseError();
         } 
     }

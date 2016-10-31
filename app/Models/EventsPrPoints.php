@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -51,7 +49,8 @@ class EventsPrPoints  extends Model
         return $this->belongsTo(Event::class,'event_id');
     }
 
-    public function events(){
+    public function events()
+    {
         return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 }

@@ -46,19 +46,21 @@ class Group  extends Model
         'user_id'    => 'integer',
         'images'     => 'json',
     ];
-     public function event(){
+    public function event()
+    {
         return $this->hasMany(Event::class,'group_id');
     }
-    public function groupcategory(){
+    public function groupcategory()
+    {
         return $this->belongsTo(GroupCategory::class,'cat_id');
     } 
-    public function is_leader(){
+    public function is_leader()
+    {
         return $this->mapLeaders()->where('user_id','=',1);/*Not complate*/
     }
-    public function mapLeaders(){
-        return $this->hasMany(GroupsLeaderMaps::class,'group_id');
-
+    public function mapLeaders()
+    {
+        /*return $this->hasMany(GroupsLeaderMaps::class,'group_id');*/
        return $this->hasMany(Event::class,'group_id','id');
-
     }
 }

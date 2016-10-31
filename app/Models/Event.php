@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -47,23 +48,28 @@ class Event  extends Model
         'images'     => 'json'
     ];
     
-    public function event_group(){
+    public function event_group()
+    {
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
-    public function groups(){
+    public function groups()
+    {
        return $this->belongsTo('\App\Models\Group','id');
     }
 
-    public function category(){
+    public function category()
+    {
        return $this->belongsTo('\App\Models\EventCategory','id');
     }
 
-    public function event_category(){
+    public function event_category()
+    {
         return $this->belongsTo(EventCategory::class, 'cat_id', 'id');
     }
 
-    public function eventPoint(){
+    public function eventPoint()
+    {
         return $this->hasMany(EventsPrPoint::class, 'event_id','id');
     }
     public function is_leader()
@@ -98,7 +104,8 @@ class Event  extends Model
         return $this->hasOne(UserProfile::class,'id');
     }
 
-     public function eventspoints(){
+    public function eventspoints()
+    {
         return $this->hasMany(EventsPrPoints::class, 'event_id', 'id');
     }
 }

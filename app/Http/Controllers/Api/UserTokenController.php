@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Repositories\UserTokenRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,9 +11,9 @@ class UserTokenController extends Controller {
 
     private $repo;
 
-    public function __construct(UserTokenRepository $repo) {
+    public function __construct(UserTokenRepository $repo) 
+    {
         $this->repo = $repo;
-
     }
 
      /**
@@ -48,11 +49,10 @@ class UserTokenController extends Controller {
      *  }
      */
 
-    public function postCreateToken(Request $request){
+    public function postCreateToken(Request $request)
+    {
         $params = $request->all();
         $token = $this->repo->CreateUser($params);
-
         return $this->buildResponseCreated(['token' => $token]);
     }   
-
 }

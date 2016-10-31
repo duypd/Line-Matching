@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
@@ -24,14 +23,14 @@ class FriendController extends Controller
             $this->middleware('jwt.auth');
         }
 
-        public function getRelationship($uid, Request $request){
+        public function getRelationship($uid, Request $request)
+        {
             $params = $request->all();
             $friend_id = $params['friend_id'];
             $relation = ConnectPlatform::getRelation($uid, $friend_id);
             return [
                 'relation' => $relation
             ];
-
         }
 
     /**
@@ -39,7 +38,8 @@ class FriendController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-        public function getList($uid){
+        public function getList($uid)
+        {
            $friends = ConnectPlatform::getFriends($uid);
            $allfirends = array();
            foreach($friends->list_friends as $values) {
@@ -56,24 +56,24 @@ class FriendController extends Controller
     * @return \Illuminate\Http\JsonResponse
     */  
 
-       public function getBlockFriends($uid){
+       public function getBlockFriends($uid)
+       {
            $block_friends = ConnectPlatform::getBlockFriends($uid);
            $block = array();
            foreach($block_friends->list_friends as $values) {
                 $listblock = $this->model->select('id','username','email')->where('uid',$values)->get()->toArray();
                 $block[] = $listblock;
             };
-            return $block; 
-           
-        
-    }
+            return $block;   
+       }
 
      /**
     * list request friends.
     *
     * @return \Illuminate\Http\JsonResponse
     */
-        public function getRequestFriends($uid){
+        public function getRequestFriends($uid)
+        {
             $request = ConnectPlatform::getListIdFriendRequest($uid);
             return[
                 'request' => $request
@@ -84,14 +84,16 @@ class FriendController extends Controller
     *
     * @return \Illuminate\Http\JsonResponse
     */
-        public function getWaitingRequest($uid){
+        public function getWaitingRequest($uid)
+        {
             $requesting = ConnectPlatform::getListIdFriendWaiting($uid);
             return[
                 'requesting' => $requesting
             ];
         }
 
-        public function getCheckList($uid, Request $request){
+        public function getCheckList($uid, Request $request)
+        {
             $params = $request->all();
             $uids = array();
             $uids = $params['uids'];
@@ -100,5 +102,4 @@ class FriendController extends Controller
                     $checklist
                     ];
         }
-
 }

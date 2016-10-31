@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreatEventsPrPointsRequest;
@@ -125,10 +126,9 @@ class PrPointController extends Controller
      public function getShow($id)
      {
         $eventPrPoint = $this->eventPrPointRepository->show($id);
-        if(!empty($eventPrPoint)) {
+        if (!empty($eventPrPoint)) {
          return $this->buildResponseSuccess($eventPrPoint);   
-        }
-        else{
+        } else {
             return $this->buildResponseError();
         }   
      }
@@ -248,9 +248,9 @@ class PrPointController extends Controller
      public function delete($id)
     {
         $Id = $this->eventPrPointRepository->delete($id);
-        if(!empty($Id)) {
+        if (!empty($Id)) {
             return $this->buildResponseSuccess($Id);
-        }else{
+        } else {
             return $this->buildResponseError();
         }
 

@@ -27,10 +27,10 @@ class GroupLeaderController extends Controller
     }
 
     /**
-* Display a listing of the resource.
-*
-* @return \Illuminate\Http\JsonResponse
-*/
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
     public function getLeaderGroup()
     {
         $leaderGroup = $this->groupLeaderRepository->LeaderGroup(0,['*']);
