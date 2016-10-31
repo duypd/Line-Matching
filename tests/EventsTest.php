@@ -11,89 +11,38 @@ class EventsTest extends TestCase
      *
      * @return void
      */
-   //Data valid
-    protected $nameValid        = 'PlaySoccer';
-    protected $descriptionValid = 'we always bring you anything unexpected';
-    protected $addressValid     =  '105,Nguyen Huu Tho, Thanh Khe, Da Nang';
-    protected $user_maxValid    = 50;
-    protected $cat_idValid      = 1;
-    protected $imagesValid      ='abc.jpg';
-    protected $longValid        =108.220808;
-    protected $latValid         =16.049223;
-    protected $statusValid      =1;
-    protected $user_idValid     =1;
-    protected $group_idValid    =1;
-
-    //Data invalid
-    protected $nameInValid        = ['abc',-1];
-    protected $descriptionInValid = ['abc',null];
-    protected $addressInValid     = ['abc',null];
-    protected $user_maxInValid    = ['abc',null];
-    protected $cat_idInValid      = ['abc'];
-    protected $imagesInVlid       = ['abc',null];
-    protected $longInValid        = ['abc'];
-    protected $latInValid         = ['abc'];
-    protected $statusInValid      = ['abc'];
-    protected $user_idInValid     = ['abc'];
-    protected $group_idInValid    = ['abc'];
-
-    //Data saved
-    protected $nameSaved        = 'PlaySoccer';
-    protected $descriptionSaved = 'we always bring you anything unexpected';
-    protected $addressSaved     =  '105,Nguyen Huu Tho, Thanh Khe, Da Nang';
-    protected $user_maxSaved    = 50;
-    protected $cat_idSaved      = 1;
-    protected $imagesSaved      ='abc.jpg';
-    protected $longSaved        =108.220808;
-    protected $latSaved         =16.049223;
-    protected $statusSaved      =1;
-    protected $user_idSaved     =1;
-    protected $group_idSaved         =1;
-    //This function run before each test
-    public function setUp()
+   public function setupDatabase()
     {
-    	parent::setUp();
-    	Artisan::call('migrate');
-    	factory(Event::class)->create([
-          'name'        => $this->$nameSaved,
-          'description' => $this->$descriptionSaved,
-          'address'     => $this->$addressSaved,
-          'user_max'    => $this->$user_maxSaved,
-          'cat_id'		=> $this->$cat_idSaved,
-          'long'        => $this->$longSaved,
-          'lat'			=> $this->$latSaved,
-          'status'      => $this->$statusSaved,
-          'user_id'		=> $this->$user_idSaved,
-          'group_id'    => $this->$group_idSaved,
-    		]);
+      Artisan::call('migrate:refresh');
+      Artisan::call('db:line_matching_v2');
+      $this->migrated = true;
     }
-    // This funtion run after each test
-
-    public function tearDown()
+     public function testCreateEvent()
     {
-    	Artisan::call('migrate:reset');
-    	parent::tearDown();
-    }
-
-    //print out your test
-    public function testPrintOut()
-    {
-    	print("\n\n *************EventsTest***********\n\n");
-    }
-
-    /**
-     *Test validate Event's name is required
-     *Expected :Return false when save Event
-     *
-     */
-    public function testNameRequired()
-    {
-    	print_r("testNameRequired\n");
-
-    	$Event = factory(Event::class)->make([
-    		'name' => null,
-    		]);
-    	$this->assertFalse($Event->save());
-    }
-    
+      $params = array(
+        'name'        => 'SeamGame',
+        'description' => 'Unit Test',
+        'address'     => '105 Nguyễn Hữu Thọ, Hồ Chí Minh, Việt Nam',
+        'user_max'    => 50,
+        'cat_id'      => 1,
+        'images'      => 'Unit.jpg',
+        'long'        =>108.220808,
+        'lat'         =>16.049223,
+        'status'      =>1,
+        'user_id'     =>1,
+        'group_id'    =>1,
+        );    
+        $this->post('api/v1/events',$params)
+        ->seeJsonStructure([
+               'status',
+               'data' => ['project'],
+               'error',
+               'message'            
+           ])
+        ->seeJson([
+               'status' => 201,
+               'message' => trans('Succesfully'),
+               'error' => 0
+           ]);
+   }
 }

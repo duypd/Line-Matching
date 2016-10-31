@@ -1,4 +1,14 @@
 <?php
+/**
+ * EventCategoriesController Class Doc Comment
+ *
+ * @category Class
+ * @package  MyPackage
+ * @author    Pham Dinh Duy 
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://www.hashbangcode.com/
+ *
+ */
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\EventCategoryRepository;
@@ -215,7 +225,7 @@ class EventCategoriesController extends Controller
     * "message": "Succesfully.",
     * "error": null
     * }
-     */
+    */
     
     public function getShow($id)
     {

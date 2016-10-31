@@ -49,10 +49,4 @@ class ExampleTest extends TestCase
         $this->assertEquals(404, $response->status());
     }
 
-    /*public function testgetGroups()
-    {
-        $this->call('GET','groups')
-             ->see('name')
-             ->dontSee('Beta page');
-    }*/
 }
