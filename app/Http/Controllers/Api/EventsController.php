@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UpdateEventRequest;
@@ -27,15 +26,11 @@ class EventsController extends Controller
     private $eventUserMapsRepository;
 
     /**
-     * @var eventUserMapsRepository
-     */
-    private $eventPrPointRepository;
-
-    /**
      * UsersController constructor.
-     * @param EventRepository $userRepository
+     * @param EventRepository $eventRepository
      */
-    public function __construct(EventRepository $eventRepository, EventUserMapsRepository $eventUserMapsRepository)
+    public function __construct(EventRepository $eventRepository, 
+        EventUserMapsRepository $eventUserMapsRepository)
     {
         $this->eventRepository         = $eventRepository;
         $this->eventUserMapsRepository = $eventUserMapsRepository;
