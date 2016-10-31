@@ -12,11 +12,11 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "intervention/image": "2.3.0",
         "tymon/jwt-auth": "0.5.*",
-        "zizaco/entrust": "dev-laravel-5",
         "zendframework/zend-config": "~2.3",
         "zendframework/zend-http": "~2.3",
         "predis/predis": "^1.0",
-        "abhimanyusharma003/conversion": "dev-master"
+        "abhimanyusharma003/conversion": "dev-master",
+        "zizaco/entrust": "~1.2"
     },
 
     "require-dev": {
