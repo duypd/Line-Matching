@@ -55,7 +55,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', '192.168.0.117'),
-            'database'  => env('DB_DATABASE', 'line_matching'),
+            'database'  => env('DB_DATABASE', 'line_matching_v2'),
             'username'  => env('DB_USERNAME', 'line_matching'),
             'password'  => env('DB_PASSWORD', 'line_matching'),
             'charset'   => 'utf8',
@@ -67,7 +67,7 @@ return [
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'      => env('DB_HOST', '192.168.0.117'),
-            'database'  => env('DB_DATABASE', 'line_matching'),
+            'database'  => env('DB_DATABASE', 'line_matching_v2'),
             'username'  => env('DB_USERNAME', 'line_matching'),
             'password'  => env('DB_PASSWORD', 'line_matching'),
             'charset'  => 'utf8',
@@ -78,7 +78,7 @@ return [
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => env('DB_HOST', '192.168.0.117'),
-            'database' => env('DB_DATABASE', 'line_matching'),
+            'database' => env('DB_DATABASE', 'line_matching_v2'),
             'username' => env('DB_USERNAME', 'line_matching'),
             'password' => env('DB_PASSWORD', 'line_matching'),
             'charset'  => 'utf8',
