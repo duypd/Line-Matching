@@ -11,18 +11,25 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testPostEvent()
+
+    public function testBasicExample()
+    {
+        $this->visit('/')
+             ->see('Laravel 5');
+    }
+     public function testPostEvent()
     {
       $this->json('POST', 'events', [
-				 'cat_id'=> '6',
-				 'name'=> 'test',
-				 'address'=> 'Dong Hoi',
-				 'user_id'=> '3',
-				 'lat'=> '1609866',
-				 'long'=> '108347268',
-				 'group_id'=> '4',
-				 'stats'=> '1'
-      	]);
+                 'cat_id'=> '6',
+                 'name'=> 'test',
+                 'address'=> 'Dong Hoi',
+                 'user_id'=> '3',
+                 'lat'=> '1609866',
+                 'long'=> '108347268',
+                 'group_id'=> '4',
+                 'stats'=> '1',
+                 'images'=>'image'
+        ]);
          return $event = DB::table('events')->where('name', 'test')->get();
              
     }
@@ -36,16 +43,16 @@ class ExampleTest extends TestCase
     }
 
     public function testApplication()
-	{
-	    $response = $this->call('GET', 'events');
+    {
+        $response = $this->call('GET', 'events');
 
-	    $this->assertEquals(404, $response->status());
-	}
+        $this->assertEquals(404, $response->status());
+    }
 
-	 public function testgetGroups()
+    /*public function testgetGroups()
     {
         $this->call('GET','groups')
              ->see('name')
              ->dontSee('Beta page');
-    }
+    }*/
 }
