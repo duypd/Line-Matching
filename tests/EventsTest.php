@@ -35,9 +35,9 @@ class EventsTest extends TestCase
         $this->post('api/v1/events',$params)
         ->seeJsonStructure([
                'status',
-               'data' => ['project'],
-               'error',
-               'message'            
+               'data' => ['name'],
+               'message',
+               'error'          
            ])
         ->seeJson([
                'status' => 201,
